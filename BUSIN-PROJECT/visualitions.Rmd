@@ -1,0 +1,87 @@
+```{r setup, include=FALSE}
+library(dplyr)
+library(stringr)
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(lubridate)
+library(ggthemes)
+library(rjson)
+library(RColorBrewer)
+library(rworldmap)
+library(mapproj)
+```
+
+
+```{r}
+satisfaction_per_brand <- read.csv("satisfaction_per_brand.csv")
+customerSatisfactionBenchark <- read.csv2("customerSatisfactionBenchmark.csv")
+cars_by_fuel_type <- read.csv2("cars_by_fuel_type.csv")
+```
+
+in orde :)
+```{r pressure, echo=FALSE}
+satisfaction_per_brand%>%
+  filter(Brand == "BMW" | Brand == "Audi")%>%
+  ggplot()+
+  geom_col(aes(x = type, y = score, fill = Brand), position = "dodge")+
+  coord_flip()+
+  theme_economist()
+```
+
+```{r}
+# Get the world map
+worldMap <- getMap()
+
+# Member States of the European Union
+europeanUnion <- c("Austria","Belgium","Bulgaria","Croatia","Cyprus",
+                   "Czech Rep.","Denmark","Estonia","Finland","France",
+                   "Germany","Greece","Hungary","Ireland","Italy", "Kosovo", "Latvia", "Liechtenstein",
+                   "Lithuania","Luxembourg","Malta","Netherlands", "Macedonia", "Norway", "Poland",
+                   "Portugal","Romania","Slovakia","Slovenia","Spain",
+                   "Sweden", "Switzerland", "Turkey","United Kingdom")
+# Select only the index of states member of the E.U.
+indEU <- which(worldMap$NAME%in%europeanUnion)
+```
+
+```{r}
+# Extract longitude and latitude border's coordinates of members states of E.U. 
+europeCoords <- lapply(indEU, function(i){
+  df <- data.frame(worldMap@polygons[[i]]@Polygons[[1]]@coords)
+  df$region =as.character(worldMap$NAME[i])
+  colnames(df) <- list("long", "lat", "region")
+  return(df)
+})
+
+europeCoords <- do.call("rbind", europeCoords)
+```
+
+```{r}
+# Add some data for each member
+testvalues_region <- cars_by_fuel_type%>%
+  filter(Time == "2018")%>%
+  select(region, Electricity)
+
+europeCoords$value <- testvalues_region$Electricity[match(europeCoords$region,testvalues_region$region)]
+```
+
+```{r}
+# Plot the map
+P <- ggplot() + geom_polygon(data = europeCoords, aes(x = long, y = lat, group = region, fill = value),
+                             colour = "black", size = 0.1) +
+  coord_map(xlim = c(-13, 35),  ylim = c(32, 71))
+
+P <- P + scale_fill_gradient(name = "Growth Rate", low = "#FF0000FF", high = "#00FF00", na.value = "grey50")
+
+
+P <- P + theme(#panel.grid.minor = element_line(colour = NA), panel.grid.minor = element_line(colour = NA),
+               #panel.background = element_rect(fill = NA, colour = NA),
+               axis.text.x = element_blank(),
+               axis.text.y = element_blank(), axis.ticks.x = element_blank(),
+               axis.ticks.y = element_blank(), axis.title = element_blank(),
+               #rect = element_blank(),
+               plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))
+P
+```
+
+
