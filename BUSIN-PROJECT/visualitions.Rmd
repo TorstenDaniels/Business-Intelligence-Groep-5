@@ -14,9 +14,9 @@ library(mapproj)
 
 
 ```{r}
-satisfaction_per_brand <- read.csv("satisfaction_per_brand.csv")
-customerSatisfactionBenchark <- read.csv2("customerSatisfactionBenchmark.csv")
-cars_by_fuel_type <- read.csv2("cars_by_fuel_type.csv")
+satisfaction_per_brand <- read.csv("data/satisfaction_per_brand.csv")
+customerSatisfactionBenchark <- read.csv2("data/customerSatisfactionBenchmark.csv")
+cars_by_fuel_type <- read.csv2("data/cars_by_fuel_type.csv")
 ```
 
 in orde :)
