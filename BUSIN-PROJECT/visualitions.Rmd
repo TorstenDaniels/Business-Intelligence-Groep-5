@@ -62,6 +62,35 @@ comparison_sales_market%>%
 
   
 ```
+```{r}
+SummarySalesPerSegment <- full_segment_sales %>%
+  group_by(type) %>%
+  summarise(Sales = sum(X2020.H1))
+
+SummarySalesPerSegmentBMW <- full_segment_sales %>%
+  filter(str_detect(model,"BMW")) %>%
+  group_by(type) %>%
+  summarise(Sales_BMW = sum(X2020.H1))
+
+MarketShareSegments <- SummarySalesPerSegmentBMW %>%
+  right_join(SummarySalesPerSegment)
+
+MarketShareSegments[is.na(MarketShareSegments)] <- 0
+
+MarketShareSegments <- MarketShareSegments %>%
+  mutate(DeductedSales = Sales-Sales_BMW) %>%
+  select(-Sales)%>%
+  gather(Sales_type, Amount, -type)
+```
+```{r}
+MarketShareSegments %>%
+  ggplot()+
+  geom_col(aes(reorder(type,-Amount), Amount, fill=Sales_type))+
+  scale_fill_manual(values = c("#81C4FF","#E7222E"), labels=c("Total Sales", "Sales BMW"))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  xlab("Segment")
+  
+```
 
 
 in orde :)
