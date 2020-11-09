@@ -10,6 +10,8 @@ library(rjson)
 library(RColorBrewer)
 library(rworldmap)
 library(mapproj)
+library(readxl)
+library(GGally)
 ```
 
 
@@ -17,17 +19,70 @@ library(mapproj)
 satisfaction_per_brand <- read.csv("data/satisfaction_per_brand.csv")
 customerSatisfactionBenchark <- read.csv2("data/customerSatisfactionBenchmark.csv")
 cars_by_fuel_type <- read.csv2("data/cars_by_fuel_type.csv")
+new_cars_by_fuel_type <- read.csv2("data/new_cars_by_fuel_type.csv")
+sales_bmwgroup <- read.csv2("data/sales_bmwgroup.csv")
+comparison_sales_market <- read.csv2("data/comparison_sales_market.csv")
+full_segment_sales <- read.csv2("data/full_segment_sales.csv")
 ```
+
+```{r}
+full_segment_sales%>%
+  group_by(type)%>%
+  summarize(Y2020 = sum(X2020.H1),
+         Y2019 = sum(X2019.H1))%>%
+  gather(key = "year", value = "sales", -type)%>%
+  ggplot()+
+  geom_col(aes(reorder(type, sales), sales, fill = year), position = "dodge")+
+  scale_fill_manual(values = c("#E7222E","#81C4FF"))+
+  theme(axis.title.y = element_blank())+
+  coord_flip()
+```
+
+
+
+```{r}
+comparison_sales_market%>%
+  gather(key = "group", value = "percentage_group", -year)%>%
+  filter(group != "total_market")%>%
+  filter(group != "BMW")%>%
+  filter(year == "2019")%>%
+  mutate(ymax = cumsum(percentage_group),
+         ymin = c(0, head(ymax, n=-1)),
+         label = paste0(group, "\n value: ", round(percentage_group,2)),
+         label_position = (ymax + ymin) / 2)%>%
+  ggplot(aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill= group)) +
+  geom_rect() +
+  geom_label(x = 3.5, aes(y = label_position, label = label), size = 3)+
+  scale_fill_manual(values = c("#E7222E","#81C4FF"))+
+  coord_polar(theta="y") + # Try to remove that to understand how the chart is built initially
+  xlim(c(2, 4)) +# Try to remove that to see how to make a pie chart 
+  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank())+
+  ggtitle("Market share")+
+  theme_void()
+
+  
+```
+
 
 in orde :)
 ```{r pressure, echo=FALSE}
 satisfaction_per_brand%>%
-  filter(Brand == "BMW" | Brand == "Audi")%>%
+  filter(Brand == "BMW" | Brand == "Audi" | Brand == "Mercedes")%>%
+  filter(type == "After.sale.service"| type == "car.servicing" | type == "Driving.experience")%>%
   ggplot()+
-  geom_col(aes(x = type, y = score, fill = Brand), position = "dodge")+
-  coord_flip()+
-  theme_economist()
+  geom_col(aes(x = "", y = score, fill = Brand), position = "dodge")+
+  scale_fill_manual(values = c("#81C4FF","#16588E", "#E7222E"))+
+  theme(axis.title.x = element_blank())+
+  facet_wrap(~type)
 ```
+
+```{r}
+satisfaction_per_brand%>%
+  filter(Brand == "BMW" | Brand == "Audi" | Brand == "Mercedes")%>%
+  ggplot(aes(x = type, fill = Brand, y = score)) +
+  geom_dotplot(binaxis = "y", stackdir = "center", position = "dodge")
+```
+
 
 ```{r}
 # Get the world map
@@ -71,7 +126,7 @@ P <- ggplot() + geom_polygon(data = europeCoords, aes(x = long, y = lat, group =
                              colour = "black", size = 0.1) +
   coord_map(xlim = c(-13, 35),  ylim = c(32, 71))
 
-P <- P + scale_fill_gradient(name = "Growth Rate", low = "#FF0000FF", high = "#00FF00", na.value = "grey50")
+P <- P + scale_fill_gradient(name = "Number of cars", low = "#E7222E", high = "#81C4FF", na.value = "grey50")
 
 
 P <- P + theme(#panel.grid.minor = element_line(colour = NA), panel.grid.minor = element_line(colour = NA),
@@ -82,6 +137,18 @@ P <- P + theme(#panel.grid.minor = element_line(colour = NA), panel.grid.minor =
                #rect = element_blank(),
                plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))
 P
+```
+
+
+
+```{r}
+customerSatisfactionBenchark%>%
+  filter(brand == "BMW" | brand == "Volkswagen" | brand == "Mercedes-Benz")%>%
+  ggplot()+
+  geom_line(aes(year, satisfactionScore, color = brand), size = 1.5)+
+  scale_color_manual(values = c("#E7222E","#81C4FF","#16588E"))+
+  ylim(50,100)
+
 ```
 
 
