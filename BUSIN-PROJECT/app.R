@@ -1,5 +1,5 @@
 #loading in a wide variety of packages to ensure smooth sailing 
-library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot2)
+library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot2);library(plotly)
 library(lubridate);library(ggthemes);library(RColorBrewer);library(rworldmap);library(mapproj)
 library(readxl);library(GGally);library(shiny);library(shinydashboard); library(shinydashboardPlus);
 
@@ -35,25 +35,32 @@ body <- dashboardBody(
   #each tab starts from tabItem
   tabItems( 
     tabItem(tabName = "General",
-            (fluidPage(
+            fluidPage(
               # infoBoxes with fill=FALSE
                 fluidRow(
                 # A static infoBox
                   valueBoxOutput("BMW_market_share"),
-                  valueBoxOutput("customerSatisfaction"),
-                  valueBoxOutput("total_sales")
+                  valueBoxOutput("total_sales"),
+                  valueBoxOutput("customerSatisfaction")
                   ),
               
                 fluidRow(
-                  box("Trend Market Share" ,plotOutput("trend_market_share"), status = "primary"),
+                  box("Trend Market Share", plotlyOutput("trend_market_share", height = 621), status = "primary"),
                   tabBox(title = "Sales overview", id = "1", 
-                         tabPanel("By Segment", plotOutput("sales_by_segment")),
-                         tabPanel("By model", plotOutput("Sales_by_model"))
+                         tabPanel("By Segment", plotlyOutput("sales_by_segment", height = 600 )),
+                         tabPanel("By model", plotlyOutput("sales_by_model", height = 600))
                   )
               )
              )
+            ,
+            
+    tabItem(tabName = "Market Research",
+            fluidPage(
+              fluidRow(
+                box("Market share per brand", plotlyOutput("msp_brand"))
+              )
+              )
             ),
-    tabItem(tabName = "Market Research"),
     tabItem(tabName = "Market Trends"),
     tabItem(tabName = "Customer Satisfaction")
   )
@@ -116,23 +123,47 @@ server <- function(input, output) {
       )
   })
   
-  output$trend_market_share <- renderPlot({
+  output$trend_market_share <- renderPlotly({
+    ggplotly(
     annual_sales_bmw %>%
-      ggplot(aes(Year,as.numeric(Market.Share))) +
-      geom_line() + geom_hline(yintercept = input$target_ms, color = "red") + ylab("% market share")
+      mutate(Market.Share = as.numeric(Market.Share))%>%
+      ggplot(aes(Year,Market.Share)) +
+      geom_line() + 
+      geom_point() +
+      geom_hline(yintercept = input$target_ms, color = "red") + ylab("% market share")
+    )
   })
   
-  output$sales_by_segment <- renderPlot({
+  output$sales_by_segment <- renderPlotly({
+    ggplotly(
     full_segment_sales %>%
       filter(str_detect(model,"BMW")) %>%
       group_by(type) %>%
       summarise(Sales_BMW = sum(X2020.H1)) %>%
-      ggplot(aes(reorder(type, Sales_BMW), Sales_BMW)) +
+      mutate(type = fct_reorder(type, Sales_BMW))%>%
+      ggplot(aes(type, Sales_BMW)) +
       geom_col() + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
-      xlab("Segment")
+      xlab("Segment")+
+      ylab("Sales")
+    )
   })
   
-  output$sales_by_model <- renderPlot({
+  output$sales_by_model <- renderPlotly({
+    ggplotly(
+      sales_by_model%>%
+        filter(year == max(year))%>%
+        group_by(Model)%>%
+        summarise(Sales = sum(Sales, na.rm = T))%>%
+        mutate(Model = fct_reorder(Model, Sales))%>%
+        ggplot(aes(Model,Sales))+
+        geom_col() +
+        theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+        xlab("Model")+
+        ylab("Sales")
+      )
+  })
+  
+  output$msp_brand <- renderPlotly({
     
   })
 }
