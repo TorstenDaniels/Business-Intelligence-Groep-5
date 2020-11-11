@@ -1,0 +1,7 @@
+satisfaction_per_brand <- read.csv("data/satisfaction_per_brand.csv")
+customerSatisfactionBenchark <- read.csv2("data/customerSatisfactionBenchmark.csv")
+cars_by_fuel_type <- read.csv2("data/cars_by_fuel_type.csv")
+new_cars_by_fuel_type <- read.csv2("data/new_cars_by_fuel_type.csv")
+sales_bmwgroup <- read.csv2("data/sales_bmwgroup.csv")
+comparison_sales_market <- read.csv2("data/comparison_sales_market.csv")
+full_segment_sales <- read.csv2("data/full_segment_sales.csv")

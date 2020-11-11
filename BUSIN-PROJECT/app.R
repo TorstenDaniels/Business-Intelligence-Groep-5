@@ -3,7 +3,8 @@ library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot
 library(lubridate);library(ggthemes);library(RColorBrewer);library(rworldmap);library(mapproj)
 library(readxl);library(GGally);library(shiny);library(shinydashboard)
 
-
+#loading in data
+source("helpers/Script1.R")
   
 #title of the dashboard
 header <- dashboardHeader(title = "BMW")
@@ -29,10 +30,9 @@ body <- dashboardBody(
               # infoBoxes with fill=FALSE
               fluidRow(
                 # A static infoBox
-                infoBox("New Orders", 10 * 2, icon = icon("credit-card")),
-                # Dynamic infoBoxes
-                infoBoxOutput("progressBox"),
-                infoBoxOutput("approvalBox")
+                valueBoxOutput("BMW_market_share"),
+                valueBoxOutput("customerSatisfaction"),
+                valueBoxOutput("approvalBox")
                 )
               )
             ),
@@ -47,19 +47,39 @@ ui <- dashboardPage(header, sidebar, body)
 
 # Define server logic required to draw graphs
 server <- function(input, output) {
-    output$progressBox <- renderInfoBox({
-      infoBox(
-        "Progress", paste0(25 + input$count, "%"), icon = icon("list"),
-        color = "purple"
-      )
-    })
+  output$BMW_market_share <- renderValueBox ({
+    comparison_sales_market%>%
+      tail(1)%>%
+      select(BMW) -> BMW_share_last_year
     
-    output$approvalBox <- renderInfoBox({
-      infoBox(
-        "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
-        color = "yellow"
+    valueBox(paste0(round(BMW_share_last_year * 100, 2), "%"), "BMW Market Share",
+             icon = icon("chart-pie"),
+             color = "red")
+  })
+  
+  output$customerSatisfaction <- renderValueBox({
+    customerSatisfactionBenchark%>%
+      filter(year == max(year))%>%
+      mutate(averageScore = mean(satisfactionScore, na.rm = T))%>%
+      filter(brand == "BMW") -> BMW_customer_satisfaction
+    
+    valueBox(
+      paste0(BMW_customer_satisfaction$satisfactionScore , "%"),
+      "Customer Satisfaction",
+      if (BMW_customer_satisfaction$satisfactionScore > BMW_customer_satisfaction$averageScore) 
+            {icon = icon("grin-beam", lib = "font-awesome")}
+      else
+        {icon = icon("angry", lib = "font-awesome")},
+      color = "blue"
+    )
+  })
+  
+  output$approvalBox <- renderValueBox({
+    valueBox(
+      "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
+      color = "lightblue"
       )
-    })
+  })
 }
 
 # Run the application 
