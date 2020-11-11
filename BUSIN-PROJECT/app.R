@@ -15,10 +15,11 @@ header <- dashboardHeaderPlus(title = "BMW",
 #Creating the sidebar menu of the dashboard
 sidebar <-  dashboardSidebar(
   sidebarMenu(
-    menuItem("General", tabName = "General", icon = icon("dashboard")),
-    menuItem("Market Research", tabName = "Market Research"),
-    menuItem("Market Trends", tabName = "Market Trends"),
-    menuItem("Customer Satisfaction", tabName = "Customer Satisfaction")
+    id = "nav",
+    menuItem("General", tabName = "tab1", icon = icon("dashboard")),
+    menuItem("Market Research", tabName = "tab2"),
+    menuItem("Market Trends", tabName = "tab3"),
+    menuItem("Customer Satisfaction", tabName = "tab4")
   )
 )
 
@@ -27,14 +28,14 @@ rightsidebar <- rightSidebar(
   background = "dark",
   numericInput(inputId = "target_ms", "Target Market Share %: ", 6),
   sliderInput(inputId = "target_cs", "Targets Customer Satisfaction", min = 0, max = 100, value = 70)
-    )
+)
 
 
 #creating the dashboard body  
 body <- dashboardBody(
-  #each tab starts from tabItem
-  tabItems( 
-    tabItem(tabName = "General",
+  tabItems(
+    #tab 1
+    tabItem(tabName = "tab1",
             fluidPage(
               # infoBoxes with fill=FALSE
                 fluidRow(
@@ -49,28 +50,47 @@ body <- dashboardBody(
                   tabBox(title = "Sales overview", id = "1", 
                          tabPanel("By Segment", plotlyOutput("sales_by_segment", height = 600 )),
                          tabPanel("By model", plotlyOutput("sales_by_model", height = 600))
+                         )
                   )
-              )
-             )
-            ,
-            
-    tabItem(tabName = "Market Research",
+                )
+            ),
+    #tab 2        
+    tabItem(tabName = "tab2",
             fluidPage(
               fluidRow(
-                box("Market share per brand", plotlyOutput("msp_brand"))
-              )
+                box(selectInput(inputId = "inputYear", label = "Select year", 
+                                levels(as.factor(comparison_sales_market$year)), 
+                                selected = "2019",
+                                ),
+                    status = "primary"
+                    ),
+                
+                box(selectInput(inputId = "inputYear",
+                                label = "Select year",
+                                levels(as.factor(comparison_sales_market$year)),
+                                selected = "2019"),
+                    status = "primary"
+                    ),
+    
+                box("Market share per brand", plotlyOutput("msp_brand"),
+                    status = "primary")
+                )
               )
             ),
-    tabItem(tabName = "Market Trends"),
-    tabItem(tabName = "Customer Satisfaction")
-  )
-)
+    #tab 3
+    tabItem(tabName = "tab3",
+            h2("test")
+            ),
+    #tab 4
+    tabItem(tabName = "tab4")
+    )
 )
 # Define UI for application
-ui <- dashboardPagePlus(header, sidebar,body , rightsidebar)
+ui <- dashboardPagePlus(header, sidebar, body, rightsidebar)
 
 # Define server logic required to draw graphs
 server <- function(input, output) {
+  
   output$BMW_market_share <- renderValueBox ({
     comparison_sales_market%>%
       tail(1)%>%
