@@ -180,4 +180,14 @@ customerSatisfactionBenchark%>%
 
 ```
 
+```{r}
+annual_sales_bmw %>%
+  mutate(Market.Share = as.numeric(as.character(annual_sales_bmw$Market.Share))) -> annual_sales_bmw
+
+
+write.csv(annual_sales_bmw, "data/annualSalesY90-19.csv", row.names = F)
+```
+
+
+
 
