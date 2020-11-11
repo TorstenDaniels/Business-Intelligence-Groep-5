@@ -8,4 +8,5 @@ full_segment_sales <- read.csv2("data/full_segment_sales.csv")
 sales_bmw <- read.csv2("data/monthlySalesY16-20.csv")
 annual_sales_bmw <- read.csv("data/annualSalesY90-19.csv")
 sales_by_model <- read.csv2("data/Sales_by_model.csv")
-
+sales_by_brand <- read.csv2("data/sales_by_brand.csv")
+europeCoords <- read.csv("data/EuropeCoords.csv")

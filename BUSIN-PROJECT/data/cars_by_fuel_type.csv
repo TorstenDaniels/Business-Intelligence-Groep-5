@@ -1,4 +1,4 @@
-region;Time;Total;Petroleum products;Liquefied petroleum gases;Diesel;Natural Gas;Electricity;Alternative Energy;Petrol_excluding hybrids  ;Hybrid electric-petrol;Plug-in hybrid petrol-electric;Diesel_excluding hybrids;Hybrid diesel-electric;Plug-in hybrid diesel-electric;Hydrogen and fuel cells ;Bioethanol;Biodiesel;Bi-fuel;Other
+region;Time;Total;Petroleum_Products;LPG;Diesel;Natural_Gas;Electricity;Alternative_Energy;Petrol_excluding_hybrids;Hybrid_electric_petrol;Plug-in_hybrid_petrol_electric;Diesel_excluding_hybrids;Hybrid_diesel_electric;Plug-in_hybrid_diesel_electric;Hydrogen_and_fuel_cells ;Bioethanol;Biodiesel;Bi-fuel;Other
 Belgium;2012;5444000;1981000;NA;3401000;NA;NA;61000;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
 Belgium;2013;5493472;2008893;NA;3438968;260;919;18859;1992418;16475;NA;3438030;938;NA;NA;128;NA;NA;17552
 Belgium;2014;5555499;2051462;NA;3460094;498;1792;18848;2029688;21774;NA;3458424;1670;NA;NA;127;NA;NA;16431

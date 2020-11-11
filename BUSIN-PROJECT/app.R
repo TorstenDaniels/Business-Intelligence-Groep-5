@@ -58,21 +58,25 @@ body <- dashboardBody(
     tabItem(tabName = "tab2",
             fluidPage(
               fluidRow(
-                box(selectInput(inputId = "inputYear", label = "Select year", 
-                                levels(as.factor(comparison_sales_market$year)), 
-                                selected = "2019",
+                box(selectInput(inputId = "SelectedYear", 
+                                label = "Select year", 
+                                c("2019","2018"), 
+                                selected = "2018",
                                 ),
                     status = "primary"
                     ),
                 
-                box(selectInput(inputId = "inputYear",
-                                label = "Select year",
-                                levels(as.factor(comparison_sales_market$year)),
-                                selected = "2019"),
+                box(selectInput(inputId = "selectFuelType",
+                                label = "Select Fuel Type",
+                                levels(as.factor(colnames(cars_by_fuel_type[4:9]))),
+                                selected = "Diesel"),
                     status = "primary"
                     ),
     
-                box("Market share per brand", plotlyOutput("msp_brand"),
+                box("Market share per brand", plotlyOutput("msp_brand", height = 600),
+                    status = "primary"),
+                
+                box("Popularity of fuel types per country", plotlyOutput("fueltype_map", height = 600),
                     status = "primary")
                 )
               )
@@ -87,6 +91,9 @@ body <- dashboardBody(
 )
 # Define UI for application
 ui <- dashboardPagePlus(header, sidebar, body, rightsidebar)
+
+
+
 
 # Define server logic required to draw graphs
 server <- function(input, output) {
@@ -184,7 +191,35 @@ server <- function(input, output) {
   })
   
   output$msp_brand <- renderPlotly({
+    sales_by_brand%>%
+      filter(Year == input$SelectedYear)%>%
+      plot_ly(labels = ~Brand, values= ~Sales)%>%
+      add_pie(hole = 0.4)%>%
+      layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+  })
+  
+  output$fueltype_map <- renderPlotly({
+    cars_by_fuel_type%>%
+      filter(Time == input$SelectedYear)%>%
+      select(region, Total, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
+      gather(key = "FuelType", value = "amount", -region, -Total)%>%
+      filter(FuelType == input$selectFuelType)%>%
+      mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
     
+    europeCoords$value <- filtered_fuel_type$relative_frequency[match(europeCoords$region, filtered_fuel_type$region)]
+    
+    ggplotly(
+      ggplot() + 
+        geom_polygon(data = europeCoords, aes(x = long, y = lat, group = region, fill = value), colour = "black", size = 0.1) +
+        coord_map(xlim = c(-13, 35),  ylim = c(32, 71))+
+        scale_fill_gradient(name = "relative percentage of cars", low = "#E7222E", high = "#81C4FF", na.value = "grey50")+
+        theme_minimal()+
+        theme(axis.text.x = element_blank(),
+            axis.text.y = element_blank(), axis.ticks.x = element_blank(),
+            axis.ticks.y = element_blank(), axis.title = element_blank(),
+            plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))
+    )
   })
 }
 

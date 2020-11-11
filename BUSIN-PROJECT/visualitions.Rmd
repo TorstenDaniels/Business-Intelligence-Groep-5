@@ -14,6 +14,11 @@ library(readxl)
 library(GGally)
 ```
 
+```{r}
+
+```
+
+
 
 ```{r}
 satisfaction_per_brand <- read.csv("data/satisfaction_per_brand.csv")
@@ -118,10 +123,10 @@ satisfaction_per_brand%>%
 worldMap <- getMap()
 
 # Member States of the European Union
-europeanUnion <- c("Austria","Belgium","Bulgaria","Croatia","Cyprus",
-                   "Czech Rep.","Denmark","Estonia","Finland","France",
+europeanUnion <- c("Austria", "Albania", "Belgium","Bosnia and Herz.","Bulgaria","Croatia","Cyprus",
+                   "Czech Rep.","Denmark","Estonia","Finland","France","Serbia", "Montenegro", "Belarus", "Ukraine", "Monaco",
                    "Germany","Greece","Hungary","Ireland","Italy", "Kosovo", "Latvia", "Liechtenstein",
-                   "Lithuania","Luxembourg","Malta","Netherlands", "Macedonia", "Norway", "Poland",
+                   "Lithuania","Luxembourg","Malta","Netherlands", "Macedonia", "Norway", "Poland", "Moldova",
                    "Portugal","Romania","Slovakia","Slovenia","Spain",
                    "Sweden", "Switzerland", "Turkey","United Kingdom")
 # Select only the index of states member of the E.U.
