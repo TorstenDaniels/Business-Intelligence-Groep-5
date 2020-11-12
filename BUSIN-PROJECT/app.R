@@ -7,7 +7,7 @@ library(readxl);library(GGally);library(shiny);library(shinydashboard); library(
 source("helpers/Script1.R")
   
 #title of the dashboard
-header <- dashboardHeaderPlus(title = "BMW",
+header <- dashboardHeaderPlus(title = tags$a(tags$img(src="BMW-logo.png", height= '32', width ='32'), tags$b('BMW', style = "color: #222222")),
                               enable_rightsidebar = TRUE,
                               rightSidebarIcon = "gears")
   
