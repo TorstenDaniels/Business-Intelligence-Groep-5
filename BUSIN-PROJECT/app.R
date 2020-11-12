@@ -33,6 +33,13 @@ rightsidebar <- rightSidebar(
 
 #creating the dashboard body  
 body <- dashboardBody(
+  
+  tags$script('
+      $(".navbar-custom-menu").on("click",function(){
+        $(window).trigger("resize");
+      })'
+  ),
+  
   tabItems(
     #tab 1
     tabItem(tabName = "tab1",
