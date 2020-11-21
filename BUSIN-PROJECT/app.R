@@ -2,6 +2,7 @@
 library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot2);library(plotly)
 library(lubridate);library(ggthemes);library(RColorBrewer);library(rworldmap);library(mapproj)
 library(readxl);library(GGally);library(shiny);library(shinydashboard); library(shinydashboardPlus);
+library(naniar)
 
 #loading in data
 source("helpers/Script1.R")
@@ -80,13 +81,29 @@ body <- dashboardBody(
                                  inline = T),
                     height =100,
                     status = "primary"
-                  
-                )),
+                    )
+                ),
               fluidRow(
                 box("Market share per brand", plotlyOutput("msp_brand", height = 600),
                     status = "primary"),
                 box("Sales comparison", plotlyOutput("Sales_comparison", height = 600),
                     status="primary")
+                ),
+              fluidRow(
+                box(),
+                tabBox(title = "Model per segment", id = "2", height = 500,
+                       tabPanel("Model sales", plotlyOutput("Model_per_segment"),status ="primary"),
+                       tabPanel("Settings", selectInput(inputId = "SelectedSegment",
+                                            label = "Select Segment",
+                                            levels(as.factor(full_segment_sales$type))
+                                            ),
+                                selectInput(inputId = "SelectedYear2",
+                                            label = "Select Year",
+                                            c("2019","2020"),
+                                            selected = "2020")
+              
+                                )
+                       )
                 )
               )
             ),
@@ -106,13 +123,12 @@ body <- dashboardBody(
                                 selected = "2018",
                                 ),
                 status = "primary"
-                ),
-                
-                
+                )),
+              fluidRow(
                 box("Popularity of fuel types per country", plotlyOutput("fueltype_map", height = 600),
                     status = "primary")
               )
-            )
+              )
             ),
     #tab 4
     tabItem(tabName = "tab4")
@@ -284,6 +300,26 @@ server <- function(input, output) {
       add_trace(y=~DeductedSales, name ="Rest Of Market Sales", marker = list(color = "#81C4FF"))%>%
       layout(yaxis = list(title = 'Amount'), barmode = 'stack', legend=list(x=0.7, y=0.9))
   })
+  
+  output$Model_per_segment <- renderPlotly({ ggplotly(
+      full_segment_sales%>%
+        gather(Year, Sales, -model, -type)%>%
+        filter(type==input$SelectedSegment)%>%
+        filter(if(input$SelectedYear2=="2019"){Year == "X2019.H1"} else {Year=="X2020.H1"})%>%
+        replace_with_na(replace=list(Sales=0))%>%
+        mutate(model = fct_reorder(model, -Sales))%>%
+        drop_na(Sales)%>%
+        head(10)%>%
+        ggplot(aes(model, Sales, fill=factor(ifelse(str_detect(model,"BMW"),"BMW","Others"))))+
+        geom_col()+
+        theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
+        scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF"))+
+        ggtitle(paste0("Models in ", input$SelectedSegment))+
+        theme(legend.position='none')
+    , tooltip=c("x","y"))
+    
+  })
+  
 #TAB 3: MARKET TRENDS----------------------------------------------------------------------------------------------------------------
   
   output$fueltype_map <- renderPlotly({

@@ -42,33 +42,33 @@ Seat Toledo;5;1030;compact_car
 Volkswagen Beetle;5;369;compact_car
 Nissan Pulsar;2;523;compact_car
 DS4;1;190;compact_car
-Renault Zoe;36663;23736;ev
-Tesla Model 3;32524;37161;ev
-Volkswagen e-Golf;17639;22612;ev
-Peugeot e-208;13266;0;ev
-Audi e-Tron;12806;6538;ev
-Nissan Leaf;12790;15710;ev
-Hyundai Kona EV;10004;11249;ev
-Kia Niro EV;8495;8060;ev
-BMW i3 (est.);7629;19583;ev
-VW e-Up!;7428;0;ev
-Others;31274;6786;ev
-Hyundai Ioniq Electric;5520;4004;ev
-Smart Fortwo ED;4614;6905;ev
-Jaguar I-Pace;3627;6477;ev
-Porsche Taycan;3231;231;ev
-Mercedes-Benz EQC;3048;297;ev
-Opel Ampera-e;2482;996;ev
-Tesla Model S;2461;4370;ev
-Tesla Model X;2291;3667;ev
-Citroën C-Zero;1709;632;ev
-Honda e;279;0;ev
-Hyundai Nexo FCEV;209;165;ev
-Peugeot iOn;192;586;ev
-Citroën E-Mehari;66;97;ev
-Mazda MX-30;30;0;ev
-Mitsubishi i-MiEV;25;108;ev
-Polestar 2;18;0;ev
+Renault Zoe;36663;23736;electric_vehicle
+Tesla Model 3;32524;37161;electric_vehicle
+Volkswagen e-Golf;17639;22612;electric_vehicle
+Peugeot e-208;13266;0;electric_vehicle
+Audi e-Tron;12806;6538;electric_vehicle
+Nissan Leaf;12790;15710;electric_vehicle
+Hyundai Kona electric_vehicle;10004;11249;electric_vehicle
+Kia Niro electric_vehicle;8495;8060;electric_vehicle
+BMW i3 (est.);7629;19583;electric_vehicle
+VW e-Up!;7428;0;electric_vehicle
+Others;31274;6786;electric_vehicle
+Hyundai Ioniq Electric;5520;4004;electric_vehicle
+Smart Fortwo ED;4614;6905;electric_vehicle
+Jaguar I-Pace;3627;6477;electric_vehicle
+Porsche Taycan;3231;231;electric_vehicle
+Mercedes-Benz EQC;3048;297;electric_vehicle
+Opel Ampera-e;2482;996;electric_vehicle
+Tesla Model S;2461;4370;electric_vehicle
+Tesla Model X;2291;3667;electric_vehicle
+Citroën C-Zero;1709;632;electric_vehicle
+Honda e;279;0;electric_vehicle
+Hyundai Nexo FCelectric_vehicle;209;165;electric_vehicle
+Peugeot iOn;192;586;electric_vehicle
+Citroën E-Mehari;66;97;electric_vehicle
+Mazda MX-30;30;0;electric_vehicle
+Mitsubishi i-Mielectric_vehicle;25;108;electric_vehicle
+Polestar 2;18;0;electric_vehicle
 Bentley Continental GT / GTC;779;1221;exotic_sport_car
 Ferrari 488 GTB;691;779;exotic_sport_car
 Ferrari 812 Superfast;438;490;exotic_sport_car
@@ -126,7 +126,7 @@ Jeep Grand Cherokee;2015;3699;largeSUV
 Land Rover Defender;1968;0;largeSUV
 Ford Edge;1774;4690;largeSUV
 Mercedes-Benz GLE Coupe;993;2754;largeSUV
-Maserati Levante;881;1859;largeSUV
+Maserati Lelectric_vehicleante;881;1859;largeSUV
 Lamborghini Urus;509;522;largeSUV
 Ford Explorer;462;0;largeSUV
 Bentley Bentayga;371;399;largeSUV
@@ -158,7 +158,7 @@ Subaru Legacy / Outback;1389;2819;midsized_car
 Lexus IS;820;1748;midsized_car
 Kia Stinger;750;2015;midsized_car
 Lexus RC;299;579;midsized_car
-Subaru Levorg;237;494;midsized_car
+Subaru Lelectric_vehicleorg;237;494;midsized_car
 Hyundai i40;227;2048;midsized_car
 Infiniti Q50;70;348;midsized_car
 Polestar 2;18;0;midsized_car
@@ -225,7 +225,7 @@ Citroën C-Zero;1709;632;mini_cars
 Suzuki Celerio;1507;7359;mini_cars
 Peugeot iOn;192;586;mini_cars
 Citroën E-Mehari;66;97;mini_cars
-Mitsubishi i-MiEV;25;108;mini_cars
+Mitsubishi i-Mielectric_vehicle;25;108;mini_cars
 Opel/Vauxhall Adam;3;24226;mini_cars
 Mitsubishi Attrage;1;39;mini_cars
 Opel Karl / Vauxhall Viva;0;29940;mini_cars
@@ -265,7 +265,7 @@ Subaru Legacy / Outback;1389;2819;smallCrossover
 Lexus IS;820;1748;smallCrossover
 Kia Stinger;750;2015;smallCrossover
 Lexus RC;299;579;smallCrossover
-Subaru Levorg;237;494;smallCrossover
+Subaru Lelectric_vehicleorg;237;494;smallCrossover
 Hyundai i40;227;2048;smallCrossover
 Infiniti Q50;70;348;smallCrossover
 Polestar 2;18;0;smallCrossover
@@ -296,7 +296,7 @@ Subaru Legacy / Outback;1389;2819;subcompact_car
 Lexus IS;820;1748;subcompact_car
 Kia Stinger;750;2015;subcompact_car
 Lexus RC;299;579;subcompact_car
-Subaru Levorg;237;494;subcompact_car
+Subaru Lelectric_vehicleorg;237;494;subcompact_car
 Hyundai i40;227;2048;subcompact_car
 Infiniti Q50;70;348;subcompact_car
 Polestar 2;18;0;subcompact_car
