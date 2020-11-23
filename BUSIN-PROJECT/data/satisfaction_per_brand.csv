@@ -1,106 +1,106 @@
-"Brand","type","score"
-"Audi","Overall.Satisfaction",3
-"BMW","Overall.Satisfaction",4
-"Ford","Overall.Satisfaction",3
-"Holden","Overall.Satisfaction",3
-"Honda","Overall.Satisfaction",4
-"Hyundai","Overall.Satisfaction",4
-"Kia","Overall.Satisfaction",4
-"Mazda","Overall.Satisfaction",4
-"Mercedes","Overall.Satisfaction",4
-"Mitsubishi Motors","Overall.Satisfaction",5
-"Nissan","Overall.Satisfaction",3
-"Subaru","Overall.Satisfaction",4
-"Suzuki","Overall.Satisfaction",4
-"Toyota","Overall.Satisfaction",4
-"Volkswagen","Overall.Satisfaction",3
-"Audi","Reliability",4
-"BMW","Reliability",3
-"Ford","Reliability",3
-"Holden","Reliability",4
-"Honda","Reliability",4
-"Hyundai","Reliability",4
-"Kia","Reliability",4
-"Mazda","Reliability",4
-"Mercedes","Reliability",4
-"Mitsubishi Motors","Reliability",5
-"Nissan","Reliability",4
-"Subaru","Reliability",4
-"Suzuki","Reliability",4
-"Toyota","Reliability",4
-"Volkswagen","Reliability",4
-"Audi","Driving.experience",3
-"BMW","Driving.experience",4
-"Ford","Driving.experience",3
-"Holden","Driving.experience",4
-"Honda","Driving.experience",3
-"Hyundai","Driving.experience",4
-"Kia","Driving.experience",4
-"Mazda","Driving.experience",4
-"Mercedes","Driving.experience",5
-"Mitsubishi Motors","Driving.experience",4
-"Nissan","Driving.experience",4
-"Subaru","Driving.experience",4
-"Suzuki","Driving.experience",4
-"Toyota","Driving.experience",4
-"Volkswagen","Driving.experience",4
-"Audi","After.sale.service",5
-"BMW","After.sale.service",4
-"Ford","After.sale.service",4
-"Holden","After.sale.service",3
-"Honda","After.sale.service",4
-"Hyundai","After.sale.service",4
-"Kia","After.sale.service",3
-"Mazda","After.sale.service",4
-"Mercedes","After.sale.service",4
-"Mitsubishi Motors","After.sale.service",4
-"Nissan","After.sale.service",3
-"Subaru","After.sale.service",3
-"Suzuki","After.sale.service",4
-"Toyota","After.sale.service",4
-"Volkswagen","After.sale.service",3
-"Audi","Point.of.sale.service",4
-"BMW","Point.of.sale.service",4
-"Ford","Point.of.sale.service",4
-"Holden","Point.of.sale.service",3
-"Honda","Point.of.sale.service",3
-"Hyundai","Point.of.sale.service",4
-"Kia","Point.of.sale.service",4
-"Mazda","Point.of.sale.service",4
-"Mercedes","Point.of.sale.service",4
-"Mitsubishi Motors","Point.of.sale.service",5
-"Nissan","Point.of.sale.service",3
-"Subaru","Point.of.sale.service",3
-"Suzuki","Point.of.sale.service",4
-"Toyota","Point.of.sale.service",5
-"Volkswagen","Point.of.sale.service",3
-"Audi","car.servicing",4
-"BMW","car.servicing",4
-"Ford","car.servicing",3
-"Holden","car.servicing",3
-"Honda","car.servicing",4
-"Hyundai","car.servicing",4
-"Kia","car.servicing",3
-"Mazda","car.servicing",4
-"Mercedes","car.servicing",3
-"Mitsubishi Motors","car.servicing",4
-"Nissan","car.servicing",3
-"Subaru","car.servicing",3
-"Suzuki","car.servicing",4
-"Toyota","car.servicing",5
-"Volkswagen","car.servicing",3
-"Audi","Value.for.money",4
-"BMW","Value.for.money",3
-"Ford","Value.for.money",3
-"Holden","Value.for.money",3
-"Honda","Value.for.money",4
-"Hyundai","Value.for.money",4
-"Kia","Value.for.money",5
-"Mazda","Value.for.money",4
-"Mercedes","Value.for.money",3
-"Mitsubishi Motors","Value.for.money",5
-"Nissan","Value.for.money",4
-"Subaru","Value.for.money",4
-"Suzuki","Value.for.money",4
-"Toyota","Value.for.money",4
-"Volkswagen","Value.for.money",3
+Brand;type;score
+Audi;After sale service;5
+BMW;After sale service;4
+Ford;After sale service;4
+Holden;After sale service;3
+Honda;After sale service;4
+Hyundai;After sale service;4
+Kia;After sale service;3
+Mazda;After sale service;4
+Mercedes-Benz;After sale service;4
+Mitsubishi;After sale service;4
+Nissan;After sale service;3
+Subaru;After sale service;3
+Suzuki;After sale service;4
+Toyota;After sale service;4
+Volkswagen;After sale service;3
+Audi;Car servicing;4
+BMW;Car servicing;4
+Ford;Car servicing;3
+Holden;Car servicing;3
+Honda;Car servicing;4
+Hyundai;Car servicing;4
+Kia;Car servicing;3
+Mazda;Car servicing;4
+Mercedes-Benz;Car servicing;3
+Mitsubishi;Car servicing;4
+Nissan;Car servicing;3
+Subaru;Car servicing;3
+Suzuki;Car servicing;4
+Toyota;Car servicing;5
+Volkswagen;Car servicing;3
+Audi;Driving experience;3
+BMW;Driving experience;4
+Ford;Driving experience;3
+Holden;Driving experience;4
+Honda;Driving experience;3
+Hyundai;Driving experience;4
+Kia;Driving experience;4
+Mazda;Driving experience;4
+Mercedes-Benz;Driving experience;5
+Mitsubishi;Driving experience;4
+Nissan;Driving experience;4
+Subaru;Driving experience;4
+Suzuki;Driving experience;4
+Toyota;Driving experience;4
+Volkswagen;Driving experience;4
+Audi;Overall Satisfaction;3
+BMW;Overall Satisfaction;4
+Ford;Overall Satisfaction;3
+Holden;Overall Satisfaction;3
+Honda;Overall Satisfaction;4
+Hyundai;Overall Satisfaction;4
+Kia;Overall Satisfaction;4
+Mazda;Overall Satisfaction;4
+Mercedes-Benz;Overall Satisfaction;4
+Mitsubishi;Overall Satisfaction;5
+Nissan;Overall Satisfaction;3
+Subaru;Overall Satisfaction;4
+Suzuki;Overall Satisfaction;4
+Toyota;Overall Satisfaction;4
+Volkswagen;Overall Satisfaction;3
+Audi;Point of sale service;4
+BMW;Point of sale service;4
+Ford;Point of sale service;4
+Holden;Point of sale service;3
+Honda;Point of sale service;3
+Hyundai;Point of sale service;4
+Kia;Point of sale service;4
+Mazda;Point of sale service;4
+Mercedes-Benz;Point of sale service;4
+Mitsubishi;Point of sale service;5
+Nissan;Point of sale service;3
+Subaru;Point of sale service;3
+Suzuki;Point of sale service;4
+Toyota;Point of sale service;5
+Volkswagen;Point of sale service;3
+Audi;Reliability;4
+BMW;Reliability;3
+Ford;Reliability;3
+Holden;Reliability;4
+Honda;Reliability;4
+Hyundai;Reliability;4
+Kia;Reliability;4
+Mazda;Reliability;4
+Mercedes-Benz;Reliability;4
+Mitsubishi;Reliability;5
+Nissan;Reliability;4
+Subaru;Reliability;4
+Suzuki;Reliability;4
+Toyota;Reliability;4
+Volkswagen;Reliability;4
+Audi;Value for money;4
+BMW;Value for money;3
+Ford;Value for money;3
+Holden;Value for money;3
+Honda;Value for money;4
+Hyundai;Value for money;4
+Kia;Value for money;5
+Mazda;Value for money;4
+Mercedes-Benz;Value for money;3
+Mitsubishi;Value for money;5
+Nissan;Value for money;4
+Subaru;Value for money;4
+Suzuki;Value for money;4
+Toyota;Value for money;4
+Volkswagen;Value for money;3

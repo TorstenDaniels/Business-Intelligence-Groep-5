@@ -77,110 +77,110 @@ year;brand;satisfactionScore
 2018;Mercedes-Benz;82
 2019;Mercedes-Benz;83
 2020;Mercedes-Benz;80
-1995;Saturn (GM);83
-1996;Saturn (GM);81
-1997;Saturn (GM);82
-1998;Saturn (GM);85
-1999;Saturn (GM);80
-2000;Saturn (GM);82
-2001;Saturn (GM);80
-2002;Saturn (GM);81
-2003;Saturn (GM);81
-2004;Saturn (GM);81
-2005;Saturn (GM);81
-2006;Saturn (GM);80
-2007;Saturn (GM);81
-2008;Saturn (GM);85
-2009;Saturn (GM);84
-2010;Saturn (GM);NA
-2011;Saturn (GM);NA
-2012;Saturn (GM);NA
-2013;Saturn (GM);NA
-2014;Saturn (GM);NA
-2015;Saturn (GM);NA
-2016;Saturn (GM);NA
-2017;Saturn (GM);NA
-2018;Saturn (GM);NA
-2019;Saturn (GM);NA
-2020;Saturn (GM);NA
-1995;Cadillac (GM);84
-1996;Cadillac (GM);88
-1997;Cadillac (GM);84
-1998;Cadillac (GM);88
-1999;Cadillac (GM);85
-2000;Cadillac (GM);86
-2001;Cadillac (GM);88
-2002;Cadillac (GM);86
-2003;Cadillac (GM);87
-2004;Cadillac (GM);83
-2005;Cadillac (GM);86
-2006;Cadillac (GM);84
-2007;Cadillac (GM);86
-2008;Cadillac (GM);85
-2009;Cadillac (GM);89
-2010;Cadillac (GM);86
-2011;Cadillac (GM);87
-2012;Cadillac (GM);86
-2013;Cadillac (GM);85
-2014;Cadillac (GM);80
-2015;Cadillac (GM);80
-2016;Cadillac (GM);79
-2017;Cadillac (GM);83
-2018;Cadillac (GM);82
-2019;Cadillac (GM);81
-2020;Cadillac (GM);80
-1995;Buick (GM);84
-1996;Buick (GM);84
-1997;Buick (GM);83
-1998;Buick (GM);84
-1999;Buick (GM);86
-2000;Buick (GM);86
-2001;Buick (GM);86
-2002;Buick (GM);86
-2003;Buick (GM);84
-2004;Buick (GM);83
-2005;Buick (GM);84
-2006;Buick (GM);86
-2007;Buick (GM);86
-2008;Buick (GM);85
-2009;Buick (GM);88
-2010;Buick (GM);88
-2011;Buick (GM);85
-2012;Buick (GM);87
-2013;Buick (GM);82
-2014;Buick (GM);83
-2015;Buick (GM);80
-2016;Buick (GM);79
-2017;Buick (GM);80
-2018;Buick (GM);80
-2019;Buick (GM);79
-2020;Buick (GM);76
-1995;Oldsmobile (GM);84
-1996;Oldsmobile (GM);82
-1997;Oldsmobile (GM);82
-1998;Oldsmobile (GM);82
-1999;Oldsmobile (GM);81
-2000;Oldsmobile (GM);80
-2001;Oldsmobile (GM);81
-2002;Oldsmobile (GM);82
-2003;Oldsmobile (GM);80
-2004;Oldsmobile (GM);80
-2005;Oldsmobile (GM);NA
-2006;Oldsmobile (GM);NA
-2007;Oldsmobile (GM);NA
-2008;Oldsmobile (GM);NA
-2009;Oldsmobile (GM);NA
-2010;Oldsmobile (GM);NA
-2011;Oldsmobile (GM);NA
-2012;Oldsmobile (GM);NA
-2013;Oldsmobile (GM);NA
-2014;Oldsmobile (GM);NA
-2015;Oldsmobile (GM);NA
-2016;Oldsmobile (GM);NA
-2017;Oldsmobile (GM);NA
-2018;Oldsmobile (GM);NA
-2019;Oldsmobile (GM);NA
-2020;Oldsmobile (GM);NA
+1995;Saturn;83
+1996;Saturn;81
+1997;Saturn;82
+1998;Saturn;85
+1999;Saturn;80
+2000;Saturn;82
+2001;Saturn;80
+2002;Saturn;81
+2003;Saturn;81
+2004;Saturn;81
+2005;Saturn;81
+2006;Saturn;80
+2007;Saturn;81
+2008;Saturn;85
+2009;Saturn;84
+2010;Saturn;NA
+2011;Saturn;NA
+2012;Saturn;NA
+2013;Saturn;NA
+2014;Saturn;NA
+2015;Saturn;NA
+2016;Saturn;NA
+2017;Saturn;NA
+2018;Saturn;NA
+2019;Saturn;NA
+2020;Saturn;NA
+1995;Cadillac;84
+1996;Cadillac;88
+1997;Cadillac;84
+1998;Cadillac;88
+1999;Cadillac;85
+2000;Cadillac;86
+2001;Cadillac;88
+2002;Cadillac;86
+2003;Cadillac;87
+2004;Cadillac;83
+2005;Cadillac;86
+2006;Cadillac;84
+2007;Cadillac;86
+2008;Cadillac;85
+2009;Cadillac;89
+2010;Cadillac;86
+2011;Cadillac;87
+2012;Cadillac;86
+2013;Cadillac;85
+2014;Cadillac;80
+2015;Cadillac;80
+2016;Cadillac;79
+2017;Cadillac;83
+2018;Cadillac;82
+2019;Cadillac;81
+2020;Cadillac;80
+1995;Buick;84
+1996;Buick;84
+1997;Buick;83
+1998;Buick;84
+1999;Buick;86
+2000;Buick;86
+2001;Buick;86
+2002;Buick;86
+2003;Buick;84
+2004;Buick;83
+2005;Buick;84
+2006;Buick;86
+2007;Buick;86
+2008;Buick;85
+2009;Buick;88
+2010;Buick;88
+2011;Buick;85
+2012;Buick;87
+2013;Buick;82
+2014;Buick;83
+2015;Buick;80
+2016;Buick;79
+2017;Buick;80
+2018;Buick;80
+2019;Buick;79
+2020;Buick;76
+1995;Oldsmobile;84
+1996;Oldsmobile;82
+1997;Oldsmobile;82
+1998;Oldsmobile;82
+1999;Oldsmobile;81
+2000;Oldsmobile;80
+2001;Oldsmobile;81
+2002;Oldsmobile;82
+2003;Oldsmobile;80
+2004;Oldsmobile;80
+2005;Oldsmobile;NA
+2006;Oldsmobile;NA
+2007;Oldsmobile;NA
+2008;Oldsmobile;NA
+2009;Oldsmobile;NA
+2010;Oldsmobile;NA
+2011;Oldsmobile;NA
+2012;Oldsmobile;NA
+2013;Oldsmobile;NA
+2014;Oldsmobile;NA
+2015;Oldsmobile;NA
+2016;Oldsmobile;NA
+2017;Oldsmobile;NA
+2018;Oldsmobile;NA
+2019;Oldsmobile;NA
+2020;Oldsmobile;NA
 1995;Nissan;82
 1996;Nissan;80
 1997;Nissan;79
@@ -259,32 +259,32 @@ year;brand;satisfactionScore
 2018;Volvo;85
 2019;Volvo;82
 2020;Volvo;78
-1995;Chrysler (Fiat Chrysler);82
-1996;Chrysler (Fiat Chrysler);80
-1997;Chrysler (Fiat Chrysler);80
-1998;Chrysler (Fiat Chrysler);80
-1999;Chrysler (Fiat Chrysler);79
-2000;Chrysler (Fiat Chrysler);80
-2001;Chrysler (Fiat Chrysler);78
-2002;Chrysler (Fiat Chrysler);80
-2003;Chrysler (Fiat Chrysler);82
-2004;Chrysler (Fiat Chrysler);80
-2005;Chrysler (Fiat Chrysler);80
-2006;Chrysler (Fiat Chrysler);80
-2007;Chrysler (Fiat Chrysler);79
-2008;Chrysler (Fiat Chrysler);80
-2009;Chrysler (Fiat Chrysler);84
-2010;Chrysler (Fiat Chrysler);80
-2011;Chrysler (Fiat Chrysler);76
-2012;Chrysler (Fiat Chrysler);78
-2013;Chrysler (Fiat Chrysler);83
-2014;Chrysler (Fiat Chrysler);81
-2015;Chrysler (Fiat Chrysler);74
-2016;Chrysler (Fiat Chrysler);79
-2017;Chrysler (Fiat Chrysler);79
-2018;Chrysler (Fiat Chrysler);74
-2019;Chrysler (Fiat Chrysler);71
-2020;Chrysler (Fiat Chrysler);73
+1995;Chrysler;82
+1996;Chrysler;80
+1997;Chrysler;80
+1998;Chrysler;80
+1999;Chrysler;79
+2000;Chrysler;80
+2001;Chrysler;78
+2002;Chrysler;80
+2003;Chrysler;82
+2004;Chrysler;80
+2005;Chrysler;80
+2006;Chrysler;80
+2007;Chrysler;79
+2008;Chrysler;80
+2009;Chrysler;84
+2010;Chrysler;80
+2011;Chrysler;76
+2012;Chrysler;78
+2013;Chrysler;83
+2014;Chrysler;81
+2015;Chrysler;74
+2016;Chrysler;79
+2017;Chrysler;79
+2018;Chrysler;74
+2019;Chrysler;71
+2020;Chrysler;73
 1995;Subaru;79
 1996;Subaru;83
 1997;Subaru;79
@@ -311,32 +311,32 @@ year;brand;satisfactionScore
 2018;Subaru;84
 2019;Subaru;82
 2020;Subaru;79
-1995;Dodge (Fiat Chrysler);77
-1996;Dodge (Fiat Chrysler);77
-1997;Dodge (Fiat Chrysler);77
-1998;Dodge (Fiat Chrysler);78
-1999;Dodge (Fiat Chrysler);75
-2000;Dodge (Fiat Chrysler);81
-2001;Dodge (Fiat Chrysler);77
-2002;Dodge (Fiat Chrysler);78
-2003;Dodge (Fiat Chrysler);78
-2004;Dodge (Fiat Chrysler);75
-2005;Dodge (Fiat Chrysler);78
-2006;Dodge (Fiat Chrysler);78
-2007;Dodge (Fiat Chrysler);80
-2008;Dodge (Fiat Chrysler);78
-2009;Dodge (Fiat Chrysler);81
-2010;Dodge (Fiat Chrysler);78
-2011;Dodge (Fiat Chrysler);79
-2012;Dodge (Fiat Chrysler);81
-2013;Dodge (Fiat Chrysler);79
-2014;Dodge (Fiat Chrysler);78
-2015;Dodge (Fiat Chrysler);76
-2016;Dodge (Fiat Chrysler);78
-2017;Dodge (Fiat Chrysler);75
-2018;Dodge (Fiat Chrysler);77
-2019;Dodge (Fiat Chrysler);74
-2020;Dodge (Fiat Chrysler);75
+1995;Dodge;77
+1996;Dodge;77
+1997;Dodge;77
+1998;Dodge;78
+1999;Dodge;75
+2000;Dodge;81
+2001;Dodge;77
+2002;Dodge;78
+2003;Dodge;78
+2004;Dodge;75
+2005;Dodge;78
+2006;Dodge;78
+2007;Dodge;80
+2008;Dodge;78
+2009;Dodge;81
+2010;Dodge;78
+2011;Dodge;79
+2012;Dodge;81
+2013;Dodge;79
+2014;Dodge;78
+2015;Dodge;76
+2016;Dodge;78
+2017;Dodge;75
+2018;Dodge;77
+2019;Dodge;74
+2020;Dodge;75
 1995;Automobiles and Light Vehicles;80
 1996;Automobiles and Light Vehicles;79
 1997;Automobiles and Light Vehicles;79
@@ -363,32 +363,32 @@ year;brand;satisfactionScore
 2018;Automobiles and Light Vehicles;82
 2019;Automobiles and Light Vehicles;79
 2020;Automobiles and Light Vehicles;78
-1995;Lincoln (Ford);84
-1996;Lincoln (Ford);80
-1997;Lincoln (Ford);81
-1998;Lincoln (Ford);83
-1999;Lincoln (Ford);82
-2000;Lincoln (Ford);85
-2001;Lincoln (Ford);82
-2002;Lincoln (Ford);84
-2003;Lincoln (Ford);81
-2004;Lincoln (Ford);86
-2005;Lincoln (Ford);83
-2006;Lincoln (Ford);83
-2007;Lincoln (Ford);86
-2008;Lincoln (Ford);83
-2009;Lincoln (Ford);88
-2010;Lincoln (Ford);89
-2011;Lincoln (Ford);86
-2012;Lincoln (Ford);90
-2013;Lincoln (Ford);NA
-2014;Lincoln (Ford);NA
-2015;Lincoln (Ford);83
-2016;Lincoln (Ford);87
-2017;Lincoln (Ford);83
-2018;Lincoln (Ford);84
-2019;Lincoln (Ford);82
-2020;Lincoln (Ford);77
+1995;Lincoln;84
+1996;Lincoln;80
+1997;Lincoln;81
+1998;Lincoln;83
+1999;Lincoln;82
+2000;Lincoln;85
+2001;Lincoln;82
+2002;Lincoln;84
+2003;Lincoln;81
+2004;Lincoln;86
+2005;Lincoln;83
+2006;Lincoln;83
+2007;Lincoln;86
+2008;Lincoln;83
+2009;Lincoln;88
+2010;Lincoln;89
+2011;Lincoln;86
+2012;Lincoln;90
+2013;Lincoln;NA
+2014;Lincoln;NA
+2015;Lincoln;83
+2016;Lincoln;87
+2017;Lincoln;83
+2018;Lincoln;84
+2019;Lincoln;82
+2020;Lincoln;77
 1995;Mazda;77
 1996;Mazda;75
 1997;Mazda;74
@@ -415,84 +415,84 @@ year;brand;satisfactionScore
 2018;Mazda;80
 2019;Mazda;77
 2020;Mazda;78
-1995;Jeep (Fiat Chrysler);77
-1996;Jeep (Fiat Chrysler);76
-1997;Jeep (Fiat Chrysler);74
-1998;Jeep (Fiat Chrysler);77
-1999;Jeep (Fiat Chrysler);77
-2000;Jeep (Fiat Chrysler);75
-2001;Jeep (Fiat Chrysler);76
-2002;Jeep (Fiat Chrysler);79
-2003;Jeep (Fiat Chrysler);79
-2004;Jeep (Fiat Chrysler);77
-2005;Jeep (Fiat Chrysler);78
-2006;Jeep (Fiat Chrysler);77
-2007;Jeep (Fiat Chrysler);75
-2008;Jeep (Fiat Chrysler);76
-2009;Jeep (Fiat Chrysler);79
-2010;Jeep (Fiat Chrysler);77
-2011;Jeep (Fiat Chrysler);79
-2012;Jeep (Fiat Chrysler);83
-2013;Jeep (Fiat Chrysler);80
-2014;Jeep (Fiat Chrysler);79
-2015;Jeep (Fiat Chrysler);75
-2016;Jeep (Fiat Chrysler);78
-2017;Jeep (Fiat Chrysler);80
-2018;Jeep (Fiat Chrysler);80
-2019;Jeep (Fiat Chrysler);76
-2020;Jeep (Fiat Chrysler);76
-1995;Chevrolet (GM);79
-1996;Chevrolet (GM);79
-1997;Chevrolet (GM);78
-1998;Chevrolet (GM);79
-1999;Chevrolet (GM);76
-2000;Chevrolet (GM);80
-2001;Chevrolet (GM);78
-2002;Chevrolet (GM);78
-2003;Chevrolet (GM);79
-2004;Chevrolet (GM);77
-2005;Chevrolet (GM);78
-2006;Chevrolet (GM);81
-2007;Chevrolet (GM);82
-2008;Chevrolet (GM);79
-2009;Chevrolet (GM);83
-2010;Chevrolet (GM);80
-2011;Chevrolet (GM);82
-2012;Chevrolet (GM);84
-2013;Chevrolet (GM);79
-2014;Chevrolet (GM);82
-2015;Chevrolet (GM);79
-2016;Chevrolet (GM);83
-2017;Chevrolet (GM);81
-2018;Chevrolet (GM);79
-2019;Chevrolet (GM);80
-2020;Chevrolet (GM);76
-1995;Pontiac (GM);79
-1996;Pontiac (GM);78
-1997;Pontiac (GM);78
-1998;Pontiac (GM);76
-1999;Pontiac (GM);78
-2000;Pontiac (GM);78
-2001;Pontiac (GM);78
-2002;Pontiac (GM);78
-2003;Pontiac (GM);76
-2004;Pontiac (GM);79
-2005;Pontiac (GM);80
-2006;Pontiac (GM);79
-2007;Pontiac (GM);80
-2008;Pontiac (GM);80
-2009;Pontiac (GM);81
-2010;Pontiac (GM);NA
-2011;Pontiac (GM);NA
-2012;Pontiac (GM);NA
-2013;Pontiac (GM);NA
-2014;Pontiac (GM);NA
-2015;Pontiac (GM);NA
-2016;Pontiac (GM);NA
-2017;Pontiac (GM);NA
-2018;Pontiac (GM);NA
-2019;Pontiac (GM);NA
-2020;Pontiac (GM);NA
+1995;Jeep;77
+1996;Jeep;76
+1997;Jeep;74
+1998;Jeep;77
+1999;Jeep;77
+2000;Jeep;75
+2001;Jeep;76
+2002;Jeep;79
+2003;Jeep;79
+2004;Jeep;77
+2005;Jeep;78
+2006;Jeep;77
+2007;Jeep;75
+2008;Jeep;76
+2009;Jeep;79
+2010;Jeep;77
+2011;Jeep;79
+2012;Jeep;83
+2013;Jeep;80
+2014;Jeep;79
+2015;Jeep;75
+2016;Jeep;78
+2017;Jeep;80
+2018;Jeep;80
+2019;Jeep;76
+2020;Jeep;76
+1995;Chevrolet;79
+1996;Chevrolet;79
+1997;Chevrolet;78
+1998;Chevrolet;79
+1999;Chevrolet;76
+2000;Chevrolet;80
+2001;Chevrolet;78
+2002;Chevrolet;78
+2003;Chevrolet;79
+2004;Chevrolet;77
+2005;Chevrolet;78
+2006;Chevrolet;81
+2007;Chevrolet;82
+2008;Chevrolet;79
+2009;Chevrolet;83
+2010;Chevrolet;80
+2011;Chevrolet;82
+2012;Chevrolet;84
+2013;Chevrolet;79
+2014;Chevrolet;82
+2015;Chevrolet;79
+2016;Chevrolet;83
+2017;Chevrolet;81
+2018;Chevrolet;79
+2019;Chevrolet;80
+2020;Chevrolet;76
+1995;Pontiac;79
+1996;Pontiac;78
+1997;Pontiac;78
+1998;Pontiac;76
+1999;Pontiac;78
+2000;Pontiac;78
+2001;Pontiac;78
+2002;Pontiac;78
+2003;Pontiac;76
+2004;Pontiac;79
+2005;Pontiac;80
+2006;Pontiac;79
+2007;Pontiac;80
+2008;Pontiac;80
+2009;Pontiac;81
+2010;Pontiac;NA
+2011;Pontiac;NA
+2012;Pontiac;NA
+2013;Pontiac;NA
+2014;Pontiac;NA
+2015;Pontiac;NA
+2016;Pontiac;NA
+2017;Pontiac;NA
+2018;Pontiac;NA
+2019;Pontiac;NA
+2020;Pontiac;NA
 1995;Ford;79
 1996;Ford;78
 1997;Ford;77
@@ -571,110 +571,110 @@ year;brand;satisfactionScore
 2018;Hyundai;80
 2019;Hyundai;79
 2020;Hyundai;76
-1995;Infiniti (Nissan);NA
-1996;Infiniti (Nissan);NA
-1997;Infiniti (Nissan);NA
-1998;Infiniti (Nissan);NA
-1999;Infiniti (Nissan);NA
-2000;Infiniti (Nissan);NA
-2001;Infiniti (Nissan);NA
-2002;Infiniti (Nissan);NA
-2003;Infiniti (Nissan);NA
-2004;Infiniti (Nissan);NA
-2005;Infiniti (Nissan);NA
-2006;Infiniti (Nissan);NA
-2007;Infiniti (Nissan);NA
-2008;Infiniti (Nissan);NA
-2009;Infiniti (Nissan);NA
-2010;Infiniti (Nissan);NA
-2011;Infiniti (Nissan);NA
-2012;Infiniti (Nissan);NA
-2013;Infiniti (Nissan);NA
-2014;Infiniti (Nissan);NA
-2015;Infiniti (Nissan);77
-2016;Infiniti (Nissan);84
-2017;Infiniti (Nissan);NA
-2018;Infiniti (Nissan);78
-2019;Infiniti (Nissan);82
-2020;Infiniti (Nissan);79
-1995;Fiat (Fiat Chrysler);NA
-1996;Fiat (Fiat Chrysler);NA
-1997;Fiat (Fiat Chrysler);NA
-1998;Fiat (Fiat Chrysler);NA
-1999;Fiat (Fiat Chrysler);NA
-2000;Fiat (Fiat Chrysler);NA
-2001;Fiat (Fiat Chrysler);NA
-2002;Fiat (Fiat Chrysler);NA
-2003;Fiat (Fiat Chrysler);NA
-2004;Fiat (Fiat Chrysler);NA
-2005;Fiat (Fiat Chrysler);NA
-2006;Fiat (Fiat Chrysler);NA
-2007;Fiat (Fiat Chrysler);NA
-2008;Fiat (Fiat Chrysler);NA
-2009;Fiat (Fiat Chrysler);NA
-2010;Fiat (Fiat Chrysler);NA
-2011;Fiat (Fiat Chrysler);NA
-2012;Fiat (Fiat Chrysler);NA
-2013;Fiat (Fiat Chrysler);NA
-2014;Fiat (Fiat Chrysler);NA
-2015;Fiat (Fiat Chrysler);73
-2016;Fiat (Fiat Chrysler);NA
-2017;Fiat (Fiat Chrysler);75
-2018;Fiat (Fiat Chrysler);78
-2019;Fiat (Fiat Chrysler);77
-2020;Fiat (Fiat Chrysler);76
-1995;MINI (BMW);NA
-1996;MINI (BMW);NA
-1997;MINI (BMW);NA
-1998;MINI (BMW);NA
-1999;MINI (BMW);NA
-2000;MINI (BMW);NA
-2001;MINI (BMW);NA
-2002;MINI (BMW);NA
-2003;MINI (BMW);NA
-2004;MINI (BMW);NA
-2005;MINI (BMW);NA
-2006;MINI (BMW);NA
-2007;MINI (BMW);NA
-2008;MINI (BMW);NA
-2009;MINI (BMW);NA
-2010;MINI (BMW);NA
-2011;MINI (BMW);NA
-2012;MINI (BMW);NA
-2013;MINI (BMW);NA
-2014;MINI (BMW);NA
-2015;MINI (BMW);76
-2016;MINI (BMW);NA
-2017;MINI (BMW);NA
-2018;MINI (BMW);80
-2019;MINI (BMW);NA
-2020;MINI (BMW);NA
-1995;Audi (Volkswagen);NA
-1996;Audi (Volkswagen);NA
-1997;Audi (Volkswagen);NA
-1998;Audi (Volkswagen);NA
-1999;Audi (Volkswagen);NA
-2000;Audi (Volkswagen);NA
-2001;Audi (Volkswagen);NA
-2002;Audi (Volkswagen);NA
-2003;Audi (Volkswagen);NA
-2004;Audi (Volkswagen);NA
-2005;Audi (Volkswagen);NA
-2006;Audi (Volkswagen);NA
-2007;Audi (Volkswagen);NA
-2008;Audi (Volkswagen);NA
-2009;Audi (Volkswagen);NA
-2010;Audi (Volkswagen);NA
-2011;Audi (Volkswagen);NA
-2012;Audi (Volkswagen);NA
-2013;Audi (Volkswagen);NA
-2014;Audi (Volkswagen);79
-2015;Audi (Volkswagen);78
-2016;Audi (Volkswagen);83
-2017;Audi (Volkswagen);82
-2018;Audi (Volkswagen);83
-2019;Audi (Volkswagen);82
-2020;Audi (Volkswagen);80
+1995;Infiniti;NA
+1996;Infiniti;NA
+1997;Infiniti;NA
+1998;Infiniti;NA
+1999;Infiniti;NA
+2000;Infiniti;NA
+2001;Infiniti;NA
+2002;Infiniti;NA
+2003;Infiniti;NA
+2004;Infiniti;NA
+2005;Infiniti;NA
+2006;Infiniti;NA
+2007;Infiniti;NA
+2008;Infiniti;NA
+2009;Infiniti;NA
+2010;Infiniti;NA
+2011;Infiniti;NA
+2012;Infiniti;NA
+2013;Infiniti;NA
+2014;Infiniti;NA
+2015;Infiniti;77
+2016;Infiniti;84
+2017;Infiniti;NA
+2018;Infiniti;78
+2019;Infiniti;82
+2020;Infiniti;79
+1995;Fiat;NA
+1996;Fiat;NA
+1997;Fiat;NA
+1998;Fiat;NA
+1999;Fiat;NA
+2000;Fiat;NA
+2001;Fiat;NA
+2002;Fiat;NA
+2003;Fiat;NA
+2004;Fiat;NA
+2005;Fiat;NA
+2006;Fiat;NA
+2007;Fiat;NA
+2008;Fiat;NA
+2009;Fiat;NA
+2010;Fiat;NA
+2011;Fiat;NA
+2012;Fiat;NA
+2013;Fiat;NA
+2014;Fiat;NA
+2015;Fiat;73
+2016;Fiat;NA
+2017;Fiat;75
+2018;Fiat;78
+2019;Fiat;77
+2020;Fiat;76
+1995;MINI;NA
+1996;MINI;NA
+1997;MINI;NA
+1998;MINI;NA
+1999;MINI;NA
+2000;MINI;NA
+2001;MINI;NA
+2002;MINI;NA
+2003;MINI;NA
+2004;MINI;NA
+2005;MINI;NA
+2006;MINI;NA
+2007;MINI;NA
+2008;MINI;NA
+2009;MINI;NA
+2010;MINI;NA
+2011;MINI;NA
+2012;MINI;NA
+2013;MINI;NA
+2014;MINI;NA
+2015;MINI;76
+2016;MINI;NA
+2017;MINI;NA
+2018;MINI;80
+2019;MINI;NA
+2020;MINI;NA
+1995;Audi;NA
+1996;Audi;NA
+1997;Audi;NA
+1998;Audi;NA
+1999;Audi;NA
+2000;Audi;NA
+2001;Audi;NA
+2002;Audi;NA
+2003;Audi;NA
+2004;Audi;NA
+2005;Audi;NA
+2006;Audi;NA
+2007;Audi;NA
+2008;Audi;NA
+2009;Audi;NA
+2010;Audi;NA
+2011;Audi;NA
+2012;Audi;NA
+2013;Audi;NA
+2014;Audi;79
+2015;Audi;78
+2016;Audi;83
+2017;Audi;82
+2018;Audi;83
+2019;Audi;82
+2020;Audi;80
 1995;Mitsubishi;NA
 1996;Mitsubishi;NA
 1997;Mitsubishi;NA
@@ -701,58 +701,58 @@ year;brand;satisfactionScore
 2018;Mitsubishi;79
 2019;Mitsubishi;76
 2020;Mitsubishi;77
-1995;Acura (Honda);NA
-1996;Acura (Honda);NA
-1997;Acura (Honda);NA
-1998;Acura (Honda);NA
-1999;Acura (Honda);NA
-2000;Acura (Honda);NA
-2001;Acura (Honda);NA
-2002;Acura (Honda);NA
-2003;Acura (Honda);NA
-2004;Acura (Honda);NA
-2005;Acura (Honda);NA
-2006;Acura (Honda);NA
-2007;Acura (Honda);NA
-2008;Acura (Honda);NA
-2009;Acura (Honda);NA
-2010;Acura (Honda);NA
-2011;Acura (Honda);NA
-2012;Acura (Honda);NA
-2013;Acura (Honda);83
-2014;Acura (Honda);77
-2015;Acura (Honda);83
-2016;Acura (Honda);76
-2017;Acura (Honda);80
-2018;Acura (Honda);81
-2019;Acura (Honda);78
-2020;Acura (Honda);77
-1995;Lexus (Toyota);NA
-1996;Lexus (Toyota);NA
-1997;Lexus (Toyota);NA
-1998;Lexus (Toyota);NA
-1999;Lexus (Toyota);NA
-2000;Lexus (Toyota);NA
-2001;Lexus (Toyota);NA
-2002;Lexus (Toyota);NA
-2003;Lexus (Toyota);NA
-2004;Lexus (Toyota);NA
-2005;Lexus (Toyota);NA
-2006;Lexus (Toyota);86
-2007;Lexus (Toyota);87
-2008;Lexus (Toyota);87
-2009;Lexus (Toyota);89
-2010;Lexus (Toyota);85
-2011;Lexus (Toyota);87
-2012;Lexus (Toyota);89
-2013;Lexus (Toyota);87
-2014;Lexus (Toyota);84
-2015;Lexus (Toyota);84
-2016;Lexus (Toyota);84
-2017;Lexus (Toyota);86
-2018;Lexus (Toyota);85
-2019;Lexus (Toyota);84
-2020;Lexus (Toyota);82
+1995;Acura;NA
+1996;Acura;NA
+1997;Acura;NA
+1998;Acura;NA
+1999;Acura;NA
+2000;Acura;NA
+2001;Acura;NA
+2002;Acura;NA
+2003;Acura;NA
+2004;Acura;NA
+2005;Acura;NA
+2006;Acura;NA
+2007;Acura;NA
+2008;Acura;NA
+2009;Acura;NA
+2010;Acura;NA
+2011;Acura;NA
+2012;Acura;NA
+2013;Acura;83
+2014;Acura;77
+2015;Acura;83
+2016;Acura;76
+2017;Acura;80
+2018;Acura;81
+2019;Acura;78
+2020;Acura;77
+1995;Lexus;NA
+1996;Lexus;NA
+1997;Lexus;NA
+1998;Lexus;NA
+1999;Lexus;NA
+2000;Lexus;NA
+2001;Lexus;NA
+2002;Lexus;NA
+2003;Lexus;NA
+2004;Lexus;NA
+2005;Lexus;NA
+2006;Lexus;86
+2007;Lexus;87
+2008;Lexus;87
+2009;Lexus;89
+2010;Lexus;85
+2011;Lexus;87
+2012;Lexus;89
+2013;Lexus;87
+2014;Lexus;84
+2015;Lexus;84
+2016;Lexus;84
+2017;Lexus;86
+2018;Lexus;85
+2019;Lexus;84
+2020;Lexus;82
 1995;Kia;NA
 1996;Kia;NA
 1997;Kia;NA
@@ -779,32 +779,32 @@ year;brand;satisfactionScore
 2018;Kia;79
 2019;Kia;76
 2020;Kia;77
-1995;GMC (GM);NA
-1996;GMC (GM);NA
-1997;GMC (GM);80
-1998;GMC (GM);78
-1999;GMC (GM);81
-2000;GMC (GM);81
-2001;GMC (GM);79
-2002;GMC (GM);81
-2003;GMC (GM);83
-2004;GMC (GM);80
-2005;GMC (GM);81
-2006;GMC (GM);82
-2007;GMC (GM);82
-2008;GMC (GM);83
-2009;GMC (GM);82
-2010;GMC (GM);84
-2011;GMC (GM);83
-2012;GMC (GM);80
-2013;GMC (GM);85
-2014;GMC (GM);82
-2015;GMC (GM);78
-2016;GMC (GM);84
-2017;GMC (GM);84
-2018;GMC (GM);80
-2019;GMC (GM);78
-2020;GMC (GM);78
+1995;GMC;NA
+1996;GMC;NA
+1997;GMC;80
+1998;GMC;78
+1999;GMC;81
+2000;GMC;81
+2001;GMC;79
+2002;GMC;81
+2003;GMC;83
+2004;GMC;80
+2005;GMC;81
+2006;GMC;82
+2007;GMC;82
+2008;GMC;83
+2009;GMC;82
+2010;GMC;84
+2011;GMC;83
+2012;GMC;80
+2013;GMC;85
+2014;GMC;82
+2015;GMC;78
+2016;GMC;84
+2017;GMC;84
+2018;GMC;80
+2019;GMC;78
+2020;GMC;78
 1995;All Others;81
 1996;All Others;79
 1997;All Others;73
@@ -831,29 +831,29 @@ year;brand;satisfactionScore
 2018;All Others;78
 2019;All Others;76
 2020;All Others;76
-1995;Ram (Fiat Chrysler);NA
-1996;Ram (Fiat Chrysler);NA
-1997;Ram (Fiat Chrysler);NA
-1998;Ram (Fiat Chrysler);NA
-1999;Ram (Fiat Chrysler);NA
-2000;Ram (Fiat Chrysler);NA
-2001;Ram (Fiat Chrysler);NA
-2002;Ram (Fiat Chrysler);NA
-2003;Ram (Fiat Chrysler);NA
-2004;Ram (Fiat Chrysler);NA
-2005;Ram (Fiat Chrysler);NA
-2006;Ram (Fiat Chrysler);NA
-2007;Ram (Fiat Chrysler);NA
-2008;Ram (Fiat Chrysler);NA
-2009;Ram (Fiat Chrysler);NA
-2010;Ram (Fiat Chrysler);NA
-2011;Ram (Fiat Chrysler);NA
-2012;Ram (Fiat Chrysler);NA
-2013;Ram (Fiat Chrysler);NA
-2014;Ram (Fiat Chrysler);NA
-2015;Ram (Fiat Chrysler);NA
-2016;Ram (Fiat Chrysler);NA
-2017;Ram (Fiat Chrysler);NA
-2018;Ram (Fiat Chrysler);80
-2019;Ram (Fiat Chrysler);80
-2020;Ram (Fiat Chrysler);80
+1995;Ram;NA
+1996;Ram;NA
+1997;Ram;NA
+1998;Ram;NA
+1999;Ram;NA
+2000;Ram;NA
+2001;Ram;NA
+2002;Ram;NA
+2003;Ram;NA
+2004;Ram;NA
+2005;Ram;NA
+2006;Ram;NA
+2007;Ram;NA
+2008;Ram;NA
+2009;Ram;NA
+2010;Ram;NA
+2011;Ram;NA
+2012;Ram;NA
+2013;Ram;NA
+2014;Ram;NA
+2015;Ram;NA
+2016;Ram;NA
+2017;Ram;NA
+2018;Ram;80
+2019;Ram;80
+2020;Ram;80

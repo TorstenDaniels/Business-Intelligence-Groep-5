@@ -131,7 +131,30 @@ body <- dashboardBody(
               )
             ),
     #tab 4
-    tabItem(tabName = "tab4")
+    tabItem(tabName = "tab4",
+            fluidPage(
+              fluidRow(
+                box(selectizeInput(inputId = "selectBrand",
+                              label = "Select Brands",
+                              choices = levels(customerSatisfactionBenchark$brand),
+                              selected = "BMW",
+                              options = list(maxItems = 3),
+                              ),
+                    status = "primary"
+                  ),
+                box(selectizeInput(inputId = "selectSatisfactionType",
+                                   label = "Select Satisfaction Type",
+                                   choices = levels(satisfaction_per_brand$type),
+                                   options = list(maxItems = 3)),
+                    status = "primary")
+                ),
+              fluidRow(
+                box("Overall customer satisfaction", plotlyOutput("overallCustomerSat"),
+                    status = "primary"),
+                box("Detailed customer satisfaction", plotlyOutput("detailedCustomerSat"),
+                    status = "primary"))
+              )
+            )
     )
 )
 # Define UI for application
@@ -345,7 +368,35 @@ server <- function(input, output) {
     )
   })
   
-}
+#TAB 4:Customer satisfaction---------------------------------------------------------------------------------------------------------------
+
+  output$overallCustomerSat <- renderPlotly({
+    ggplotly(
+      customerSatisfactionBenchark %>%
+        filter(brand %in% input$selectBrand) %>%
+        ggplot()+
+        geom_line(aes(year, satisfactionScore, color = brand), size = 1.5)+
+        scale_color_manual(values = c("#E7222E","#81C4FF","#16588E"))+
+        ylim(50,100)
+      )
+    })
+  
+  output$detailedCustomerSat <- renderPlotly({
+    ggplotly(
+      satisfaction_per_brand%>%
+        filter(Brand %in% input$selectBrand)%>%
+        filter(type %in% input$selectSatisfactionType)%>%
+        ggplot()+
+        geom_col(aes(x = "", y = score, fill = Brand), position = "dodge")+
+        scale_fill_manual(values = c("#81C4FF","#16588E", "#E7222E"))+
+        theme(axis.title.x = element_blank())+
+        facet_wrap(~type)
+    )
+  })
+  
+  
+  
+  }
 
 # Run the application 
 shinyApp(ui = ui, server = server)

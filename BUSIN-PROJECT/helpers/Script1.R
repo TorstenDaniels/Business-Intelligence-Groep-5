@@ -1,4 +1,4 @@
-satisfaction_per_brand <- read.csv("data/satisfaction_per_brand.csv")
+satisfaction_per_brand <- read.csv2("data/satisfaction_per_brand.csv")
 customerSatisfactionBenchark <- read.csv2("data/customerSatisfactionBenchmark.csv")
 cars_by_fuel_type <- read.csv2("data/cars_by_fuel_type.csv")
 new_cars_by_fuel_type <- read.csv2("data/new_cars_by_fuel_type.csv")
