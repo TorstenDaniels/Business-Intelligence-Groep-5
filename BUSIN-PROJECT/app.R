@@ -136,7 +136,7 @@ body <- dashboardBody(
               fluidRow(
                 box(selectizeInput(inputId = "selectBrand",
                               label = "Select Brands",
-                              choices = levels(customerSatisfactionBenchark$brand),
+                              choices = levels(as.factor(customerSatisfactionBenchark$brand)),
                               selected = "BMW",
                               options = list(maxItems = 3),
                               ),
@@ -144,7 +144,7 @@ body <- dashboardBody(
                   ),
                 box(selectizeInput(inputId = "selectSatisfactionType",
                                    label = "Select Satisfaction Type",
-                                   choices = levels(satisfaction_per_brand$type),
+                                   choices = levels(as.factor(satisfaction_per_brand$type)),
                                    options = list(maxItems = 3)),
                     status = "primary")
                 ),
@@ -388,7 +388,7 @@ server <- function(input, output) {
         filter(type %in% input$selectSatisfactionType)%>%
         ggplot()+
         geom_col(aes(x = "", y = score, fill = Brand), position = "dodge")+
-        scale_fill_manual(values = c("#81C4FF","#16588E", "#E7222E"))+
+        scale_fill_manual(values = c("#E7222E","#81C4FF","#16588E"))+
         theme(axis.title.x = element_blank())+
         facet_wrap(~type)
     )
