@@ -241,16 +241,18 @@ server <- function(input, output) {
   
   output$sales_by_segment <- renderPlotly({
     ggplotly(
-    full_segment_sales %>%
-      filter(str_detect(model,"BMW")) %>%
-      filter(year == 2020)%>%
-      group_by(type) %>%
-      summarise(Sales_BMW = sum(sales)) %>%
-      mutate(type = fct_reorder(type, Sales_BMW))%>%
-      ggplot(aes(type, Sales_BMW)) +
-      geom_col() + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
-      xlab("Segment")+
-      ylab("Sales")
+      full_segment_sales %>%
+        spread(year, sales) %>%
+        filter(str_detect(model,"BMW")) %>%
+        group_by(type) %>%
+        summarise(Sales_BMW_2018 = sum(`2018`), Sales_BMW_2019 = sum(`2019`), Sales_BMW_2020 = sum(`2020`)) %>%
+        mutate(type = fct_reorder(type, Sales_BMW_2020))%>%
+        ggplot() +
+        geom_col(aes(type, Sales_BMW_2020), fill = "#E7222E") +
+        geom_col(aes(type, Sales_BMW_2019), fill = NA, colour = "#81C4FF")+
+        theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+        xlab("Type")+
+        ylab("Sales")
     )
   })
   
