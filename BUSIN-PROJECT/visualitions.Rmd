@@ -201,6 +201,38 @@ annual_sales_bmw %>%
 write.csv(annual_sales_bmw, "data/annualSalesY90-19.csv", row.names = F)
 ```
 
+```{r}
+market_growth <- full_segment_sales %>%
+  filter(year == 2019 | year == 2018) %>%
+  group_by(type, year) %>%
+  summarise(total_sales = sum(sales)) %>%
+  spread(year, total_sales) %>%
+  summarise(market_growth = round(((`2019`-`2018`)/`2018`)*100,2))
 
+tot_sales_segment <- full_segment_sales %>%
+  filter(year == 2019) %>%
+  group_by(type) %>%
+  summarise(total_sales = sum(sales))
+
+bmw_sales_segment <- full_segment_sales %>%
+  filter(year == 2019) %>%
+  filter(str_detect(model, 'BMW')) %>%
+  summarise(model, sales, type)
+
+bcg_dataset <- left_join(bmw_sales_segment, tot_sales_segment)
+bcg_dataset <- left_join(bcg_dataset, market_growth) %>%
+  mutate(market_share = round((sales/total_sales)*100, 2))
+
+mean_market_share <- bcg_dataset %>% summarise(mean(market_share))
+mean_market_growth <- bcg_dataset %>% summarise(mean(market_growth))
+```
+
+```{r}
+bcg_dataset %>%
+  ggplot()+
+  geom_point(aes(market_share, market_growth, size = sales)) +
+  geom_hline(yintercept= 0, linetype="dashed", color = "red") +
+  geom_vline(xintercept= mean_market_share[1,1], linetype="dashed", color = "red")
+```
 
 

@@ -90,8 +90,14 @@ body <- dashboardBody(
                     status="primary")
                 ),
               fluidRow(
-                box(),
-                tabBox(title = "Model per segment", id = "2", height = 500,
+                tabBox(title = "BCG-matrix BMW models", id="3", height = 600,
+                       tabPanel("BCG-matrix", plotlyOutput("bcg_bmw")),
+                       tabPanel("Settings", checkboxInput(inputId = "outlier",
+                                                          label = "Show outliers",
+                                                          value = T))
+                       ),
+                
+                tabBox(title = "Model per segment", id = "2", height = 600,
                        tabPanel("Model sales", plotlyOutput("Model_per_segment"),status ="primary"),
                        tabPanel("Settings", selectInput(inputId = "SelectedSegment",
                                             label = "Select Segment",
@@ -325,6 +331,52 @@ server <- function(input, output) {
       add_trace(y=~DeductedSales, name ="Rest Of Market Sales", marker = list(color = "#81C4FF"))%>%
       layout(yaxis = list(title = 'Amount'), barmode = 'stack', legend=list(x=0.7, y=0.9))
   })
+  
+  
+  
+  output$bcg_bmw <- renderPlotly({
+    market_growth <- full_segment_sales %>%
+      filter(year == 2019 | year == 2018) %>%
+      group_by(type, year) %>%
+      summarise(total_sales = sum(sales)) %>%
+      spread(year, total_sales) %>%
+      summarise(market_growth = round(((`2019`-`2018`)/`2018`)*100,2))
+    
+    tot_sales_segment <- full_segment_sales %>%
+      filter(year == 2019) %>%
+      group_by(type) %>%
+      summarise(total_sales = sum(sales))
+    
+    bmw_sales_segment <- full_segment_sales %>%
+      filter(year == 2019) %>%
+      filter(str_detect(model, 'BMW')) %>%
+      summarise(model, sales, type)
+    
+    bcg_dataset <- left_join(bmw_sales_segment, tot_sales_segment)
+    bcg_dataset <- left_join(bcg_dataset, market_growth) %>%
+      mutate(market_share = round((sales/total_sales)*100, 2))
+    
+    if(!input$outlier){
+      bcg_dataset_filtered <- bcg_dataset %>% filter(type != "electric_vehicle")
+    }
+    else{
+      bcg_dataset_filtered <- bcg_dataset
+    }
+    
+    mean_market_share <- bcg_dataset_filtered %>% summarise(median(market_share))
+    mean_market_growth <- bcg_dataset_filtered %>% summarise(median(market_growth))
+    
+    
+    ggplotly(
+        bcg_dataset_filtered %>%
+          ggplot()+
+          geom_point(aes(market_share, market_growth, size = sales, text = paste('Model: ', model))) +
+          geom_hline(yintercept= mean_market_growth[1,1], linetype="dashed", color = "red") +
+          geom_vline(xintercept= mean_market_share[1,1], linetype="dashed", color = "red")
+        ,tooltip= c("text", "x", "y", "size")
+        )
+  })
+  
   
   output$Model_per_segment <- renderPlotly({ ggplotly(
       full_segment_sales%>%
