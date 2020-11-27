@@ -1,0 +1,897 @@
+model,sales,year,type
+Volkswagen Golf,445303,2018,compact_car
+Ford Focus,199197,2018,compact_car
+Skoda Octavia,216676,2018,compact_car
+Mercedes-Benz A-Class,153882,2018,compact_car
+Peugeot 308,153651,2018,compact_car
+Opel/Vauxhall Astra,158674,2018,compact_car
+Seat Leon,139470,2018,compact_car
+Toyota Corolla,15041,2018,compact_car
+Renault Megane,138077,2018,compact_car
+Audi A3 / S3 / RS3,142414,2018,compact_car
+BMW 1-series,127681,2018,compact_car
+Kia Ceed,71848,2018,compact_car
+Fiat Tipo,102341,2018,compact_car
+Hyundai i30,79497,2018,compact_car
+Mercedes-Benz CLA,58522,2018,compact_car
+Volvo V40,56545,2018,compact_car
+Skoda Scala,0,2018,compact_car
+Honda Civic,43256,2018,compact_car
+Mazda3,38514,2018,compact_car
+Hyundai Ioniq,31777,2018,compact_car
+Nissan Leaf,38740,2018,compact_car
+Skoda Rapid,60906,2018,compact_car
+BMW 2-series Coupe & Convertible,35269,2018,compact_car
+Mini Clubman,25953,2018,compact_car
+Toyota Auris,111912,2018,compact_car
+Alfa Romeo Giulietta,26632,2018,compact_car
+Toyota Prius,12253,2018,compact_car
+Citroën C-Elysee,11737,2018,compact_car
+Lexus CT,8783,2018,compact_car
+Opel Ampera-e,2731,2018,compact_car
+Hyundai Elantra,1942,2018,compact_car
+Lada Vesta,1256,2018,compact_car
+Subaru Impreza,2189,2018,compact_car
+Peugeot 301,2151,2018,compact_car
+Infiniti Q30,3062,2018,compact_car
+Seat Toledo,5820,2018,compact_car
+Nissan Pulsar,16161,2018,compact_car
+Volkswagen Beetle,13394,2018,compact_car
+DS4,6012,2018,compact_car
+Citroën C4,14926,2018,compact_car
+Volkswagen Jetta,4190,2018,compact_car
+Mitsubishi Lancer,676,2018,compact_car
+Volkswagen Scirocco,958,2018,compact_car
+Volkswagen Golf,410779,2019,compact_car
+Ford Focus,224401,2019,compact_car
+Skoda Octavia,218439,2019,compact_car
+Mercedes-Benz A-Class,198926,2019,compact_car
+Peugeot 308,141060,2019,compact_car
+Opel/Vauxhall Astra,136638,2019,compact_car
+Seat Leon,136622,2019,compact_car
+Toyota Corolla,133597,2019,compact_car
+Renault Megane,129222,2019,compact_car
+Audi A3 / S3 / RS3,124422,2019,compact_car
+BMW 1-series,112068,2019,compact_car
+Kia Ceed,100676,2019,compact_car
+Fiat Tipo,84789,2019,compact_car
+Hyundai i30,75739,2019,compact_car
+Mercedes-Benz CLA,61958,2019,compact_car
+Volvo V40,38795,2019,compact_car
+Skoda Scala,38062,2019,compact_car
+Honda Civic,37486,2019,compact_car
+Mazda3,34874,2019,compact_car
+Hyundai Ioniq,31978,2019,compact_car
+Nissan Leaf,31792,2019,compact_car
+Skoda Rapid,28110,2019,compact_car
+BMW 2-series Coupe & Convertible,26867,2019,compact_car
+Mini Clubman,23933,2019,compact_car
+Toyota Auris,23643,2019,compact_car
+Alfa Romeo Giulietta,15690,2019,compact_car
+Toyota Prius,7455,2019,compact_car
+Citroën C-Elysee,6375,2019,compact_car
+Lexus CT,5295,2019,compact_car
+Opel Ampera-e,2510,2019,compact_car
+Hyundai Elantra,1779,2019,compact_car
+Lada Vesta,1621,2019,compact_car
+Subaru Impreza,1464,2019,compact_car
+Peugeot 301,1406,2019,compact_car
+Infiniti Q30,1380,2019,compact_car
+Seat Toledo,1281,2019,compact_car
+Nissan Pulsar,560,2019,compact_car
+Volkswagen Beetle,383,2019,compact_car
+DS4,192,2019,compact_car
+Citroën C4,129,2019,compact_car
+Volkswagen Jetta,84,2019,compact_car
+Mitsubishi Lancer,22,2019,compact_car
+Volkswagen Scirocco,3,2019,compact_car
+Volkswagen Golf,121166,2020,compact_car
+Ford Focus,83417,2020,compact_car
+Skoda Octavia,75944,2020,compact_car
+Mercedes-Benz A-Class,63177,2020,compact_car
+Peugeot 308,41124,2020,compact_car
+Opel/Vauxhall Astra,33628,2020,compact_car
+Seat Leon,46117,2020,compact_car
+Toyota Corolla,61200,2020,compact_car
+Renault Megane,31638,2020,compact_car
+Audi A3 / S3 / RS3,37717,2020,compact_car
+BMW 1-series,44773,2020,compact_car
+Kia Ceed,31219,2020,compact_car
+Fiat Tipo,24305,2020,compact_car
+Hyundai i30,22223,2020,compact_car
+Mercedes-Benz CLA,31686,2020,compact_car
+Volvo V40,1588,2020,compact_car
+Skoda Scala,24652,2020,compact_car
+Honda Civic,8146,2020,compact_car
+Mazda3,12129,2020,compact_car
+Hyundai Ioniq,11095,2020,compact_car
+Nissan Leaf,12790,2020,compact_car
+Skoda Rapid,297,2020,compact_car
+BMW 2-series Coupe & Convertible,9745,2020,compact_car
+Mini Clubman,7427,2020,compact_car
+Toyota Auris,66,2020,compact_car
+Alfa Romeo Giulietta,4587,2020,compact_car
+Toyota Prius,2116,2020,compact_car
+Citroën C-Elysee,1396,2020,compact_car
+Lexus CT,1733,2020,compact_car
+Opel Ampera-e,2482,2020,compact_car
+Hyundai Elantra,750,2020,compact_car
+Lada Vesta,292,2020,compact_car
+Subaru Impreza,193,2020,compact_car
+Peugeot 301,247,2020,compact_car
+Infiniti Q30,216,2020,compact_car
+Seat Toledo,5,2020,compact_car
+Nissan Pulsar,2,2020,compact_car
+Volkswagen Beetle,5,2020,compact_car
+DS4,1,2020,compact_car
+Citroën C4,#N/A,2020,compact_car
+Volkswagen Jetta,7,2020,compact_car
+Mitsubishi Lancer,#N/A,2020,compact_car
+Volkswagen Scirocco,#N/A,2020,compact_car
+Tesla Model 3,0,2018,electric_vehicle
+Renault Zoe,37782,2018,electric_vehicle
+Nissan Leaf,38740,2018,electric_vehicle
+Volkswagen e-Golf,21111,2018,electric_vehicle
+BMW i3 (est.),18189,2018,electric_vehicle
+Hyundai Kona EV,3563,2018,electric_vehicle
+Audi e-tron,0,2018,electric_vehicle
+Tesla Model 3,95168,2019,electric_vehicle
+Renault Zoe,45129,2019,electric_vehicle
+Nissan Leaf,31792,2019,electric_vehicle
+Volkswagen e-Golf,28710,2019,electric_vehicle
+BMW i3 (est.),23882,2019,electric_vehicle
+Hyundai Kona EV,21790,2019,electric_vehicle
+Audi e-tron,18382,2019,electric_vehicle
+Tesla Model 3,32524,2020,electric_vehicle
+Renault Zoe,36663,2020,electric_vehicle
+Nissan Leaf,12790,2020,electric_vehicle
+Volkswagen e-Golf,17639,2020,electric_vehicle
+BMW i3 (est.),7629,2020,electric_vehicle
+Hyundai Kona EV,10004,2020,electric_vehicle
+Audi e-tron,12806,2020,electric_vehicle
+Peugeot e-208,13266,2020,electric_vehicle
+Kia Niro,8495,2020,electric_vehicle
+Bentley Continental GT / GTC,1402,2018,exotic_sport_car
+Ferrari 488 GTB,1610,2018,exotic_sport_car
+Aston Martin DB11,1068,2018,exotic_sport_car
+Ferrari 812 Superfast,534,2018,exotic_sport_car
+Lamborghini Huracan,798,2018,exotic_sport_car
+Lamborghini Aventador,528,2018,exotic_sport_car
+Aston Martin DBS Superleggera,52,2018,exotic_sport_car
+Ferrari GTC4Lusso,486,2018,exotic_sport_car
+Rolls Royce Dawn,194,2018,exotic_sport_car
+Rolls Royce Wraith,157,2018,exotic_sport_car
+Aston Martin Vanquish,290,2018,exotic_sport_car
+Bentley Continental GT / GTC,2142,2019,exotic_sport_car
+Ferrari 488 GTB,1340,2019,exotic_sport_car
+Aston Martin DB11,855,2019,exotic_sport_car
+Ferrari 812 Superfast,814,2019,exotic_sport_car
+Lamborghini Huracan,607,2019,exotic_sport_car
+Lamborghini Aventador,539,2019,exotic_sport_car
+Aston Martin DBS Superleggera,488,2019,exotic_sport_car
+Ferrari GTC4Lusso,310,2019,exotic_sport_car
+Rolls Royce Dawn,120,2019,exotic_sport_car
+Rolls Royce Wraith,102,2019,exotic_sport_car
+Aston Martin Vanquish,51,2019,exotic_sport_car
+Bentley Continental GT / GTC,779,2020,exotic_sport_car
+Ferrari 488 GTB,691,2020,exotic_sport_car
+Aston Martin DB11,279,2020,exotic_sport_car
+Ferrari 812 Superfast,438,2020,exotic_sport_car
+Lamborghini Huracan,243,2020,exotic_sport_car
+Lamborghini Aventador,193,2020,exotic_sport_car
+Aston Martin DBS Superleggera,202,2020,exotic_sport_car
+Ferrari GTC4Lusso,81,2020,exotic_sport_car
+Rolls Royce Dawn,47,2020,exotic_sport_car
+Rolls Royce Wraith,29,2020,exotic_sport_car
+Aston Martin Vanquish,0,2020,exotic_sport_car
+Mercedes-Benz E-Class,117906,2018,large_car
+BMW 5-series,108658,2018,large_car
+Audi A6 / S6 / RS6 / Allroad,71258,2018,large_car
+Volvo S90/V90,56192,2018,large_car
+Tesla Model S,17386,2018,large_car
+Mercedes-Benz CLS,9113,2018,large_car
+Audi A7 / S7 / RS7,8935,2018,large_car
+Jaguar XF,10375,2018,large_car
+BMW 6-series,10703,2018,large_car
+Lexus ES,217,2018,large_car
+Maserati Ghibli,2534,2018,large_car
+Lexus GS,1066,2018,large_car
+Infiniti Q70,64,2018,large_car
+Mercedes-Benz E-Class,107453,2019,large_car
+BMW 5-series,89326,2019,large_car
+Audi A6 / S6 / RS6 / Allroad,83012,2019,large_car
+Volvo S90/V90,40315,2019,large_car
+Tesla Model S,8635,2019,large_car
+Mercedes-Benz CLS,8428,2019,large_car
+Audi A7 / S7 / RS7,8185,2019,large_car
+Jaguar XF,5935,2019,large_car
+BMW 6-series,5362,2019,large_car
+Lexus ES,3764,2019,large_car
+Maserati Ghibli,1723,2019,large_car
+Lexus GS,163,2019,large_car
+Infiniti Q70,21,2019,large_car
+Mercedes-Benz E-Class,30039,2020,large_car
+BMW 5-series,27259,2020,large_car
+Audi A6 / S6 / RS6 / Allroad,25413,2020,large_car
+Volvo S90/V90,12039,2020,large_car
+Tesla Model S,2461,2020,large_car
+Mercedes-Benz CLS,1896,2020,large_car
+Audi A7 / S7 / RS7,2529,2020,large_car
+Jaguar XF,1225,2020,large_car
+BMW 6-series,1041,2020,large_car
+Lexus ES,1754,2020,large_car
+Maserati Ghibli,365,2020,large_car
+Lexus GS,1,2020,large_car
+Infiniti Q70,4,2020,large_car
+Seat Alhambra,22134,2018,largeMPV
+Ford S-Max,23708,2018,largeMPV
+Volkswagen Sharan,20615,2018,largeMPV
+Ford Galaxy,11838,2018,largeMPV
+Renault Espace,11892,2018,largeMPV
+SsangYong Rodius / Stavic,1504,2018,largeMPV
+Seat Alhambra,23840,2019,largeMPV
+Ford S-Max,22724,2019,largeMPV
+Volkswagen Sharan,22665,2019,largeMPV
+Ford Galaxy,12554,2019,largeMPV
+Renault Espace,9744,2019,largeMPV
+SsangYong Rodius / Stavic,532,2019,largeMPV
+Seat Alhambra,7272,2020,largeMPV
+Ford S-Max,5839,2020,largeMPV
+Volkswagen Sharan,5686,2020,largeMPV
+Ford Galaxy,3312,2020,largeMPV
+Renault Espace,1421,2020,largeMPV
+SsangYong Rodius / Stavic,4,2020,largeMPV
+BMW X5,30590,2018,largeSUV
+Volvo XC90,30356,2018,largeSUV
+Range Rover Sport,24732,2018,largeSUV
+Volkswagen Touareg,16002,2018,largeSUV
+Mercedes-Benz GLE,24886,2018,largeSUV
+Porsche Cayenne,13848,2018,largeSUV
+Audi e-Tron,0,2018,largeSUV
+Audi Q8,7927,2018,largeSUV
+Audi Q7,23213,2018,largeSUV
+Range Rover,12160,2018,largeSUV
+Land Rover Discovery,13120,2018,largeSUV
+Kia Sorento,10017,2018,largeSUV
+Hyundai Santa Fe,8591,2018,largeSUV
+Mercedes-Benz G-Class,6071,2018,largeSUV
+Ford Edge,9883,2018,largeSUV
+Tesla Model X,12108,2018,largeSUV
+Jeep Grand Cherokee,7963,2018,largeSUV
+Lexus RX,7193,2018,largeSUV
+Toyota Land Cruiser,6977,2018,largeSUV
+BMW X6,9445,2018,largeSUV
+BMW X7,0,2018,largeSUV
+Mercedes-Benz GLE Coupe,6081,2018,largeSUV
+Maserati Levante,4511,2018,largeSUV
+Mercedes-Benz GLS,3534,2018,largeSUV
+SsangYong Rexton,2372,2018,largeSUV
+Bentley Bentayga,1217,2018,largeSUV
+Lamborghini Urus,290,2018,largeSUV
+Mitsubishi Pajero Sport,359,2018,largeSUV
+Mitsubishi Pajero / Montero / Shogun,4417,2018,largeSUV
+Rolls Royce Cullinan,67,2018,largeSUV
+Infiniti QX70,288,2018,largeSUV
+BMW X5,44765,2019,largeSUV
+Volvo XC90,29252,2019,largeSUV
+Range Rover Sport,26291,2019,largeSUV
+Volkswagen Touareg,25565,2019,largeSUV
+Mercedes-Benz GLE,24453,2019,largeSUV
+Porsche Cayenne,20102,2019,largeSUV
+Audi e-Tron,18382,2019,largeSUV
+Audi Q8,17627,2019,largeSUV
+Audi Q7,16127,2019,largeSUV
+Range Rover,11705,2019,largeSUV
+Land Rover Discovery,9766,2019,largeSUV
+Kia Sorento,9703,2019,largeSUV
+Hyundai Santa Fe,8962,2019,largeSUV
+Mercedes-Benz G-Class,8682,2019,largeSUV
+Ford Edge,8616,2019,largeSUV
+Tesla Model X,7861,2019,largeSUV
+Jeep Grand Cherokee,7129,2019,largeSUV
+Lexus RX,6805,2019,largeSUV
+Toyota Land Cruiser,6359,2019,largeSUV
+BMW X6,4951,2019,largeSUV
+BMW X7,4643,2019,largeSUV
+Mercedes-Benz GLE Coupe,4535,2019,largeSUV
+Maserati Levante,3290,2019,largeSUV
+Mercedes-Benz GLS,2386,2019,largeSUV
+SsangYong Rexton,2315,2019,largeSUV
+Bentley Bentayga,991,2019,largeSUV
+Lamborghini Urus,967,2019,largeSUV
+Mitsubishi Pajero Sport,641,2019,largeSUV
+Mitsubishi Pajero / Montero / Shogun,608,2019,largeSUV
+Rolls Royce Cullinan,406,2019,largeSUV
+Infiniti QX70,23,2019,largeSUV
+BMW X5,17224,2020,largeSUV
+Volvo XC90,11292,2020,largeSUV
+Range Rover Sport,8614,2020,largeSUV
+Volkswagen Touareg,6807,2020,largeSUV
+Mercedes-Benz GLE,16988,2020,largeSUV
+Porsche Cayenne,8470,2020,largeSUV
+Audi e-Tron,12806,2020,largeSUV
+Audi Q8,5838,2020,largeSUV
+Audi Q7,7863,2020,largeSUV
+Range Rover,3834,2020,largeSUV
+Land Rover Discovery,3250,2020,largeSUV
+Kia Sorento,2101,2020,largeSUV
+Hyundai Santa Fe,3261,2020,largeSUV
+Mercedes-Benz G-Class,3273,2020,largeSUV
+Ford Edge,1774,2020,largeSUV
+Tesla Model X,2291,2020,largeSUV
+Jeep Grand Cherokee,2015,2020,largeSUV
+Lexus RX,2647,2020,largeSUV
+Toyota Land Cruiser,2332,2020,largeSUV
+BMW X6,4413,2020,largeSUV
+BMW X7,2527,2020,largeSUV
+Mercedes-Benz GLE Coupe,993,2020,largeSUV
+Maserati Levante,881,2020,largeSUV
+Mercedes-Benz GLS,2395,2020,largeSUV
+SsangYong Rexton,176,2020,largeSUV
+Bentley Bentayga,371,2020,largeSUV
+Lamborghini Urus,509,2020,largeSUV
+Mitsubishi Pajero Sport,50,2020,largeSUV
+Mitsubishi Pajero / Montero / Shogun,73,2020,largeSUV
+Rolls Royce Cullinan,147,2020,largeSUV
+Infiniti QX70,0,2020,largeSUV
+Mercedes-Benz C-Class,150995,2018,midsized_car
+Volkswagen Passat,154074,2018,midsized_car
+BMW 3-series,106991,2018,midsized_car
+Audi A4 / S4 / RS4,112484,2018,midsized_car
+Tesla Model 3,0,2018,midsized_car
+Skoda Superb,74697,2018,midsized_car
+Volvo S60/V60,46945,2018,midsized_car
+Opel/Vauxhall Insignia,67424,2018,midsized_car
+Audi A5 / S5 / RS5,49799,2018,midsized_car
+Peugeot 508,13378,2018,midsized_car
+Ford Mondeo,49596,2018,midsized_car
+BMW 4-series,52248,2018,midsized_car
+Mazda6,20873,2018,midsized_car
+Volkswagen Arteon,21495,2018,midsized_car
+Renault Talisman,19784,2018,midsized_car
+Kia Optima,14404,2018,midsized_car
+Alfa Romeo Giulia,17075,2018,midsized_car
+Jaguar XE,10877,2018,midsized_car
+Toyota Camry,0,2018,midsized_car
+Subaru Legacy / Outback,7460,2018,midsized_car
+Kia Stinger,3820,2018,midsized_car
+Hyundai i40,9144,2018,midsized_car
+Lexus IS,5413,2018,midsized_car
+Subaru Levorg,1748,2018,midsized_car
+Lexus RC,1334,2018,midsized_car
+Toyota Avensis,17277,2018,midsized_car
+Infiniti Q50,1471,2018,midsized_car
+DS5,2720,2018,midsized_car
+Infiniti Q60,368,2018,midsized_car
+Citroën C5,151,2018,midsized_car
+Mercedes-Benz C-Class,143293,2019,midsized_car
+Volkswagen Passat,124650,2019,midsized_car
+BMW 3-series,124537,2019,midsized_car
+Audi A4 / S4 / RS4,102994,2019,midsized_car
+Tesla Model 3,95168,2019,midsized_car
+Skoda Superb,67488,2019,midsized_car
+Volvo S60/V60,64456,2019,midsized_car
+Opel/Vauxhall Insignia,45925,2019,midsized_car
+Audi A5 / S5 / RS5,41812,2019,midsized_car
+Peugeot 508,41329,2019,midsized_car
+Ford Mondeo,39555,2019,midsized_car
+BMW 4-series,35908,2019,midsized_car
+Mazda6,22048,2019,midsized_car
+Volkswagen Arteon,19048,2019,midsized_car
+Renault Talisman,16405,2019,midsized_car
+Kia Optima,12202,2019,midsized_car
+Alfa Romeo Giulia,10932,2019,midsized_car
+Jaguar XE,7978,2019,midsized_car
+Toyota Camry,7640,2019,midsized_car
+Subaru Legacy / Outback,7504,2019,midsized_car
+Kia Stinger,3600,2019,midsized_car
+Hyundai i40,3445,2019,midsized_car
+Lexus IS,3282,2019,midsized_car
+Subaru Levorg,1395,2019,midsized_car
+Lexus RC,1082,2019,midsized_car
+Toyota Avensis,897,2019,midsized_car
+Infiniti Q50,563,2019,midsized_car
+DS5,145,2019,midsized_car
+Infiniti Q60,83,2019,midsized_car
+Citroën C5,4,2019,midsized_car
+Mercedes-Benz C-Class,39151,2020,midsized_car
+Volkswagen Passat,49916,2020,midsized_car
+BMW 3-series,52140,2020,midsized_car
+Audi A4 / S4 / RS4,37152,2020,midsized_car
+Tesla Model 3,32524,2020,midsized_car
+Skoda Superb,25613,2020,midsized_car
+Volvo S60/V60,28984,2020,midsized_car
+Opel/Vauxhall Insignia,9920,2020,midsized_car
+Audi A5 / S5 / RS5,11937,2020,midsized_car
+Peugeot 508,14120,2020,midsized_car
+Ford Mondeo,10335,2020,midsized_car
+BMW 4-series,8531,2020,midsized_car
+Mazda6,3095,2020,midsized_car
+Volkswagen Arteon,7256,2020,midsized_car
+Renault Talisman,3471,2020,midsized_car
+Kia Optima,3691,2020,midsized_car
+Alfa Romeo Giulia,3236,2020,midsized_car
+Jaguar XE,2617,2020,midsized_car
+Toyota Camry,4314,2020,midsized_car
+Subaru Legacy / Outback,1389,2020,midsized_car
+Kia Stinger,750,2020,midsized_car
+Hyundai i40,227,2020,midsized_car
+Lexus IS,820,2020,midsized_car
+Subaru Levorg,237,2020,midsized_car
+Lexus RC,299,2020,midsized_car
+Toyota Avensis,0,2020,midsized_car
+Infiniti Q50,70,2020,midsized_car
+DS5,0,2020,midsized_car
+Infiniti Q60,1,2020,midsized_car
+Citroën C5,0,2020,midsized_car
+Toyota RAV4,68779,2018,midsizedCrossover
+Skoda Kodiaq,63990,2018,midsizedCrossover
+Mercedes-Benz GLC,94634,2018,midsizedCrossover
+BMW X3,63481,2018,midsizedCrossover
+Volvo XC60,80000,2018,midsizedCrossover
+Peugeot 5008,78832,2018,midsizedCrossover
+Audi Q5,70852,2018,midsizedCrossover
+Mitsubishi Outlander,39242,2018,midsizedCrossover
+Volkswagen Tiguan Allspace (est.),37626,2018,midsizedCrossover
+Honda CR-V,28576,2018,midsizedCrossover
+Seat Tarraco,258,2018,midsizedCrossover
+Land Rover Discovery Sport,33802,2018,midsizedCrossover
+Alfa Romeo Stelvio,30099,2018,midsizedCrossover
+BMW X4,17943,2018,midsizedCrossover
+Mercedes-Benz GLC Coupe,30509,2018,midsizedCrossover
+Nissan X-Trail,48133,2018,midsizedCrossover
+Porsche Macan,19321,2018,midsizedCrossover
+Range Rover Velar,26875,2018,midsizedCrossover
+Jaguar F-Pace,23520,2018,midsizedCrossover
+Lexus NX,20683,2018,midsizedCrossover
+Renault Koleos,18999,2018,midsizedCrossover
+Jaguar I-Pace,6490,2018,midsizedCrossover
+Subaru Forester,10041,2018,midsizedCrossover
+Jeep Cherokee,3812,2018,midsizedCrossover
+Mercedes-Benz EQC,0,2018,midsizedCrossover
+Hyundai Nexo,92,2018,midsizedCrossover
+Mahindra XUV500,322,2018,midsizedCrossover
+Toyota RAV4,91800,2019,midsizedCrossover
+Skoda Kodiaq,88516,2019,midsizedCrossover
+Mercedes-Benz GLC,82367,2019,midsizedCrossover
+BMW X3,81465,2019,midsizedCrossover
+Volvo XC60,80843,2019,midsizedCrossover
+Peugeot 5008,76104,2019,midsizedCrossover
+Audi Q5,63915,2019,midsizedCrossover
+Mitsubishi Outlander,47381,2019,midsizedCrossover
+Volkswagen Tiguan Allspace (est.),39714,2019,midsizedCrossover
+Honda CR-V,32929,2019,midsizedCrossover
+Seat Tarraco,29615,2019,midsizedCrossover
+Land Rover Discovery Sport,27989,2019,midsizedCrossover
+Alfa Romeo Stelvio,26866,2019,midsizedCrossover
+BMW X4,26434,2019,midsizedCrossover
+Mercedes-Benz GLC Coupe,26728,2019,midsizedCrossover
+Nissan X-Trail,25444,2019,midsizedCrossover
+Porsche Macan,24469,2019,midsizedCrossover
+Range Rover Velar,22770,2019,midsizedCrossover
+Jaguar F-Pace,18884,2019,midsizedCrossover
+Lexus NX,17545,2019,midsizedCrossover
+Renault Koleos,12371,2019,midsizedCrossover
+Jaguar I-Pace,12232,2019,midsizedCrossover
+Subaru Forester,10257,2019,midsizedCrossover
+Jeep Cherokee,4915,2019,midsizedCrossover
+Mercedes-Benz EQC,1413,2019,midsizedCrossover
+Hyundai Nexo,362,2019,midsizedCrossover
+Mahindra XUV500,211,2019,midsizedCrossover
+Toyota RAV4,37180,2020,midsizedCrossover
+Skoda Kodiaq,31199,2020,midsizedCrossover
+Mercedes-Benz GLC,40293,2020,midsizedCrossover
+BMW X3,29446,2020,midsizedCrossover
+Volvo XC60,31716,2020,midsizedCrossover
+Peugeot 5008,25291,2020,midsizedCrossover
+Audi Q5,20956,2020,midsizedCrossover
+Mitsubishi Outlander,17273,2020,midsizedCrossover
+Volkswagen Tiguan Allspace (est.),12672,2020,midsizedCrossover
+Honda CR-V,8414,2020,midsizedCrossover
+Seat Tarraco,10464,2020,midsizedCrossover
+Land Rover Discovery Sport,10135,2020,midsizedCrossover
+Alfa Romeo Stelvio,6357,2020,midsizedCrossover
+BMW X4,7985,2020,midsizedCrossover
+Mercedes-Benz GLC Coupe,0,2020,midsizedCrossover
+Nissan X-Trail,9619,2020,midsizedCrossover
+Porsche Macan,6925,2020,midsizedCrossover
+Range Rover Velar,6267,2020,midsizedCrossover
+Jaguar F-Pace,5549,2020,midsizedCrossover
+Lexus NX,5723,2020,midsizedCrossover
+Renault Koleos,3515,2020,midsizedCrossover
+Jaguar I-Pace,3627,2020,midsizedCrossover
+Subaru Forester,2709,2020,midsizedCrossover
+Jeep Cherokee,1124,2020,midsizedCrossover
+Mercedes-Benz EQC,3048,2020,midsizedCrossover
+Hyundai Nexo,209,2020,midsizedCrossover
+Mahindra XUV500,129,2020,midsizedCrossover
+Renault (Grand) Scenic,90680,2018,midsizedMPV
+Volkswagen Touran,85471,2018,midsizedMPV
+Mercedes-Benz B-Class,61022,2018,midsizedMPV
+BMW 2-series Active/Gran Tourer,68367,2018,midsizedMPV
+Citroën C4 (Grand) Picasso,74864,2018,midsizedMPV
+Volkswagen Sportsvan,53532,2018,midsizedMPV
+BMW i3,24252,2018,midsizedMPV
+Ford (Grand) C-Max,53937,2018,midsizedMPV
+Dacia Lodgy,29338,2018,midsizedMPV
+Toyota Prius+,9760,2018,midsizedMPV
+Opel/Vauxhall Zafira,29514,2018,midsizedMPV
+Kia Carens,19382,2018,midsizedMPV
+Toyota Verso,6633,2018,midsizedMPV
+Renault (Grand) Scenic,76045,2019,midsizedMPV
+Volkswagen Touran,75427,2019,midsizedMPV
+Mercedes-Benz B-Class,73997,2019,midsizedMPV
+BMW 2-series Active/Gran Tourer,55874,2019,midsizedMPV
+Citroën C4 (Grand) Picasso,49599,2019,midsizedMPV
+Volkswagen Sportsvan,42113,2019,midsizedMPV
+BMW i3,31604,2019,midsizedMPV
+Ford (Grand) C-Max,30218,2019,midsizedMPV
+Dacia Lodgy,28994,2019,midsizedMPV
+Toyota Prius+,13356,2019,midsizedMPV
+Opel/Vauxhall Zafira,11154,2019,midsizedMPV
+Kia Carens,844,2019,midsizedMPV
+Toyota Verso,45,2019,midsizedMPV
+Renault (Grand) Scenic,17610,2020,midsizedMPV
+Volkswagen Touran,22620,2020,midsizedMPV
+Mercedes-Benz B-Class,20970,2020,midsizedMPV
+BMW 2-series Active/Gran Tourer,13811,2020,midsizedMPV
+Citroën C4 (Grand) Picasso,13005,2020,midsizedMPV
+Volkswagen Sportsvan,13277,2020,midsizedMPV
+BMW i3,8471,2020,midsizedMPV
+Ford (Grand) C-Max,92,2020,midsizedMPV
+Dacia Lodgy,8550,2020,midsizedMPV
+Toyota Prius+,5416,2020,midsizedMPV
+Opel/Vauxhall Zafira,0,2020,midsizedMPV
+Kia Carens,0,2020,midsizedMPV
+Toyota Verso,0,2020,midsizedMPV
+Fiat Panda,168094,2018,mini_cars
+Fiat 500,188448,2018,mini_cars
+Toyota Aygo,92187,2018,mini_cars
+Renault Twingo,86221,2018,mini_cars
+Volkswagen Up!,97366,2018,mini_cars
+Hyundai i10,83102,2018,mini_cars
+Smart Fortwo,62361,2018,mini_cars
+Kia Picanto,74526,2018,mini_cars
+Peugeot 108,57257,2018,mini_cars
+Citroën C1,52020,2018,mini_cars
+Opel Karl / Vauxhall Viva,48292,2018,mini_cars
+Suzuki Ignis,43774,2018,mini_cars
+Mitsubishi Space Star / Mirage,36105,2018,mini_cars
+Smart Forfour,34975,2018,mini_cars
+Opel/Vauxhall Adam,41817,2018,mini_cars
+Skoda Citigo,36450,2018,mini_cars
+Suzuki Celerio,20836,2018,mini_cars
+Seat Mii,13031,2018,mini_cars
+Citroën C-Zero,1247,2018,mini_cars
+Peugeot iOn,1651,2018,mini_cars
+Mitsubishi i-MiEV,325,2018,mini_cars
+Citroën E-Mehari,321,2018,mini_cars
+Mitsubishi Attrage,62,2018,mini_cars
+Fiat Panda,184027,2019,mini_cars
+Fiat 500,175017,2019,mini_cars
+Toyota Aygo,99510,2019,mini_cars
+Renault Twingo,87383,2019,mini_cars
+Volkswagen Up!,80048,2019,mini_cars
+Hyundai i10,78791,2019,mini_cars
+Smart Fortwo,77766,2019,mini_cars
+Kia Picanto,74305,2019,mini_cars
+Peugeot 108,54230,2019,mini_cars
+Citroën C1,49900,2019,mini_cars
+Opel Karl / Vauxhall Viva,47504,2019,mini_cars
+Suzuki Ignis,38091,2019,mini_cars
+Mitsubishi Space Star / Mirage,38002,2019,mini_cars
+Smart Forfour,36736,2019,mini_cars
+Opel/Vauxhall Adam,31129,2019,mini_cars
+Skoda Citigo,30786,2019,mini_cars
+Suzuki Celerio,13275,2019,mini_cars
+Seat Mii,12641,2019,mini_cars
+Citroën C-Zero,980,2019,mini_cars
+Peugeot iOn,865,2019,mini_cars
+Mitsubishi i-MiEV,171,2019,mini_cars
+Citroën E-Mehari,154,2019,mini_cars
+Mitsubishi Attrage,88,2019,mini_cars
+Fiat Panda,59662,2020,mini_cars
+Fiat 500,57172,2020,mini_cars
+Toyota Aygo,36370,2020,mini_cars
+Renault Twingo,34049,2020,mini_cars
+Volkswagen Up!,23426,2020,mini_cars
+Hyundai i10,21279,2020,mini_cars
+Smart Fortwo,4614,2020,mini_cars
+Kia Picanto,22520,2020,mini_cars
+Peugeot 108,20688,2020,mini_cars
+Citroën C1,19259,2020,mini_cars
+Opel Karl / Vauxhall Viva,0,2020,mini_cars
+Suzuki Ignis,14554,2020,mini_cars
+Mitsubishi Space Star / Mirage,19058,2020,mini_cars
+Smart Forfour,1810,2020,mini_cars
+Opel/Vauxhall Adam,3,2020,mini_cars
+Skoda Citigo,5057,2020,mini_cars
+Suzuki Celerio,1507,2020,mini_cars
+Seat Mii,2693,2020,mini_cars
+Citroën C-Zero,1709,2020,mini_cars
+Peugeot iOn,192,2020,mini_cars
+Mitsubishi i-MiEV,25,2020,mini_cars
+Citroën E-Mehari,66,2020,mini_cars
+Mitsubishi Attrage,1,2020,mini_cars
+Volkswagen Transporter / Multivan,62363,2018,passenger_van
+Mercedes-Benz V-Class,29173,2018,passenger_van
+Mercedes-Benz Vito Tourer,20223,2018,passenger_van
+Ford Tourneo Custom,17200,2018,passenger_van
+Renault Trafic Passenger,15895,2018,passenger_van
+Peugeot Traveller,12262,2018,passenger_van
+Citroën Spacetourer,11423,2018,passenger_van
+Toyota Proace Verso,8892,2018,passenger_van
+Opel/Vauxhall Vivaro Tour,13717,2018,passenger_van
+Fiat Talento,5188,2018,passenger_van
+Hyundai H1 / Starex,1650,2018,passenger_van
+Nissan NV300,1552,2018,passenger_van
+Volkswagen Transporter / Multivan,65663,2019,passenger_van
+Mercedes-Benz V-Class,31342,2019,passenger_van
+Mercedes-Benz Vito Tourer,23436,2019,passenger_van
+Ford Tourneo Custom,14500,2019,passenger_van
+Renault Trafic Passenger,14389,2019,passenger_van
+Peugeot Traveller,11359,2019,passenger_van
+Citroën Spacetourer,11188,2019,passenger_van
+Toyota Proace Verso,10947,2019,passenger_van
+Opel/Vauxhall Vivaro Tour,7484,2019,passenger_van
+Fiat Talento,5235,2019,passenger_van
+Hyundai H1 / Starex,2433,2019,passenger_van
+Nissan NV300,990,2019,passenger_van
+Volkswagen Transporter / Multivan,20089,2020,passenger_van
+Mercedes-Benz V-Class,10842,2020,passenger_van
+Mercedes-Benz Vito Tourer,7776,2020,passenger_van
+Ford Tourneo Custom,6981,2020,passenger_van
+Renault Trafic Passenger,5659,2020,passenger_van
+Peugeot Traveller,3301,2020,passenger_van
+Citroën Spacetourer,2252,2020,passenger_van
+Toyota Proace Verso,3825,2020,passenger_van
+Opel/Vauxhall Vivaro Tour,489,2020,passenger_van
+Fiat Talento,793,2020,passenger_van
+Hyundai H1 / Starex,352,2020,passenger_van
+Nissan NV300,441,2020,passenger_van
+Renault Captur,211092,2018,smallCrossover
+Dacia Duster,180391,2018,smallCrossover
+Volkswagen T-Roc,139755,2018,smallCrossover
+Peugeot 2008,177486,2018,smallCrossover
+Ford Ecosport,110574,2018,smallCrossover
+Opel/Vauxhall Crossland X,95180,2018,smallCrossover
+Citroën C3 Aircross,110394,2018,smallCrossover
+Seat Arona,88730,2018,smallCrossover
+Hyundai Kona,65469,2018,smallCrossover
+Volkswagen T-Cross,0,2018,smallCrossover
+Fiat 500X,94960,2018,smallCrossover
+Suzuki Vitara,67801,2018,smallCrossover
+Opel/Vauxhall Mokka,120537,2018,smallCrossover
+Jeep Renegade,72457,2018,smallCrossover
+Audi Q2,78096,2018,smallCrossover
+Kia Stonic,54816,2018,smallCrossover
+Mazda CX-3,55548,2018,smallCrossover
+Kia Niro,44225,2018,smallCrossover
+Mini Countryman,55688,2018,smallCrossover
+Citroën C4 Cactus,57637,2018,smallCrossover
+Nissan Juke,68773,2018,smallCrossover
+Suzuki S-Cross,31577,2018,smallCrossover
+Mitsubishi ASX,30958,2018,smallCrossover
+Honda HR-V,25920,2018,smallCrossover
+DS3 Crossback,143,2018,smallCrossover
+Suzuki Jimny,10438,2018,smallCrossover
+Skoda Kamiq,0,2018,smallCrossover
+Kia Xceed,0,2018,smallCrossover
+MG ZS,5376,2018,smallCrossover
+SsangYong Tivoli,6182,2018,smallCrossover
+Kia Soul,11214,2018,smallCrossover
+Lada Niva,2687,2018,smallCrossover
+SsangYong XLV,1993,2018,smallCrossover
+Mahindra KUV100,732,2018,smallCrossover
+DR3,236,2018,smallCrossover
+DR4,498,2018,smallCrossover
+Haval H2,0,2018,smallCrossover
+Suzuki SX4,10,2018,smallCrossover
+Renault Captur,222540,2019,smallCrossover
+Dacia Duster,220167,2019,smallCrossover
+Volkswagen T-Roc,207976,2019,smallCrossover
+Peugeot 2008,164951,2019,smallCrossover
+Ford Ecosport,120376,2019,smallCrossover
+Opel/Vauxhall Crossland X,114721,2019,smallCrossover
+Citroën C3 Aircross,112089,2019,smallCrossover
+Seat Arona,110648,2019,smallCrossover
+Hyundai Kona,105030,2019,smallCrossover
+Volkswagen T-Cross,101229,2019,smallCrossover
+Fiat 500X,89361,2019,smallCrossover
+Suzuki Vitara,81860,2019,smallCrossover
+Opel/Vauxhall Mokka,79693,2019,smallCrossover
+Jeep Renegade,78842,2019,smallCrossover
+Audi Q2,78335,2019,smallCrossover
+Kia Stonic,64248,2019,smallCrossover
+Mazda CX-3,61962,2019,smallCrossover
+Kia Niro,57337,2019,smallCrossover
+Mini Countryman,56629,2019,smallCrossover
+Citroën C4 Cactus,52600,2019,smallCrossover
+Nissan Juke,47519,2019,smallCrossover
+Suzuki S-Cross,36154,2019,smallCrossover
+Mitsubishi ASX,30622,2019,smallCrossover
+Honda HR-V,21747,2019,smallCrossover
+DS3 Crossback,17828,2019,smallCrossover
+Suzuki Jimny,16605,2019,smallCrossover
+Skoda Kamiq,13240,2019,smallCrossover
+Kia Xceed,10599,2019,smallCrossover
+MG ZS,9872,2019,smallCrossover
+SsangYong Tivoli,5755,2019,smallCrossover
+Kia Soul,5122,2019,smallCrossover
+Lada Niva,2961,2019,smallCrossover
+SsangYong XLV,1723,2019,smallCrossover
+Mahindra KUV100,875,2019,smallCrossover
+DR3,736,2019,smallCrossover
+DR4,722,2019,smallCrossover
+Haval H2,110,2019,smallCrossover
+Suzuki SX4,14,2019,smallCrossover
+Renault Captur,71118,2020,smallCrossover
+Dacia Duster,57967,2020,smallCrossover
+Volkswagen T-Roc,69810,2020,smallCrossover
+Peugeot 2008,53873,2020,smallCrossover
+Ford Ecosport,28185,2020,smallCrossover
+Opel/Vauxhall Crossland X,42897,2020,smallCrossover
+Citroën C3 Aircross,36943,2020,smallCrossover
+Seat Arona,37852,2020,smallCrossover
+Hyundai Kona,45327,2020,smallCrossover
+Volkswagen T-Cross,51922,2020,smallCrossover
+Fiat 500X,24534,2020,smallCrossover
+Suzuki Vitara,16722,2020,smallCrossover
+Opel/Vauxhall Mokka,42897,2020,smallCrossover
+Jeep Renegade,22438,2020,smallCrossover
+Audi Q2,25995,2020,smallCrossover
+Kia Stonic,24102,2020,smallCrossover
+Mazda CX-3,127,2020,smallCrossover
+Kia Niro,27711,2020,smallCrossover
+Mini Countryman,18392,2020,smallCrossover
+Citroën C4 Cactus,14248,2020,smallCrossover
+Nissan Juke,22389,2020,smallCrossover
+Suzuki S-Cross,7806,2020,smallCrossover
+Mitsubishi ASX,9765,2020,smallCrossover
+Honda HR-V,6281,2020,smallCrossover
+DS3 Crossback,9143,2020,smallCrossover
+Suzuki Jimny,6937,2020,smallCrossover
+Skoda Kamiq,32285,2020,smallCrossover
+Kia Xceed,19967,2020,smallCrossover
+MG ZS,6684,2020,smallCrossover
+SsangYong Tivoli,1643,2020,smallCrossover
+Kia Soul,3670,2020,smallCrossover
+Lada Niva,862,2020,smallCrossover
+SsangYong XLV,1643,2020,smallCrossover
+Mahindra KUV100,430,2020,smallCrossover
+DR3,340,2020,smallCrossover
+DR4,357,2020,smallCrossover
+Haval H2,0,2020,smallCrossover
+Suzuki SX4,3,2020,smallCrossover
+Renault Clio,328860,2018,subcompact_car
+Volkswagen Polo,295403,2018,subcompact_car
+Ford Fiesta,270931,2018,subcompact_car
+Peugeot 208,230107,2018,subcompact_car
+Dacia Sandero,211680,2018,subcompact_car
+Opel/Vauxhall Corsa,216267,2018,subcompact_car
+Toyota Yaris,215968,2018,subcompact_car
+Citroën C3,208941,2018,subcompact_car
+Skoda Fabia,166522,2018,subcompact_car
+Mini,135307,2018,subcompact_car
+Seat Ibiza,102695,2018,subcompact_car
+Hyundai i20,91272,2018,subcompact_car
+Audi A1,72634,2018,subcompact_car
+Nissan Micra,77815,2018,subcompact_car
+Dacia Logan,62511,2018,subcompact_car
+Suzuki Swift,55654,2018,subcompact_car
+Lancia Ypsilon,48603,2018,subcompact_car
+Ford Ka+,51057,2018,subcompact_car
+Renault Zoe,37782,2018,subcompact_car
+Kia Rio,45654,2018,subcompact_car
+Mazda2,32426,2018,subcompact_car
+Fiat 500L,50224,2018,subcompact_car
+Honda Jazz,37894,2018,subcompact_car
+Hyundai ix20,22594,2018,subcompact_car
+Suzuki Baleno,15530,2018,subcompact_car
+Kia Venga,17328,2018,subcompact_car
+DS3,17810,2018,subcompact_car
+MG3,2692,2018,subcompact_car
+Alfa Romeo MiTo,9198,2018,subcompact_car
+Fiat Punto,29442,2018,subcompact_car
+Lada Granta,232,2018,subcompact_car
+Renault Clio,317645,2019,subcompact_car
+Volkswagen Polo,257804,2019,subcompact_car
+Ford Fiesta,228959,2019,subcompact_car
+Peugeot 208,224848,2019,subcompact_car
+Dacia Sandero,223186,2019,subcompact_car
+Opel/Vauxhall Corsa,221630,2019,subcompact_car
+Toyota Yaris,211216,2019,subcompact_car
+Citroën C3,210465,2019,subcompact_car
+Skoda Fabia,155136,2019,subcompact_car
+Mini,134594,2019,subcompact_car
+Seat Ibiza,99647,2019,subcompact_car
+Hyundai i20,84218,2019,subcompact_car
+Audi A1,77868,2019,subcompact_car
+Nissan Micra,65240,2019,subcompact_car
+Dacia Logan,61304,2019,subcompact_car
+Suzuki Swift,59875,2019,subcompact_car
+Lancia Ypsilon,58820,2019,subcompact_car
+Ford Ka+,51482,2019,subcompact_car
+Renault Zoe,45129,2019,subcompact_car
+Kia Rio,39721,2019,subcompact_car
+Mazda2,37346,2019,subcompact_car
+Fiat 500L,36495,2019,subcompact_car
+Honda Jazz,30730,2019,subcompact_car
+Hyundai ix20,16893,2019,subcompact_car
+Suzuki Baleno,14429,2019,subcompact_car
+Kia Venga,9602,2019,subcompact_car
+DS3,6492,2019,subcompact_car
+MG3,3820,2019,subcompact_car
+Alfa Romeo MiTo,669,2019,subcompact_car
+Fiat Punto,480,2019,subcompact_car
+Lada Granta,39,2019,subcompact_car
+Renault Clio,184431,2020,subcompact_car
+Volkswagen Polo,125567,2020,subcompact_car
+Ford Fiesta,117420,2020,subcompact_car
+Peugeot 208,141673,2020,subcompact_car
+Dacia Sandero,119599,2020,subcompact_car
+Opel/Vauxhall Corsa,142117,2020,subcompact_car
+Toyota Yaris,121903,2020,subcompact_car
+Citroën C3,107525,2020,subcompact_car
+Skoda Fabia,72971,2020,subcompact_car
+Mini,80296,2020,subcompact_car
+Seat Ibiza,47864,2020,subcompact_car
+Hyundai i20,48713,2020,subcompact_car
+Audi A1,42163,2020,subcompact_car
+Nissan Micra,30657,2020,subcompact_car
+Dacia Logan,28828,2020,subcompact_car
+Suzuki Swift,36724,2020,subcompact_car
+Lancia Ypsilon,29380,2020,subcompact_car
+Ford Ka+,62,2020,subcompact_car
+Renault Zoe,63350,2020,subcompact_car
+Kia Rio,25216,2020,subcompact_car
+Mazda2,12103,2020,subcompact_car
+Fiat 500L,15608,2020,subcompact_car
+Honda Jazz,18834,2020,subcompact_car
+Hyundai ix20,718,2020,subcompact_car
+Suzuki Baleno,2198,2020,subcompact_car
+Kia Venga,97,2020,subcompact_car
+DS3,12,2020,subcompact_car
+MG3,1984,2020,subcompact_car
+Alfa Romeo MiTo,0,2020,subcompact_car
+Fiat Punto,15,2020,subcompact_car
+Lada Granta,0,2020,subcompact_car
+Mercedes-Benz S-Class,14373,2018,upperclass_car
+BMW 7-series,9552,2018,upperclass_car
+Porsche Panamera,9454,2018,upperclass_car
+BMW 8-series,1299,2018,upperclass_car
+Audi A8 / S8,5791,2018,upperclass_car
+Jaguar XJ,1099,2018,upperclass_car
+Maserati Quattroporte,459,2018,upperclass_car
+Lexus LS,636,2018,upperclass_car
+Bentley Mulsanne,108,2018,upperclass_car
+Rolls Royce Phantom,171,2018,upperclass_car
+Rolls Royce Ghost,113,2018,upperclass_car
+Aston Martin Rapide,74,2018,upperclass_car
+Bentley Flying Spur,359,2018,upperclass_car
+Mercedes-Benz S-Class,10571,2019,upperclass_car
+BMW 7-series,9248,2019,upperclass_car
+Porsche Panamera,8436,2019,upperclass_car
+BMW 8-series,6640,2019,upperclass_car
+Audi A8 / S8,4477,2019,upperclass_car
+Jaguar XJ,724,2019,upperclass_car
+Maserati Quattroporte,251,2019,upperclass_car
+Lexus LS,248,2019,upperclass_car
+Bentley Mulsanne,112,2019,upperclass_car
+Rolls Royce Phantom,100,2019,upperclass_car
+Rolls Royce Ghost,92,2019,upperclass_car
+Aston Martin Rapide,86,2019,upperclass_car
+Bentley Flying Spur,54,2019,upperclass_car
+Mercedes-Benz S-Class,2695,2020,upperclass_car
+BMW 7-series,2818,2020,upperclass_car
+Porsche Panamera,1895,2020,upperclass_car
+BMW 8-series,3661,2020,upperclass_car
+Audi A8 / S8,1735,2020,upperclass_car
+Jaguar XJ,105,2020,upperclass_car
+Maserati Quattroporte,45,2020,upperclass_car
+Lexus LS,44,2020,upperclass_car
+Bentley Mulsanne,31,2020,upperclass_car
+Rolls Royce Phantom,21,2020,upperclass_car
+Rolls Royce Ghost,23,2020,upperclass_car
+Aston Martin Rapide,22,2020,upperclass_car
+Bentley Flying Spur,162,2020,upperclass_car

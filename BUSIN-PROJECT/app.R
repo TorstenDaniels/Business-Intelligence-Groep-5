@@ -99,8 +99,7 @@ body <- dashboardBody(
                                             ),
                                 selectInput(inputId = "SelectedYear2",
                                             label = "Select Year",
-                                            c("2019","2020"),
-                                            selected = "2020")
+                                            levels(as.factor(full_segment_sales$year)))
               
                                 )
                        )
@@ -238,8 +237,9 @@ server <- function(input, output) {
     ggplotly(
     full_segment_sales %>%
       filter(str_detect(model,"BMW")) %>%
+      filter(year == 2020)%>%
       group_by(type) %>%
-      summarise(Sales_BMW = sum(X2020.H1)) %>%
+      summarise(Sales_BMW = sum(sales)) %>%
       mutate(type = fct_reorder(type, Sales_BMW))%>%
       ggplot(aes(type, Sales_BMW)) +
       geom_col() + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
@@ -289,13 +289,15 @@ server <- function(input, output) {
   
   output$Sales_comparison <- renderPlotly({
     SummarySalesPerSegment <- full_segment_sales %>%
+      filter(year == 2020)%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       group_by(type) %>%
-      summarise(Sales = sum(X2020.H1))
+      summarise(Sales = sum(sales, na.rm = T))
     
     SummarySalesPerSegmentBMW <- full_segment_sales %>%
+      filter(year == 2020)%>%
       filter(str_detect(model,"BMW")) %>%
       group_by(type) %>%
-      summarise(Sales_BMW = sum(X2020.H1))
+      summarise(Sales_BMW = sum(sales, na.rm = T))
     
     MarketShareSegments <- SummarySalesPerSegmentBMW %>%
       right_join(SummarySalesPerSegment)
@@ -315,7 +317,7 @@ server <- function(input, output) {
                      filter(Sales_BMW==0)%>%
                      mutate(type = fct_reorder(type, -DeductedSales)),
                    All_ = MarketShareSegments%>%
-                     mutate(type = fct_reorder(type, -Sales_BMW)))
+                     mutate(type = fct_reorder(type, -DeductedSales)))
     
     
     filteredMarketShareSegments%>%
@@ -326,14 +328,11 @@ server <- function(input, output) {
   
   output$Model_per_segment <- renderPlotly({ ggplotly(
       full_segment_sales%>%
-        gather(Year, Sales, -model, -type)%>%
         filter(type==input$SelectedSegment)%>%
-        filter(if(input$SelectedYear2=="2019"){Year == "X2019.H1"} else {Year=="X2020.H1"})%>%
-        replace_with_na(replace=list(Sales=0))%>%
-        mutate(model = fct_reorder(model, -Sales))%>%
-        drop_na(Sales)%>%
+        filter(year== input$SelectedYear2)%>%
+        mutate(model = fct_reorder(model, -sales))%>%
         head(10)%>%
-        ggplot(aes(model, Sales, fill=factor(ifelse(str_detect(model,"BMW"),"BMW","Others"))))+
+        ggplot(aes(model, sales, fill=factor(ifelse(str_detect(model,"BMW"),"BMW","Others"))))+
         geom_col()+
         theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
         scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF"))+
