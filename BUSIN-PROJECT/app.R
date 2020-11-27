@@ -294,7 +294,7 @@ server <- function(input, output) {
       summarise(Sales = sum(sales, na.rm = T))
     
     SummarySalesPerSegmentBMW <- full_segment_sales %>%
-      filter(year == 2020)%>%
+      filter(year == 2020)%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       filter(str_detect(model,"BMW")) %>%
       group_by(type) %>%
       summarise(Sales_BMW = sum(sales, na.rm = T))
