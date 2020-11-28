@@ -2,7 +2,7 @@
 library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot2);library(plotly)
 library(lubridate);library(ggthemes);library(RColorBrewer);library(rworldmap);library(mapproj)
 library(readxl);library(GGally);library(shiny);library(shinydashboard); library(shinydashboardPlus);
-library(naniar)
+library(naniar);library(ggimage)
 
 #loading in data
 source("helpers/Script1.R")
@@ -91,7 +91,7 @@ body <- dashboardBody(
                 ),
               fluidRow(
                 tabBox(title = "BCG-matrix BMW models", id="3", height = 600,
-                       tabPanel("BCG-matrix", plotlyOutput("bcg_bmw")),
+                       tabPanel("BCG-matrix", plotOutput("bcg_bmw")),
                        tabPanel("Settings", checkboxInput(inputId = "outlier",
                                                           label = "Show outliers",
                                                           value = T))
@@ -336,7 +336,7 @@ server <- function(input, output) {
   
   
   
-  output$bcg_bmw <- renderPlotly({
+  output$bcg_bmw <- renderPlot({
     market_growth <- full_segment_sales %>%
       filter(year == 2019 | year == 2018) %>%
       group_by(type, year) %>%
@@ -356,7 +356,11 @@ server <- function(input, output) {
     
     bcg_dataset <- left_join(bmw_sales_segment, tot_sales_segment)
     bcg_dataset <- left_join(bcg_dataset, market_growth) %>%
-      mutate(market_share = round((sales/total_sales)*100, 2))
+      mutate(market_share = round((sales/total_sales)*100, 2))%>%
+      mutate(Image = c("pictures/1series.png", "pictures/2-seriesconvertible.png","pictures/i3.png","pictures/5series.png",
+                       "pictures/6series.png","pictures/x5.png","pictures/x6.png","pictures/x7.png","pictures/3series.png","pictures/4series.png",
+                       "pictures/x3.png","pictures/x4.png","pictures/2-active.png","pictures/7series.png","pictures/8series.png"))%>%
+      mutate(width=300, height=192)
     
     if(!input$outlier){
       bcg_dataset_filtered <- bcg_dataset %>% filter(type != "electric_vehicle")
@@ -369,14 +373,19 @@ server <- function(input, output) {
     mean_market_growth <- bcg_dataset_filtered %>% summarise(median(market_growth))
     
     
-    ggplotly(
+     # ggplot(
         bcg_dataset_filtered %>%
-          ggplot()+
-          geom_point(aes(market_share, market_growth, size = sales, text = paste('Model: ', model))) +
+          ggplot(aes(market_share, market_growth))+
+          geom_image(aes(image=Image,size=I(width/5000))) +
           geom_hline(yintercept= mean_market_growth[1,1], linetype="dashed", color = "red") +
           geom_vline(xintercept= mean_market_share[1,1], linetype="dashed", color = "red")
-        ,tooltip= c("text", "x", "y", "size")
-        )
+         # ,tooltip= c("text", "x", "y", "size")
+         # )
+        bcg_dataset_filtered %>%
+          ggplot(aes(market_share, market_growth))+
+          geom_image(aes(image=Image,size=I(height/2500)), by='height') +
+          geom_hline(yintercept= mean_market_growth[1,1], linetype="dashed", color = "red") +
+          geom_vline(xintercept= mean_market_share[1,1], linetype="dashed", color = "red")
   })
   
   
