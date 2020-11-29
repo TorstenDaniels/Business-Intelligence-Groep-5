@@ -116,7 +116,7 @@ body <- dashboardBody(
     tabItem(tabName = "tab3",
             fluidPage(
               fluidRow(
-                tabBox(title = "Popularity of fuel types", id = "4", height = 600,
+                tabBox(title = "Fueltype trends", id = "4", height = 600,
                        tabPanel("Fuel type map", plotlyOutput("fueltype_map"),status ="primary"),
                        tabPanel("Settings", 
                                 selectInput(inputId = "selectFuelType",
@@ -140,9 +140,19 @@ body <- dashboardBody(
                                             levels(as.factor(sales_by_model$Model)))
                                 ,status ="primary")
                        )
+                ),
+              fluidRow(
+                tabBox(title = "Segment trends", id = "5", height = 600,
+                       tabPanel("Distribution segments over years", plotlyOutput("distribution_segments"),status ="primary"),
+                       tabPanel("Settings")
+                       ),
+                tabBox(title = "Goolge trends", id = "6", height = 600,
+                       tabPanel("Keyword trends", plotlyOutput("google_trends"),status ="primary"),
+                       tabPanel("Settings")
+                       )
                 )
-            )
-    ),
+              )
+            ),
     #tab 4
     tabItem(tabName = "tab4",
             fluidPage(
@@ -165,7 +175,12 @@ body <- dashboardBody(
                 box("Overall customer satisfaction", plotlyOutput("overallCustomerSat"),
                     status = "primary"),
                 box("Detailed customer satisfaction", plotlyOutput("detailedCustomerSat"),
-                    status = "primary"))
+                    status = "primary")
+                ),
+              fluidRow(
+                box("Customer loyalty", plotlyOutput("customer_loyalty"),
+                    status = "primary")
+                )
               )
             )
     )
@@ -179,6 +194,7 @@ ui <- dashboardPagePlus(header, sidebar, body, rightsidebar)
 # Define server logic required to draw graphs
 server <- function(input, output) {
   
+
 #TAB 1: GENERAL------------------------------------------------------------------------------------------------------------------------  
   output$BMW_market_share <- renderValueBox ({
     comparison_sales_market%>%
@@ -474,6 +490,29 @@ server <- function(input, output) {
     )
   })
   
+  output$distribution_segments <- renderPlotly({
+    full_segment_sales %>%
+      group_by(year, type) %>%
+      summarise(Sales = sum(sales, na.rm = T)) %>%
+      spread(type, Sales) %>%
+      plot_ly(x = ~year, y = ~compact_car, type = 'bar', name = 'Compact cars' ) %>%
+      add_trace(y = ~electric_vehicle, name = "Electric cars") %>%
+      add_trace(y = ~exotic_sport_car, name = "Exotic sport cars") %>%
+      add_trace(y = ~large_car, name = "Large cars") %>%
+      add_trace(y = ~largeMPV, name = "Large MPVss") %>%
+      add_trace(y = ~largeSUV, name = "Large SUVs") %>%
+      add_trace(y = ~midsized_car, name = "Midsized cars") %>%
+      add_trace(y = ~midsizedCrossover, name = "Midsized crossovers") %>%
+      add_trace(y = ~midsizedMPV, name = "Midsized MPVs") %>%
+      add_trace(y = ~mini_cars, name = "Mini cars") %>%
+      add_trace(y = ~passenger_van, name = "Passenger vans") %>%
+      add_trace(y = ~smallCrossover, name = "Small crossovers") %>%
+      add_trace(y = ~subcompact_car, name = "Subcompact cars") %>%
+      add_trace(y = ~upperclass_car, name = "Upper class cars") %>%
+      layout(barmode =  'stack')
+    
+  })
+  
 #TAB 4:Customer satisfaction---------------------------------------------------------------------------------------------------------------
 
   output$overallCustomerSat <- renderPlotly({
@@ -500,7 +539,18 @@ server <- function(input, output) {
     )
   })
   
-  
+  output$customer_loyalty <- renderPlotly({
+    ggplotly(
+      brand_loyalty %>%
+        mutate(Brand = fct_reorder(Brand, Loyalty_perc)) %>%
+        ggplot() +
+        geom_col(aes(Brand, Loyalty_perc, fill=factor(ifelse(str_detect(Brand,"BMW"),"BMW","Others")))) +
+        scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF")) +
+        coord_flip() +
+        xlab("Brand") +
+        ylab("Percentage of loyal customers")
+    ) %>% layout(showlegend = F)
+  })
   
   }
 
