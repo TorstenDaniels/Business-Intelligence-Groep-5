@@ -90,14 +90,14 @@ body <- dashboardBody(
                     status="primary")
                 ),
               fluidRow(
-                tabBox(title = "BCG-matrix BMW models", id="3", height = 600,
+                tabBox(title = "BCG-matrix BMW models", id="2", height = 600,
                        tabPanel("BCG-matrix", plotOutput("bcg_bmw")),
                        tabPanel("Settings", checkboxInput(inputId = "outlier",
                                                           label = "Show outliers",
                                                           value = T))
                        ),
                 
-                tabBox(title = "Model per segment", id = "2", height = 600,
+                tabBox(title = "Model per segment", id = "3", height = 600,
                        tabPanel("Model sales", plotlyOutput("Model_per_segment"),status ="primary"),
                        tabPanel("Settings", selectInput(inputId = "SelectedSegment",
                                             label = "Select Segment",
@@ -116,25 +116,33 @@ body <- dashboardBody(
     tabItem(tabName = "tab3",
             fluidPage(
               fluidRow(
-                box(selectInput(inputId = "selectFuelType",
-                                label = "Select Fuel Type",
-                                levels(as.factor(colnames(cars_by_fuel_type[4:9]))),
-                                selected = "Diesel"),
-                    status = "primary"
-                ),
-                box(selectInput(inputId = "SelectedYear_fuel_type", 
-                                label = "Select year", 
-                                levels(as.factor(new_cars_by_fuel_type$Year)), 
-                                selected = "2018",
-                                ),
-                status = "primary"
-                )),
-              fluidRow(
-                box("Popularity of fuel types per country", plotlyOutput("fueltype_map", height = 600),
-                    status = "primary")
-              )
-              )
-            ),
+                tabBox(title = "Popularity of fuel types", id = "4", height = 600,
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map"),status ="primary"),
+                       tabPanel("Settings", 
+                                selectInput(inputId = "selectFuelType",
+                                            label = "Select Fuel Type",
+                                            levels(as.factor(colnames(cars_by_fuel_type[4:9]))),
+                                            selected = "Diesel"
+                                            ),
+                                selectInput(inputId = "SelectedYear_fuel_type",
+                                            label = "Select Year",
+                                            levels(as.factor(new_cars_by_fuel_type$Year)), 
+                                            selected = "2018"
+                                            )
+                                )
+                       ),
+                tabBox(title = "Sales trends", id = "4", height = 600,
+                       tabPanel("BMW Group Sales", plotlyOutput("bmw_group_sales"),status ="primary"),
+                       tabPanel("BMW Brand Sales", plotlyOutput("bmw_brand_sales"),status ="primary"),
+                       tabPanel("BMW Model Sales", plotlyOutput("bmw_model_sales"),
+                                selectInput(inputId = "selectModel",
+                                            label = "Select Model",
+                                            levels(as.factor(sales_by_model$Model)))
+                                ,status ="primary")
+                       )
+                )
+            )
+    ),
     #tab 4
     tabItem(tabName = "tab4",
             fluidPage(
@@ -425,6 +433,44 @@ server <- function(input, output) {
               axis.text.y = element_blank(), axis.ticks.x = element_blank(),
               axis.ticks.y = element_blank(), axis.title = element_blank(),
               plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))
+    )
+  })
+  
+  output$bmw_group_sales <- renderPlotly({
+    ggplotly(
+      sales_bmwgroup %>%
+        summarise(Year = X0, Sales = TotalYear) %>%
+        ggplot(aes(Year, Sales)) +
+        geom_line()+
+        geom_point() +
+        xlab("Year") +
+        ylab("Amount of sales")
+    )
+  })
+  
+  output$bmw_brand_sales <- renderPlotly({
+    ggplotly(
+      sales_bmw %>%
+        summarise(Year, Sales = TotalYear) %>%
+        ggplot(aes(Year, Sales)) +
+        geom_line()+
+        geom_point() +
+        xlab("Year") +
+        ylab("Amount of sales")
+    )
+  })
+  
+  output$bmw_model_sales <- renderPlotly({
+    ggplotly(
+      sales_by_model %>%
+        filter(Model == input$selectModel) %>%
+        group_by(year) %>%
+        summarise(Year = year, Sales = sum(Sales, na.rm = T)) %>%
+        ggplot(aes(Year, Sales)) + 
+        geom_line() + 
+        geom_point() +
+        xlab("Year") +
+        ylab("Amount of sales")
     )
   })
   
