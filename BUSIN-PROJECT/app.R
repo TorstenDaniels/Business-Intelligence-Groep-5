@@ -246,14 +246,16 @@ server <- function(input, output) {
         filter(str_detect(model,"BMW")) %>%
         group_by(type) %>%
         summarise(Sales_BMW_2018 = sum(`2018`), Sales_BMW_2019 = sum(`2019`), Sales_BMW_2020 = sum(`2020`)) %>%
+        mutate(hit_target = ifelse(Sales_BMW_2020 > Sales_BMW_2019, "Hit", "No hit")) %>%
         mutate(type = fct_reorder(type, Sales_BMW_2020))%>%
         ggplot() +
-        geom_col(aes(type, Sales_BMW_2020), fill = "#E7222E") +
+        geom_col(aes(type, Sales_BMW_2020, fill = hit_target)) +
+        scale_fill_manual(values = c("firebrick2", "forestgreen")) + #kleur is afhankelijk van wat de eerste voorkomt in data!!! iemand opls?
         geom_col(aes(type, Sales_BMW_2019), fill = NA, colour = "#81C4FF")+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
         xlab("Type")+
         ylab("Sales")
-    )
+    ) %>% layout(showlegend = F)
   })
   
   output$sales_by_model <- renderPlotly({
