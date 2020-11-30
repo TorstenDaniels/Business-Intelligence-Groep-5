@@ -2,7 +2,7 @@
 library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot2);library(plotly)
 library(lubridate);library(ggthemes);library(RColorBrewer);library(rworldmap);library(mapproj)
 library(readxl);library(GGally);library(shiny);library(shinydashboard); library(shinydashboardPlus);
-library(naniar);library(ggimage)
+library(naniar);library(ggimage); library(gghighlight)
 
 #loading in data
 source("helpers/Script1.R")
@@ -66,35 +66,33 @@ body <- dashboardBody(
     tabItem(tabName = "tab2",
             fluidPage(
               fluidRow(
-                box(selectInput(inputId = "SelectedYear", 
-                                label = "Select year", 
-                                c("2019","2018"), 
-                                selected = "2018",
-                                ),
-                    status = "primary"
-                    ),
-                box(radioButtons(inputId = "SelectedMarket", 
-                                 label = "Select market",
-                                 c("BMW active markets" = "BMW",
-                                   "BMW non-active markets" = "NoBMW",
-                                   "All" = "All_"),
-                                 inline = T),
-                    height =100,
-                    status = "primary"
-                    )
+                tabBox(title = "market_share_per_brand", height = 600,
+                       tabPanel("Market share per brand", plotlyOutput("msp_brand", height = 500)),
+                       tabPanel("Settings", selectInput(inputId = "SelectedYear", 
+                                                        label = "Select year", 
+                                                        c("2019","2018"), 
+                                                        selected = "2018")
+                                )
+                       ),
+                
+                tabBox(title = "Sales_comparison", height = 600,
+                       tabPanel("Sales comparison", plotlyOutput("Sales_comparison", height = 500)),
+                       tabPanel("settings", radioButtons(inputId = "SelectedMarket", 
+                                                         label = "Select market",
+                                                         c("BMW active markets" = "BMW",
+                                                           "BMW non-active markets" = "NoBMW",
+                                                           "All" = "All_"),
+                                                         inline = T)
+                                )
+                       )
                 ),
-              fluidRow(
-                box("Market share per brand", plotlyOutput("msp_brand", height = 600),
-                    status = "primary"),
-                box("Sales comparison", plotlyOutput("Sales_comparison", height = 600),
-                    status="primary")
-                ),
+              
               fluidRow(
                 tabBox(title = "BCG-matrix BMW models", id="2", height = 600,
                        tabPanel("BCG-matrix", plotOutput("bcg_bmw")),
                        tabPanel("Settings", checkboxInput(inputId = "outlier",
-                                                          label = "Show outliers",
-                                                          value = T))
+                                                          label = "Show electric vehicles",
+                                                          value = F))
                        ),
                 
                 tabBox(title = "Model per segment", id = "3", height = 600,
@@ -133,13 +131,16 @@ body <- dashboardBody(
                                 )
                        ),
                 tabBox(title = "Sales trends", id = "4", height = 600,
-                       tabPanel("BMW Group Sales", plotlyOutput("bmw_group_sales"),status ="primary"),
-                       tabPanel("BMW Brand Sales", plotlyOutput("bmw_brand_sales"),status ="primary"),
+                       tabPanel("BMW Group Sales", plotlyOutput("bmw_group_sales"),status = "primary"),
+                       tabPanel("BMW Brand Sales", plotlyOutput("bmw_brand_sales"),status = "primary"),
                        tabPanel("BMW Model Sales", plotlyOutput("bmw_model_sales"),
-                                selectInput(inputId = "selectModel",
+                                selectizeInput(inputId = "selectModel",
                                             label = "Select Model",
+                                            multiple = T,
+                                            selected = "BMW 1-series",
+                                            options = list(maxItems = 5 ),
                                             levels(as.factor(sales_by_model$Model)))
-                                ,status ="primary")
+                                ,status = "primary")
                        )
                 ),
               fluidRow(
@@ -147,7 +148,7 @@ body <- dashboardBody(
                        tabPanel("Distribution segments over years", plotlyOutput("distribution_segments"),status ="primary"),
                        tabPanel("Settings")
                        ),
-                tabBox(title = "Goolge trends", id = "6", height = 600,
+                tabBox(title = "Google trends", id = "6", height = 600,
                        tabPanel("Keyword trends", plotlyOutput("google_trends"),status ="primary"),
                        tabPanel("Settings")
                        )
@@ -160,7 +161,7 @@ body <- dashboardBody(
               fluidRow(
                 box(selectizeInput(inputId = "selectBrand",
                               label = "Select Brands",
-                              choices = levels(as.factor(customerSatisfactionBenchark$brand)),
+                              choices = intersect(satisfaction_per_brand$Brand, customerSatisfactionBenchark$brand),
                               selected = "BMW",
                               options = list(maxItems = 3),
                               ),
@@ -169,6 +170,7 @@ body <- dashboardBody(
                 box(selectizeInput(inputId = "selectSatisfactionType",
                                    label = "Select Satisfaction Type",
                                    choices = levels(as.factor(satisfaction_per_brand$type)),
+                                   selected = "Driving experience",
                                    options = list(maxItems = 3)),
                     status = "primary")
                 ),
@@ -234,7 +236,7 @@ server <- function(input, output) {
   
   output$total_sales <- renderValueBox({
     sales_bmw %>%
-      tail(2) -> latest_monthly_sales
+      filter(Year== c(year(Sys.Date()), year(Sys.Date()) - 1)) -> latest_monthly_sales
     c_month <- month(Sys.Date()) #month of the system used for selection in tables
     
     valueBox(latest_monthly_sales[2,c_month+1], #plus one needed to select right column
@@ -319,7 +321,7 @@ server <- function(input, output) {
       add_pie(hole = 0.4)%>%
       layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-             annotations=list(text=paste("BMW: ",round(BMW_value[1,1] / SumSales[1,1] * 100, 2), "%", sep=""), "showarrow"=F, font=list(size = 30, color = "black")))
+             annotations=list(text=paste("BMW: ",round(BMW_value[1,1] / SumSales[1,1] * 100, 2), "%", sep=""), "showarrow"=F, font=list(size = 25, color = "black")))
   })
   
   output$Sales_comparison <- renderPlotly({
@@ -465,26 +467,36 @@ server <- function(input, output) {
     )
   })
   
+
   output$bmw_brand_sales <- renderPlotly({
+    predictive_sales_bmw <- sales_bmw%>%
+      filter(Year == 2020 | Year == 2021 | Year == 2022 | Year == 2023)%>%
+      mutate(Sales = TotalYear)
+    
     ggplotly(
-      sales_bmw %>%
-        summarise(Year, Sales = TotalYear) %>%
+      sales_bmw%>%
+        mutate(Sales = TotalYear)%>%
+        select(Sales, Year)%>%
+        filter(Year != 2021 & Year != 2022 & Year != 2023)%>%
+        full_join(annual_sales_bmw, by = c("Year", "Sales"))%>%
         ggplot(aes(Year, Sales)) +
+        geom_point()+
         geom_line()+
-        geom_point() +
+        geom_point(data = predictive_sales_bmw, aes(Year, Sales), color = "#16588E") +
+        geom_line(data = predictive_sales_bmw, aes(Year, Sales), color = "#16588E") +
         xlab("Year") +
         ylab("Amount of sales")
-    )
+    ,tooltip = c("x", "y"))
   })
   
   output$bmw_model_sales <- renderPlotly({
     ggplotly(
       sales_by_model %>%
         filter(Model == input$selectModel) %>%
-        group_by(year) %>%
-        summarise(Year = year, Sales = sum(Sales, na.rm = T)) %>%
-        ggplot(aes(Year, Sales)) + 
-        geom_line() + 
+        group_by(year, Model) %>%
+        summarise(Sales = sum(Sales, na.rm = T)) %>%
+        ggplot(aes(year, Sales, color = Model)) +
+        geom_line() +
         geom_point() +
         xlab("Year") +
         ylab("Amount of sales")
@@ -536,7 +548,8 @@ server <- function(input, output) {
         geom_col(aes(x = "", y = score, fill = Brand), position = "dodge")+
         scale_fill_manual(values = c("#E7222E","#81C4FF","#16588E"))+
         theme(axis.title.x = element_blank())+
-        facet_wrap(~type)
+        facet_wrap(~type),
+      tooltip = c("y","fill")
     )
   })
   
@@ -548,8 +561,9 @@ server <- function(input, output) {
         geom_col(aes(Brand, Loyalty_perc, fill=factor(ifelse(str_detect(Brand,"BMW"),"BMW","Others")))) +
         scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF")) +
         coord_flip() +
-        xlab("Brand") +
-        ylab("Percentage of loyal customers")
+        xlab("") +
+        ylab("Percentage of loyal customers"),
+      tooltip = c("x","y")
     ) %>% layout(showlegend = F)
   })
   
