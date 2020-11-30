@@ -116,7 +116,7 @@ body <- dashboardBody(
             fluidPage(
               fluidRow(
                 tabBox(title = "Fueltype trends", id = "4", height = 600,
-                       tabPanel("Fuel type map", plotlyOutput("fueltype_map"),status ="primary"),
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 500),status ="primary"),
                        tabPanel("Settings", 
                                 selectInput(inputId = "selectFuelType",
                                             label = "Select Fuel Type",
@@ -131,9 +131,9 @@ body <- dashboardBody(
                                 )
                        ),
                 tabBox(title = "Sales trends", id = "4", height = 600,
-                       tabPanel("BMW Group Sales", plotlyOutput("bmw_group_sales"),status = "primary"),
-                       tabPanel("BMW Brand Sales", plotlyOutput("bmw_brand_sales"),status = "primary"),
-                       tabPanel("BMW Model Sales", plotlyOutput("bmw_model_sales"),
+                       tabPanel("BMW Group Sales", plotlyOutput("bmw_group_sales", height = 500),status = "primary"),
+                       tabPanel("BMW Brand Sales", plotlyOutput("bmw_brand_sales", height = 500),status = "primary"),
+                       tabPanel("BMW Model Sales", plotlyOutput("bmw_model_sales", height = 450),
                                 selectizeInput(inputId = "selectModel",
                                             label = "Select Model",
                                             multiple = T,
@@ -456,12 +456,17 @@ server <- function(input, output) {
   })
   
   output$bmw_group_sales <- renderPlotly({
+    predictive_sales_bmwgroup <- sales_annual_bmwgroup%>%
+      filter(Year == 2020 | Year == 2021 | Year == 2022 | Year == 2023)
+    
     ggplotly(
-      sales_bmwgroup %>%
-        summarise(Year = X0, Sales = TotalYear) %>%
+      sales_annual_bmwgroup %>%
+        filter(Year != 2021 & Year != 2022 & Year != 2023)%>%
         ggplot(aes(Year, Sales)) +
         geom_line()+
         geom_point() +
+        geom_point(data = predictive_sales_bmwgroup, aes(Year, Sales), color = "#16588E") +
+        geom_line(data = predictive_sales_bmwgroup, aes(Year, Sales), color = "#16588E") +
         xlab("Year") +
         ylab("Amount of sales")
     )
