@@ -101,6 +101,7 @@ body <- dashboardBody(
                        tabPanel("Model sales", plotlyOutput("Model_per_segment"),status ="primary"),
                        tabPanel("Settings", selectInput(inputId = "SelectedSegment",
                                             label = "Select Segment",
+                                            selected = "large_car",
                                             levels(as.factor(full_segment_sales$type))
                                             ),
                                 selectInput(inputId = "SelectedYear2",
