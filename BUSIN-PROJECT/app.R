@@ -66,7 +66,7 @@ body <- dashboardBody(
     tabItem(tabName = "tab2",
             fluidPage(
               fluidRow(
-                tabBox(title = "market_share_per_brand", height = 600,
+                tabBox(title = "Brand market shares", height = 600,
                        tabPanel("Market share per brand", plotlyOutput("msp_brand", height = 500)),
                        tabPanel("Settings", selectInput(inputId = "SelectedYear", 
                                                         label = "Select year", 
@@ -75,7 +75,7 @@ body <- dashboardBody(
                                 )
                        ),
                 
-                tabBox(title = "Sales_comparison", height = 600,
+                tabBox(title = "Sales comparison", height = 600,
                        tabPanel("Sales comparison", plotlyOutput("Sales_comparison", height = 500)),
                        tabPanel("settings", radioButtons(inputId = "SelectedMarket", 
                                                          label = "Select market",
@@ -95,7 +95,7 @@ body <- dashboardBody(
                                                           value = F))
                        ),
                 
-                tabBox(title = "Model per segment", id = "3", height = 600,
+                tabBox(title = "Model sales per segment", id = "3", height = 600,
                        tabPanel("Model sales", plotlyOutput("Model_per_segment"),status ="primary"),
                        tabPanel("Settings", selectInput(inputId = "SelectedSegment",
                                             label = "Select Segment",
