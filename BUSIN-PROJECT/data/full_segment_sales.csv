@@ -21,7 +21,7 @@ Mazda3;38514;2018;compact_car
 Hyundai Ioniq;31777;2018;compact_car
 Nissan Leaf;38740;2018;compact_car
 Skoda Rapid;60906;2018;compact_car
-BMW 2-series Coupe & Convertible;35269;2018;compact_car
+BMW 2-series Coupe;35269;2018;compact_car
 Mini Clubman;25953;2018;compact_car
 Toyota Auris;111912;2018;compact_car
 Alfa Romeo Giulietta;26632;2018;compact_car
@@ -64,7 +64,7 @@ Mazda3;34874;2019;compact_car
 Hyundai Ioniq;31978;2019;compact_car
 Nissan Leaf;31792;2019;compact_car
 Skoda Rapid;28110;2019;compact_car
-BMW 2-series Coupe & Convertible;26867;2019;compact_car
+BMW 2-series Coupe;26867;2019;compact_car
 Mini Clubman;23933;2019;compact_car
 Toyota Auris;23643;2019;compact_car
 Alfa Romeo Giulietta;15690;2019;compact_car
@@ -107,7 +107,7 @@ Mazda3;12129;2020;compact_car
 Hyundai Ioniq;11095;2020;compact_car
 Nissan Leaf;12790;2020;compact_car
 Skoda Rapid;297;2020;compact_car
-BMW 2-series Coupe & Convertible;9745;2020;compact_car
+BMW 2-series Coupe;9745;2020;compact_car
 Mini Clubman;7427;2020;compact_car
 Toyota Auris;66;2020;compact_car
 Alfa Romeo Giulietta;4587;2020;compact_car
@@ -508,7 +508,7 @@ Mahindra XUV500;129;2020;midsizedCrossover
 Renault (Grand) Scenic;90680;2018;midsizedMPV
 Volkswagen Touran;85471;2018;midsizedMPV
 Mercedes-Benz B-Class;61022;2018;midsizedMPV
-BMW 2-series Active/Gran Tourer;68367;2018;midsizedMPV
+BMW 2-series Tourer;68367;2018;midsizedMPV
 Citroën C4 (Grand) Picasso;74864;2018;midsizedMPV
 Volkswagen Sportsvan;53532;2018;midsizedMPV
 Ford (Grand) C-Max;53937;2018;midsizedMPV
@@ -520,7 +520,7 @@ Toyota Verso;6633;2018;midsizedMPV
 Renault (Grand) Scenic;76045;2019;midsizedMPV
 Volkswagen Touran;75427;2019;midsizedMPV
 Mercedes-Benz B-Class;73997;2019;midsizedMPV
-BMW 2-series Active/Gran Tourer;55874;2019;midsizedMPV
+BMW 2-series Tourer;55874;2019;midsizedMPV
 Citroën C4 (Grand) Picasso;49599;2019;midsizedMPV
 Volkswagen Sportsvan;42113;2019;midsizedMPV
 Ford (Grand) C-Max;30218;2019;midsizedMPV
@@ -532,7 +532,7 @@ Toyota Verso;45;2019;midsizedMPV
 Renault (Grand) Scenic;17610;2020;midsizedMPV
 Volkswagen Touran;22620;2020;midsizedMPV
 Mercedes-Benz B-Class;20970;2020;midsizedMPV
-BMW 2-series Active/Gran Tourer;13811;2020;midsizedMPV
+BMW 2-series Tourer;13811;2020;midsizedMPV
 Citroën C4 (Grand) Picasso;13005;2020;midsizedMPV
 Volkswagen Sportsvan;13277;2020;midsizedMPV
 Ford (Grand) C-Max;92;2020;midsizedMPV

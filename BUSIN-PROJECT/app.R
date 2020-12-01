@@ -89,14 +89,14 @@ body <- dashboardBody(
               
               fluidRow(
                 tabBox(title = "BCG-matrix BMW models", id="2", height = 600,
-                       tabPanel("BCG-matrix", plotOutput("bcg_bmw")),
+                       tabPanel("BCG-matrix", plotOutput("bcg_bmw", height = 450)),
                        tabPanel("Settings", checkboxInput(inputId = "outlier",
                                                           label = "Show electric vehicles",
                                                           value = F))
                        ),
                 
                 tabBox(title = "Model sales per segment", id = "3", height = 600,
-                       tabPanel("Model sales", plotlyOutput("Model_per_segment"),status ="primary"),
+                       tabPanel("Model sales", plotlyOutput("Model_per_segment", height = 500),status ="primary"),
                        tabPanel("Settings", selectInput(inputId = "SelectedSegment",
                                             label = "Select Segment",
                                             selected = "large_car",
@@ -247,7 +247,7 @@ server <- function(input, output) {
              if (latest_monthly_sales[2,c_month+1] > latest_monthly_sales[1,c_month+1]) 
                   {color = "green"}
              else
-             {color = "red"}
+                  {color = "red"}
       )
   })
   
@@ -259,10 +259,11 @@ server <- function(input, output) {
       geom_line() + 
       geom_point() +
       ylab("% market share")+
+      scale_x_continuous(breaks=scales::pretty_breaks(n = 8))+
       if (tail(annual_sales_bmw$Market.Share,1)>input$target_ms) 
         {geom_hline(yintercept = input$target_ms, color = "green")}
-    else
-      {geom_hline(yintercept = input$target_ms, color = "red")}
+      else
+        {geom_hline(yintercept = input$target_ms, color = "red")}
       ) 
   })
   
@@ -280,23 +281,33 @@ server <- function(input, output) {
         scale_fill_manual(values = c("firebrick2", "forestgreen")) + #kleur is afhankelijk van wat de eerste voorkomt in data!!! iemand opls?
         geom_col(aes(type, Sales_BMW_2019), fill = NA, colour = "#81C4FF")+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
-        xlab("Type")+
+        xlab("")+
         ylab("Sales")
     ) %>% layout(showlegend = F)
   })
   
   output$sales_by_model <- renderPlotly({
     ggplotly(
-      sales_by_model%>%
-        filter(year == max(year))%>%
-        group_by(Model)%>%
-        summarise(Sales = sum(Sales, na.rm = T))%>%
-        mutate(Model = fct_reorder(Model, Sales))%>%
-        ggplot(aes(Model,Sales))+
+      full_segment_sales %>%
+        filter(year == max(year)) %>%
+        filter(str_detect(model, 'BMW'))%>%
+        mutate(model = fct_reorder(model, sales))%>%
+        ggplot(aes(model, sales, fill = type))+
         geom_col() +
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
-        xlab("Model")+
+        xlab("")+
         ylab("Sales")
+      # 
+      # sales_by_model%>%
+      #   filter(year == max(year))%>%
+      #   group_by(Model)%>%
+      #   summarise(Sales = sum(Sales, na.rm = T))%>%
+      #   mutate(Model = fct_reorder(Model, Sales))%>%
+      #   ggplot(aes(Model,Sales))+
+      #   geom_col() +
+      #   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+      #   xlab("")+
+      #   ylab("Sales")
       )
   })
  
@@ -360,7 +371,8 @@ server <- function(input, output) {
     filteredMarketShareSegments%>%
       plot_ly(x=~type, y=~Sales_BMW, type='bar', name = "Sales BMW", marker = list(color = "#E7222E"))%>%
       add_trace(y=~DeductedSales, name ="Rest Of Market Sales", marker = list(color = "#81C4FF"))%>%
-      layout(yaxis = list(title = 'Amount'), barmode = 'stack', legend=list(x=0.7, y=0.9))
+      layout(yaxis = list(title = 'Sales'), barmode = 'stack', legend=list(x=0.7, y=0.9),
+             xaxis = list(title = ""))
   })
   
   
@@ -414,20 +426,45 @@ server <- function(input, output) {
   })
   
   
-  output$Model_per_segment <- renderPlotly({ ggplotly(
-      full_segment_sales%>%
-        filter(type==input$SelectedSegment)%>%
-        filter(year== input$SelectedYear2)%>%
-        mutate(model = fct_reorder(model, -sales))%>%
-        head(10)%>%
-        ggplot(aes(model, sales, fill=factor(ifelse(str_detect(model,"BMW"),"BMW","Others"))))+
-        geom_col()+
-        theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
-        scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF"))+
-        ggtitle(paste0("Models in ", input$SelectedSegment))+
-        theme(legend.position='none')
-    , tooltip=c("x","y"))
+  output$Model_per_segment <- renderPlotly({
+    full_segment_sales%>%
+      filter(type==input$SelectedSegment)%>%
+      filter(year== input$SelectedYear2)%>%
+      mutate(model = fct_reorder(model, -sales))%>%
+      head(10) -> models_per_segment
     
+    contains_bmw_boolean = F
+    for (i in 1:nrow(models_per_segment)) {
+      print(str_detect(models_per_segment$model[i], "BMW"))
+      if (str_detect(models_per_segment$model[i], "BMW")) {
+        contains_bmw_boolean = T
+      }
+    }
+    
+    ggplotly(
+      if (contains_bmw_boolean) {
+        models_per_segment%>%
+          ggplot(aes(model, sales, fill=factor(ifelse(str_detect(model,"BMW"),"BMW","Others"))))+
+          geom_col()+
+          theme_minimal()+
+          theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
+          scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF"))+
+          ggtitle(paste0("Models in ", input$SelectedSegment))+
+          theme(legend.position='none')+
+          xlab("")
+      }
+      else {
+        models_per_segment%>%
+          ggplot(aes(model, sales))+
+          geom_col(fill = "#81C4FF" )+
+          theme_minimal() +
+          theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
+          ggtitle(paste0("Models in ", input$SelectedSegment))+
+          theme(legend.position='none')+
+          xlab("")
+          
+      }
+    , tooltip=c("x","y"))
   })
   
 #TAB 3: MARKET TRENDS----------------------------------------------------------------------------------------------------------------
