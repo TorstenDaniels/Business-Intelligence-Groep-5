@@ -462,9 +462,9 @@ server <- function(input, output) {
     ggplotly(
       sales_annual_bmwgroup %>%
         filter(Year != 2021 & Year != 2022 & Year != 2023)%>%
-        ggplot(aes(Year, Sales)) +
-        geom_line()+
-        geom_point() +
+        ggplot() +
+        geom_line(aes(Year, Sales))+
+        geom_point(aes(Year, Sales)) +
         geom_point(data = predictive_sales_bmwgroup, aes(Year, Sales), color = "#16588E") +
         geom_line(data = predictive_sales_bmwgroup, aes(Year, Sales), color = "#16588E") +
         xlab("Year") +
@@ -484,9 +484,9 @@ server <- function(input, output) {
         select(Sales, Year)%>%
         filter(Year != 2021 & Year != 2022 & Year != 2023)%>%
         full_join(annual_sales_bmw, by = c("Year", "Sales"))%>%
-        ggplot(aes(Year, Sales)) +
-        geom_point()+
-        geom_line()+
+        ggplot() +
+        geom_point(aes(Year, Sales))+
+        geom_line(aes(Year, Sales))+
         geom_point(data = predictive_sales_bmw, aes(Year, Sales), color = "#16588E") +
         geom_line(data = predictive_sales_bmw, aes(Year, Sales), color = "#16588E") +
         xlab("Year") +
@@ -527,7 +527,12 @@ server <- function(input, output) {
       add_trace(y = ~smallCrossover, name = "Small crossovers") %>%
       add_trace(y = ~subcompact_car, name = "Subcompact cars") %>%
       add_trace(y = ~upperclass_car, name = "Upper class cars") %>%
-      layout(barmode =  'stack')
+      layout(barmode =  'stack',
+             xaxis = list(
+               ticktext = list("2018", "2019", "2020"), 
+               tickvals = list(2018, 2019, 2020),
+               tickmode = "array"
+             ) )
     
   })
   
