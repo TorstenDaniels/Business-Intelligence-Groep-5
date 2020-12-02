@@ -139,13 +139,14 @@ body <- dashboardBody(
                                             multiple = T,
                                             selected = "BMW 1-series",
                                             options = list(maxItems = 5 ),
-                                            levels(as.factor(sales_by_model$Model)))
+                                            levels(as.factor(sales_by_model$Model)),
+                                            width = 600)
                                 ,status = "primary")
                        )
                 ),
               fluidRow(
-                tabBox(title = "Segment trends", id = "5", height = 600,
-                       tabPanel("Distribution segments over years", plotlyOutput("distribution_segments"),status ="primary"),
+                tabBox(title = "Segment trends", id = "5", height = 650,
+                       tabPanel("Distribution segments over years", plotlyOutput("distribution_segments", height = 600),status ="primary"),
                        tabPanel("Settings")
                        ),
                 tabBox(title = "Google trends", id = "6", height = 600,
@@ -504,8 +505,9 @@ server <- function(input, output) {
         geom_point(aes(Year, Sales)) +
         geom_point(data = predictive_sales_bmwgroup, aes(Year, Sales), color = "#16588E") +
         geom_line(data = predictive_sales_bmwgroup, aes(Year, Sales), color = "#16588E") +
+        theme_minimal()+
         xlab("Year") +
-        ylab("Amount of sales")
+        ylab("Sales")
     )
   })
   
@@ -526,8 +528,9 @@ server <- function(input, output) {
         geom_line(aes(Year, Sales))+
         geom_point(data = predictive_sales_bmw, aes(Year, Sales), color = "#16588E") +
         geom_line(data = predictive_sales_bmw, aes(Year, Sales), color = "#16588E") +
+        theme_minimal() +
         xlab("Year") +
-        ylab("Amount of sales")
+        ylab("Sales")
     ,tooltip = c("x", "y"))
   })
   
@@ -540,15 +543,79 @@ server <- function(input, output) {
         ggplot(aes(year, Sales, color = Model)) +
         geom_line() +
         geom_point() +
+        theme_minimal()+
         xlab("Year") +
-        ylab("Amount of sales")
+        ylab("Sales")
     )
   })
   
   output$distribution_segments <- renderPlotly({
-    full_segment_sales %>%
-      group_by(year, type) %>%
-      summarise(Sales = sum(sales, na.rm = T)) %>%
+    # de derde aes vb fill orderen dat kan alleen alphabetisch en niet op size dat is duidelijk uit mijn uitgebreid googlen
+    
+    # segment_2018 <- full_segment_sales %>% 
+    #   filter(year == 2018)%>%
+    #   group_by(type, year) %>%
+    #   summarize(Sales = sum(sales, na.rm = T)) %>%
+    #   arrange(desc(Sales))
+    # 
+    # segment_2019 <- full_segment_sales %>%
+    #   filter(year == 2019)%>%
+    #   group_by(type, year) %>%
+    #   summarize(Sales = sum(sales, na.rm = T)) %>%
+    #   arrange(desc(Sales))
+    # 
+    # segment_2020 <- full_segment_sales %>%
+    #   filter(year == 2020)%>%
+    #   group_by(type, year) %>%
+    #   summarize(Sales = sum(sales, na.rm = T)) %>%
+    #   arrange(desc(Sales))
+    # 
+    # ggplotly(
+    #   full_segment_sales %>%
+    #     group_by(type, year) %>%
+    #     summarize(Sales = sum(sales, na.rm = T)) %>%
+    #     arrange(year, desc(Sales))%>%
+    #     ggplot()+
+    #     geom_col(aes(year, Sales), color = "black", position = "dodge")+
+    #     theme_minimal()+
+    #     scale_fill_manual("test",
+    #                       breaks = c("subcompact_car",
+    #                                  "compact_car",
+    #                                  "smallCrossover",
+    #                                  "mini_cars",
+    #                                  "midsized_car",
+    #                                  "midsizedCrossover",
+    #                                  "midsizedMPV",
+    #                                  "large_car",
+    #                                  "largeSUV",
+    #                                  "passenger_van",
+    #                                  "electric_vehicle",
+    #                                  "largeMPV",
+    #                                  "upperclass_car",
+    #                                  "exotic_sport_car"),
+    #                       values = c("subcompact_car" = "#E7222E",
+    #                                  "compact_car" = "#E8222E",
+    #                                  "smallCrossover" = "#E9222E",
+    #                                  "mini_cars" = "#78C4FF",
+    #                                  "midsized_car" = "#79C4FF",
+    #                                  "midsizedCrossover" = "#80C4FF",
+    #                                  "midsizedMPV" = "#81C4FF",
+    #                                  "large_car" = "#82C4FF",
+    #                                  "largeSUV" = "#11588E",
+    #                                  "passenger_van" = "#12588E",
+    #                                  "electric_vehicle" = "#13588E",
+    #                                  "largeMPV" = "#14588E",
+    #                                  "upperclass_car" = "#15588E",
+    #                                  "exotic_sport_car" = "#16588E")),
+    #   tooltip = c("x", "y")
+    # )
+    
+    
+    
+    
+   full_segment_sales%>%
+      group_by(type, year) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
       spread(type, Sales) %>%
       plot_ly(x = ~year, y = ~compact_car, type = 'bar', name = 'Compact cars' ) %>%
       add_trace(y = ~electric_vehicle, name = "Electric cars") %>%
@@ -566,11 +633,14 @@ server <- function(input, output) {
       add_trace(y = ~upperclass_car, name = "Upper class cars") %>%
       layout(barmode =  'stack',
              xaxis = list(
-               ticktext = list("2018", "2019", "2020"), 
+               title = "Year",
+               ticktext = list("2018", "2019", "2020"),
                tickvals = list(2018, 2019, 2020),
                tickmode = "array"
-             ) )
-    
+             ),
+             yaxis = list(
+               title = "Sales"
+             ))
   })
   
 #TAB 4:Customer satisfaction---------------------------------------------------------------------------------------------------------------
