@@ -116,18 +116,20 @@ body <- dashboardBody(
             fluidPage(
               fluidRow(
                 tabBox(title = "Fueltype trends", id = "4", height = 600,
-                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 500),status ="primary"),
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 500),
+                                sliderInput(inputId = "SelectedYear_fuel_type",
+                                            label = "Select Year",
+                                            min = min(new_cars_by_fuel_type$Year),
+                                            max = max(new_cars_by_fuel_type$Year),
+                                            step = 1,
+                                            value = max(new_cars_by_fuel_type$Year))
+                                ),
+                       
                        tabPanel("Settings", 
                                 selectInput(inputId = "selectFuelType",
                                             label = "Select Fuel Type",
                                             levels(as.factor(colnames(cars_by_fuel_type[4:9]))),
-                                            selected = "Diesel"
-                                            ),
-                                selectInput(inputId = "SelectedYear_fuel_type",
-                                            label = "Select Year",
-                                            levels(as.factor(new_cars_by_fuel_type$Year)), 
-                                            selected = "2018"
-                                            )
+                                            selected = "Diesel")
                                 )
                        ),
                 tabBox(title = "Sales trends", id = "4", height = 600,
@@ -680,6 +682,7 @@ server <- function(input, output) {
         filter(brand %in% input$selectBrand) %>%
         ggplot()+
         geom_line(aes(year, satisfactionScore, color = brand), size = 1.5)+
+        theme_minimal()+
         scale_color_manual(values = c("#E7222E","#81C4FF","#16588E"))+
         ylim(50,100)
       )
@@ -692,8 +695,11 @@ server <- function(input, output) {
         filter(type %in% input$selectSatisfactionType)%>%
         ggplot()+
         geom_col(aes(x = "", y = score, fill = Brand), position = "dodge")+
+        theme_minimal()+
         scale_fill_manual(values = c("#E7222E","#81C4FF","#16588E"))+
-        theme(axis.title.x = element_blank())+
+        theme(axis.title.x = element_blank(),
+              axis.ticks.x = element_blank(),
+              axis.text.x = element_blank())+
         facet_wrap(~type),
       tooltip = c("y","fill")
     )
@@ -705,6 +711,7 @@ server <- function(input, output) {
         mutate(Brand = fct_reorder(Brand, Loyalty_perc)) %>%
         ggplot() +
         geom_col(aes(Brand, Loyalty_perc, fill=factor(ifelse(str_detect(Brand,"BMW"),"BMW","Others")))) +
+        theme_minimal()+
         scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF")) +
         coord_flip() +
         xlab("") +
