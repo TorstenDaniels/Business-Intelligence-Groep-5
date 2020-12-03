@@ -552,23 +552,54 @@ server <- function(input, output) {
   output$distribution_segments <- renderPlotly({
     # de derde aes vb fill orderen dat kan alleen alphabetisch en niet op size dat is duidelijk uit mijn uitgebreid googlen
     
-    # segment_2018 <- full_segment_sales %>% 
-    #   filter(year == 2018)%>%
-    #   group_by(type, year) %>%
-    #   summarize(Sales = sum(sales, na.rm = T)) %>%
-    #   arrange(desc(Sales))
-    # 
-    # segment_2019 <- full_segment_sales %>%
-    #   filter(year == 2019)%>%
-    #   group_by(type, year) %>%
-    #   summarize(Sales = sum(sales, na.rm = T)) %>%
-    #   arrange(desc(Sales))
-    # 
-    # segment_2020 <- full_segment_sales %>%
-    #   filter(year == 2020)%>%
-    #   group_by(type, year) %>%
-    #   summarize(Sales = sum(sales, na.rm = T)) %>%
-    #   arrange(desc(Sales))
+    segment_2018 <- full_segment_sales %>%
+      filter(year == 2018)%>%
+      group_by(type, year) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
+      arrange(desc(Sales))
+    
+    for (i in 1:nrow(segment_2018)) {
+      segment_2018$alphabetically[i] <- intToUtf8((123 - i))
+    }
+
+    segment_2019 <- full_segment_sales %>%
+      filter(year == 2019)%>%
+      group_by(type, year) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
+      arrange(desc(Sales))
+
+    segment_2020 <- full_segment_sales %>%
+      filter(year == 2020)%>%
+      group_by(type, year) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
+      arrange(desc(Sales))
+    
+    segment_2019 <- segment_2018%>%
+      select(type, alphabetically)%>%
+      right_join(segment_2019, by = "type")
+    
+    segment_2020 <- segment_2018%>%
+      select(type, alphabetically)%>%
+      right_join(segment_2020, by = "type")
+    
+    segment_complete <- rbind(segment_2018, segment_2019)
+    segment_complete <- rbind(segment_complete, segment_2020)
+    
+    ggplotly(segment_complete%>%
+               ggplot()+
+               geom_col(aes(year, Sales, fill = alphabetically, text = paste("Segment: ", segment_complete$type)), color = "black")+
+               scale_fill_manual(name = "Segment",
+                                 values = c("#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E",
+                                            "#81C4FF", "#81C4FF", "#81C4FF", "#16588E", "#16588E"),
+                                 breaks = c("m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"),
+                                 labels = c("exotic_sport_car", "upperclass_car", "largeMPV",
+                                            "electric_vehicle", "passenger_van", "largeSUV", "large_car", "midsizedMPV",
+                                            "midsizedCrossover", "midsized_car", "mini_cars", "smallCrossover", "compact_car", "subcompact_car"))+
+               theme_minimal()+
+               theme(legend.position = "none"),
+             tooltip = c("x" , "y", "text")
+             )
+    
     # 
     # ggplotly(
     #   full_segment_sales %>%
@@ -610,37 +641,35 @@ server <- function(input, output) {
     #   tooltip = c("x", "y")
     # )
     
-    
-    
-    
-   full_segment_sales%>%
-      group_by(type, year) %>%
-      summarize(Sales = sum(sales, na.rm = T)) %>%
-      spread(type, Sales) %>%
-      plot_ly(x = ~year, y = ~compact_car, type = 'bar', name = 'Compact cars' ) %>%
-      add_trace(y = ~electric_vehicle, name = "Electric cars") %>%
-      add_trace(y = ~exotic_sport_car, name = "Exotic sport cars") %>%
-      add_trace(y = ~large_car, name = "Large cars") %>%
-      add_trace(y = ~largeMPV, name = "Large MPVss") %>%
-      add_trace(y = ~largeSUV, name = "Large SUVs") %>%
-      add_trace(y = ~midsized_car, name = "Midsized cars") %>%
-      add_trace(y = ~midsizedCrossover, name = "Midsized crossovers") %>%
-      add_trace(y = ~midsizedMPV, name = "Midsized MPVs") %>%
-      add_trace(y = ~mini_cars, name = "Mini cars") %>%
-      add_trace(y = ~passenger_van, name = "Passenger vans") %>%
-      add_trace(y = ~smallCrossover, name = "Small crossovers") %>%
-      add_trace(y = ~subcompact_car, name = "Subcompact cars") %>%
-      add_trace(y = ~upperclass_car, name = "Upper class cars") %>%
-      layout(barmode =  'stack',
-             xaxis = list(
-               title = "Year",
-               ticktext = list("2018", "2019", "2020"),
-               tickvals = list(2018, 2019, 2020),
-               tickmode = "array"
-             ),
-             yaxis = list(
-               title = "Sales"
-             ))
+  
+   # full_segment_sales%>%
+   #    group_by(type, year) %>%
+   #    summarize(Sales = sum(sales, na.rm = T)) %>%
+   #    spread(type, Sales) %>%
+   #    plot_ly(x = ~year, y = ~compact_car, type = 'bar', name = 'Compact cars' ) %>%
+   #    add_trace(y = ~electric_vehicle, name = "Electric cars") %>%
+   #    add_trace(y = ~exotic_sport_car, name = "Exotic sport cars") %>%
+   #    add_trace(y = ~large_car, name = "Large cars") %>%
+   #    add_trace(y = ~largeMPV, name = "Large MPVss") %>%
+   #    add_trace(y = ~largeSUV, name = "Large SUVs") %>%
+   #    add_trace(y = ~midsized_car, name = "Midsized cars") %>%
+   #    add_trace(y = ~midsizedCrossover, name = "Midsized crossovers") %>%
+   #    add_trace(y = ~midsizedMPV, name = "Midsized MPVs") %>%
+   #    add_trace(y = ~mini_cars, name = "Mini cars") %>%
+   #    add_trace(y = ~passenger_van, name = "Passenger vans") %>%
+   #    add_trace(y = ~smallCrossover, name = "Small crossovers") %>%
+   #    add_trace(y = ~subcompact_car, name = "Subcompact cars") %>%
+   #    add_trace(y = ~upperclass_car, name = "Upper class cars") %>%
+   #    layout(barmode =  'stack',
+   #           xaxis = list(
+   #             title = "Year",
+   #             ticktext = list("2018", "2019", "2020"),
+   #             tickvals = list(2018, 2019, 2020),
+   #             tickmode = "array"
+   #           ),
+   #           yaxis = list(
+   #             title = "Sales"
+   #           ))
   })
   
 #TAB 4:Customer satisfaction---------------------------------------------------------------------------------------------------------------
