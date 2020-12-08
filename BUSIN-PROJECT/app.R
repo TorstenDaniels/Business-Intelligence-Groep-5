@@ -121,13 +121,13 @@ body <- dashboardBody(
             fluidPage(
               fluidRow(
                 tabBox(title = "Fueltype trends", id = "4", height = 600,
-                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 500),
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 450),
                                 sliderInput(inputId = "SelectedYear_fuel_type",
                                             label = "Select Year",
                                             min = min(new_cars_by_fuel_type$Year),
                                             max = max(new_cars_by_fuel_type$Year),
                                             step = 1,
-                                            value = max(new_cars_by_fuel_type$Year))
+                                            value = min(new_cars_by_fuel_type$Year))
                                 ),
                        
                        tabPanel("Settings", 
