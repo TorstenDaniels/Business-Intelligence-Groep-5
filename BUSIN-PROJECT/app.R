@@ -28,7 +28,7 @@ sidebar <-  dashboardSidebar(
 rightsidebar <- rightSidebar(
   background = "dark",
   numericInput(inputId = "target_ms", "Target Market Share %: ", 6),
-  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(Stock$Close)),
+  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(BMW_Stock$Close)),
   sliderInput(inputId = "target_cs", "Targets Customer Satisfaction", min = 0, max = 100, value = 70)
 )
 
@@ -127,7 +127,8 @@ body <- dashboardBody(
                                             min = min(new_cars_by_fuel_type$Year),
                                             max = max(new_cars_by_fuel_type$Year),
                                             step = 1,
-                                            value = min(new_cars_by_fuel_type$Year))
+                                            value = min(new_cars_by_fuel_type$Year),
+                                            animate = T)
                                 ),
                        
                        tabPanel("Settings", 
@@ -277,11 +278,11 @@ server <- function(input, output) {
   
   output$trend_stock_price <- renderPlotly({
     ggplotly(
-      Stock%>%
+      BMW_Stock%>%
         ggplot(aes(Date, Close))+
         geom_line()+
         ylab("Stock Price in \u20ac")+
-        if (tail(Stock$Close ,1) > input$target_sp) 
+        if (tail(BMW_Stock$Close ,1) > input$target_sp) 
           {geom_hline(yintercept = input$target_sp, color = "green")}
         else
           {geom_hline(yintercept = input$target_sp, color = "red")}
