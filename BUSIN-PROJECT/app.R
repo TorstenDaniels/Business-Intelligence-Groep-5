@@ -128,7 +128,7 @@ body <- dashboardBody(
                                             max = max(new_cars_by_fuel_type$Year),
                                             step = 1,
                                             value = min(new_cars_by_fuel_type$Year),
-                                            animate = T)
+                                            animate = animationOptions(interval = 2500, loop = TRUE))
                                 ),
                        
                        tabPanel("Settings", 
@@ -510,6 +510,14 @@ server <- function(input, output) {
               axis.text.y = element_blank(), axis.ticks.x = element_blank(),
               axis.ticks.y = element_blank(), axis.title = element_blank(),
               plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))
+    )
+  })
+  
+  sliderValues <- reactive({
+    data.frame(
+      Name = "SelectedYear_fuel_type",
+      Value = as.character(input$"SelectedYear_fuel_type"),
+      stringsAsFactors = FALSE
     )
   })
   
