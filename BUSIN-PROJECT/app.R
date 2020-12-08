@@ -28,6 +28,7 @@ sidebar <-  dashboardSidebar(
 rightsidebar <- rightSidebar(
   background = "dark",
   numericInput(inputId = "target_ms", "Target Market Share %: ", 6),
+  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(Stock$Close)),
   sliderInput(inputId = "target_cs", "Targets Customer Satisfaction", min = 0, max = 100, value = 70)
 )
 
@@ -54,7 +55,11 @@ body <- dashboardBody(
                   ),
               
                 fluidRow(
-                  box("Trend Market Share", plotlyOutput("trend_market_share", height = 621), status = "primary"),
+                  tabBox(title = "Market overview", #verander deze naam gerust
+                         tabPanel("Trend Market Share", plotlyOutput("trend_market_share", height = 600)),
+                         tabPanel("Trend Stock Price BMW Group", plotlyOutput("trend_stock_price", height = 600))
+                         ),
+                  
                   tabBox(title = "Sales overview", id = "1", 
                          tabPanel("By Segment", plotlyOutput("sales_by_segment", height = 600 )),
                          tabPanel("By model", plotlyOutput("sales_by_model", height = 600))
@@ -270,6 +275,19 @@ server <- function(input, output) {
       ) 
   })
   
+  output$trend_stock_price <- renderPlotly({
+    ggplotly(
+      Stock%>%
+        ggplot(aes(Date, Close))+
+        geom_line()+
+        ylab("Stock Price in \u20ac")+
+        if (tail(Stock$Close ,1) > input$target_sp) 
+          {geom_hline(yintercept = input$target_sp, color = "green")}
+        else
+          {geom_hline(yintercept = input$target_sp, color = "red")}
+    )
+  })
+  
   output$sales_by_segment <- renderPlotly({
     ggplotly(
       full_segment_sales %>%
@@ -438,7 +456,6 @@ server <- function(input, output) {
     
     contains_bmw_boolean = F
     for (i in 1:nrow(models_per_segment)) {
-      print(str_detect(models_per_segment$model[i], "BMW"))
       if (str_detect(models_per_segment$model[i], "BMW")) {
         contains_bmw_boolean = T
       }
@@ -556,8 +573,10 @@ server <- function(input, output) {
     
     segment_2018 <- full_segment_sales %>%
       filter(year == 2018)%>%
-      group_by(type, year) %>%
+      group_by(type) %>%
       summarize(Sales = sum(sales, na.rm = T)) %>%
+      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
+             year = 2018)%>%
       arrange(desc(Sales))
     
     for (i in 1:nrow(segment_2018)) {
@@ -566,14 +585,18 @@ server <- function(input, output) {
 
     segment_2019 <- full_segment_sales %>%
       filter(year == 2019)%>%
-      group_by(type, year) %>%
+      group_by(type) %>%
       summarize(Sales = sum(sales, na.rm = T)) %>%
+      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
+             year = 2019)%>%
       arrange(desc(Sales))
 
     segment_2020 <- full_segment_sales %>%
       filter(year == 2020)%>%
-      group_by(type, year) %>%
+      group_by(type) %>%
       summarize(Sales = sum(sales, na.rm = T)) %>%
+      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
+             year = 2020)%>%
       arrange(desc(Sales))
     
     segment_2019 <- segment_2018%>%
@@ -589,14 +612,15 @@ server <- function(input, output) {
     
     ggplotly(segment_complete%>%
                ggplot()+
-               geom_col(aes(year, Sales, fill = alphabetically, text = paste("Segment: ", segment_complete$type)), color = "black")+
-               scale_fill_manual(name = "Segment",
-                                 values = c("#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E",
-                                            "#81C4FF", "#81C4FF", "#81C4FF", "#16588E", "#16588E"),
-                                 breaks = c("m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"),
-                                 labels = c("exotic_sport_car", "upperclass_car", "largeMPV",
-                                            "electric_vehicle", "passenger_van", "largeSUV", "large_car", "midsizedMPV",
-                                            "midsizedCrossover", "midsized_car", "mini_cars", "smallCrossover", "compact_car", "subcompact_car"))+
+               geom_col(aes(year, Sales, fill = alphabetically, text = paste("Segment: ", segment_complete$type,
+                                                                             "\nRelative Sales: ", Rel_Sales, "%")), color = "black")+
+               # scale_fill_manual(name = "Segment",
+               #                   values = c("#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E",
+               #                              "#81C4FF", "#81C4FF", "#81C4FF", "#16588E", "#16588E"),
+               #                   breaks = c("m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"),
+               #                   labels = c("exotic_sport_car", "upperclass_car", "largeMPV",
+               #                              "electric_vehicle", "passenger_van", "largeSUV", "large_car", "midsizedMPV",
+               #                              "midsizedCrossover", "midsized_car", "mini_cars", "smallCrossover", "compact_car", "subcompact_car"))+
                theme_minimal()+
                theme(legend.position = "none"),
              tooltip = c("x" , "y", "text")
