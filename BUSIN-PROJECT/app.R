@@ -28,7 +28,8 @@ sidebar <-  dashboardSidebar(
 rightsidebar <- rightSidebar(
   background = "dark",
   numericInput(inputId = "target_ms", "Target Market Share %: ", 6),
-  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(BMW_Stock$Close)),
+  numericInput(inputId = "target_sm", "Target Sales this month: ", 
+               sales_bmw%>%filter(sales_bmw$Year == year(Sys.Date())-1)%>%select(month(Sys.Date())+1)),
   sliderInput(inputId = "target_cs", "Targets Customer Satisfaction", min = 0, max = 100, value = 70)
 )
 
@@ -57,7 +58,8 @@ body <- dashboardBody(
                 fluidRow(
                   tabBox(title = "Market overview", #verander deze naam gerust
                          tabPanel("Trend Market Share", plotlyOutput("trend_market_share", height = 600)),
-                         tabPanel("Trend Stock Price BMW Group", plotlyOutput("trend_stock_price", height = 600))
+                         tabPanel("Trend Stock Price BMW Group", plotlyOutput("trend_stock_price", height = 500),
+                                  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(BMW_Stock$Close)))
                          ),
                   
                   tabBox(title = "Sales overview", id = "1", 
@@ -243,17 +245,18 @@ server <- function(input, output) {
     )
   })
   
+  
+  
   output$total_sales <- renderValueBox({
     sales_bmw %>%
       filter(Year== c(year(Sys.Date()), year(Sys.Date()) - 1)) -> latest_monthly_sales
-    c_month <- month(Sys.Date()) #month of the system used for selection in tables
     
-    valueBox(latest_monthly_sales[2,c_month+1], #plus one needed to select right column
-             tagList(paste0("Monthly Sales ",colnames(sales_bmw[c_month+1])), 
-                     p(""), paste0("Monthly sales ",colnames(sales_bmw[c_month+1]), " ", year(Sys.Date())-1, ": ",
-                                   latest_monthly_sales[1,(c_month+1)])), 
+    valueBox(latest_monthly_sales[2,month(Sys.Date())+1], #plus one needed to select right column
+             tagList(paste0("Monthly Sales ",colnames(sales_bmw[month(Sys.Date())+1])), 
+                     p(""), paste0("Sales target ",colnames(sales_bmw[month(Sys.Date())+1]), ": ",
+                                   input$target_sm)), 
              icon = icon("car", lib = "font-awesome"),
-             if (latest_monthly_sales[2,c_month+1] > latest_monthly_sales[1,c_month+1]) 
+             if (latest_monthly_sales[2,month(Sys.Date())+1] > input$target_sm) 
                   {color = "green"}
              else
                   {color = "red"}
@@ -267,6 +270,7 @@ server <- function(input, output) {
       ggplot(aes(Year,Market.Share)) +
       geom_line() + 
       geom_point() +
+      theme_minimal() +
       ylab("% market share")+
       scale_x_continuous(breaks=scales::pretty_breaks(n = 8))+
       if (tail(annual_sales_bmw$Market.Share,1)>input$target_ms) 
@@ -279,8 +283,10 @@ server <- function(input, output) {
   output$trend_stock_price <- renderPlotly({
     ggplotly(
       BMW_Stock%>%
-        ggplot(aes(Date, Close))+
+        ggplot(aes(ymd(Date), Close))+
         geom_line()+
+        theme_minimal()+
+        xlab("Date") +
         ylab("Stock Price in \u20ac")+
         if (tail(BMW_Stock$Close ,1) > input$target_sp) 
           {geom_hline(yintercept = input$target_sp, color = "green")}
@@ -300,6 +306,7 @@ server <- function(input, output) {
         mutate(type = fct_reorder(type, Sales_BMW_2020))%>%
         ggplot() +
         geom_col(aes(type, Sales_BMW_2020, fill = hit_target)) +
+        theme_minimal() +
         scale_fill_manual(values = c("firebrick2", "forestgreen")) + #kleur is afhankelijk van wat de eerste voorkomt in data!!! iemand opls?
         geom_col(aes(type, Sales_BMW_2019), fill = NA, colour = "#81C4FF")+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
