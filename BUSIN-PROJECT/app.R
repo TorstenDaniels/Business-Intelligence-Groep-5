@@ -2,7 +2,7 @@
 library(dplyr);library(stringr);library(tidyverse);library(readr);library(ggplot2);library(plotly)
 library(lubridate);library(ggthemes);library(RColorBrewer);library(rworldmap);library(mapproj)
 library(readxl);library(GGally);library(shiny);library(shinydashboard); library(shinydashboardPlus);
-library(naniar);library(ggimage); library(gghighlight)
+library(naniar);library(ggimage); library(gghighlight);library(gtrendsR)
 
 #loading in data
 source("helpers/Script1.R")
@@ -130,7 +130,7 @@ body <- dashboardBody(
                                             max = max(new_cars_by_fuel_type$Year),
                                             step = 1,
                                             value = min(new_cars_by_fuel_type$Year),
-                                            animate = animationOptions(interval = 2500, loop = TRUE))
+                                            animate = animationOptions(interval = 5000, loop = TRUE))
                                 ),
                        
                        tabPanel("Settings", 
@@ -156,12 +156,15 @@ body <- dashboardBody(
                 ),
               fluidRow(
                 tabBox(title = "Segment trends", id = "5", height = 650,
-                       tabPanel("Distribution segments over years", plotlyOutput("distribution_segments", height = 600),status ="primary"),
-                       tabPanel("Settings")
+                       tabPanel("Distribution segments over years", plotlyOutput("distribution_segments", height = 600),status ="primary")
+                       # ,tabPanel("Settings")
                        ),
                 tabBox(title = "Google trends", id = "6", height = 600,
                        tabPanel("Keyword trends", plotlyOutput("google_trends"),status ="primary"),
-                       tabPanel("Settings")
+                       tabPanel("Settings",
+                                textInput(inputId = 'GT_Terms',
+                                          label = "Input one or more terms. Use commma to seperate terms",
+                                          value = "BMW"))
                        )
                 )
               )
@@ -307,7 +310,7 @@ server <- function(input, output) {
         ggplot() +
         geom_col(aes(type, Sales_BMW_2020, fill = hit_target)) +
         theme_minimal() +
-        scale_fill_manual(values = c("firebrick2", "forestgreen")) + #kleur is afhankelijk van wat de eerste voorkomt in data!!! iemand opls?
+        scale_fill_manual(values = c("firebrick2", "forestgreen")) + #kleur is afhankelijk van aflabetische volgorde!!! iemand opls?
         geom_col(aes(type, Sales_BMW_2019), fill = NA, colour = "#81C4FF")+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
         xlab("")+
@@ -498,12 +501,18 @@ server <- function(input, output) {
 #TAB 3: MARKET TRENDS----------------------------------------------------------------------------------------------------------------
   
   output$fueltype_map <- renderPlotly({
+    
     cars_by_fuel_type%>%
-      filter(Time == input$SelectedYear_fuel_type)%>%
-      select(region, Total, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
-      gather(key = "FuelType", value = "amount", -region, -Total)%>%
+      select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
+      gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
       filter(FuelType == input$selectFuelType)%>%
       mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+    
+    maximum_relative_fueltype <- max(filtered_fuel_type$relative_frequency, na.rm = T )
+    
+    filtered_fuel_type <- filtered_fuel_type%>%
+      filter(Time == input$SelectedYear_fuel_type)
+      
     
     europeCoords$value <- filtered_fuel_type$relative_frequency[match(europeCoords$region, filtered_fuel_type$region)]
     
@@ -511,7 +520,10 @@ server <- function(input, output) {
       ggplot() + 
         geom_polygon(data = europeCoords, aes(x = long, y = lat, group = region, fill = value), colour = "black", size = 0.1) +
         coord_map(xlim = c(-13, 35),  ylim = c(32, 71))+
-        scale_fill_gradient(name = "relative percentage of cars", low = "#E7222E", high = "#81C4FF", na.value = "grey50")+
+        scale_fill_gradientn(name = "relative percentage of cars", 
+                             colours = c("#E7222E","#81C4FF"),
+                             na.value = "grey50",
+                             limits=c(0, maximum_relative_fueltype))+
         theme_minimal()+
         theme(axis.text.x = element_blank(),
               axis.text.y = element_blank(), axis.ticks.x = element_blank(),
