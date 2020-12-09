@@ -160,7 +160,7 @@ body <- dashboardBody(
                        # ,tabPanel("Settings")
                        ),
                 tabBox(title = "Google trends", id = "6", height = 600,
-                       tabPanel("Keyword trends", plotlyOutput("google_trends"),status ="primary"),
+                       tabPanel("Keyword trends", plotlyOutput("google_trends", height = 600),status ="primary"),
                        tabPanel("Settings",
                                 textInput(inputId = 'GT_Terms',
                                           label = "Input one or more terms. Use commma to seperate terms",
@@ -609,22 +609,22 @@ server <- function(input, output) {
     )
   })
   
-  
-  
- 
-  output$google_trends <- renderPlotly({
+  trends <- reactive({
     GT_terms_sep <- ifelse(str_detect(input$GT_Terms, ","), strsplit(input$GT_Terms, ", "), input$GT_Terms)
     trends <- gtrends(keyword = GT_terms_sep, time = input$GT_Time)
-    
+  })
+ 
+  output$google_trends <- renderPlotly({
     ggplotly(
-      trends$interest_over_time%>%
+      trends()$interest_over_time%>%
         mutate(hits = ifelse(hits == "<1", 0, hits),
                hits = as.numeric(hits),
                geo = as.factor(geo),
                keyword = as.factor(keyword))%>%
         filter(geo == "world")%>%
         ggplot(aes(date, hits, color = keyword))+
-        geom_line()
+        geom_line()+
+        theme_minimal()
     )
   })
   
