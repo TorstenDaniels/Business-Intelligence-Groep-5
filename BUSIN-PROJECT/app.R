@@ -123,7 +123,7 @@ body <- dashboardBody(
             fluidPage(
               fluidRow(
                 tabBox(title = "Fueltype trends", id = "4", height = 600,
-                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 450),
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 400),
                                 sliderInput(inputId = "SelectedYear_fuel_type",
                                             label = "Select Year",
                                             min = min(new_cars_by_fuel_type$Year),
@@ -161,6 +161,7 @@ body <- dashboardBody(
                        ),
                 tabBox(title = "Google trends", id = "6", height = 600,
                        tabPanel("Keyword trends", plotlyOutput("google_trends", height = 600),status ="primary"),
+                       tabPanel("Related Terms", plotlyOutput("related_terms", height = 600)),
                        tabPanel("Settings",
                                 textInput(inputId = 'GT_Terms',
                                           label = "Input one or more terms. Use commma to seperate terms",
@@ -176,7 +177,13 @@ body <- dashboardBody(
                                                         "Last 12 months" = "today 12-m", 
                                                         "Last five years" = "today+5-y",
                                                         "All (2004 - now)" = "all"),
-                                            selected = "now 1-H")
+                                            selected = "now 1-H"),
+                                textInput(inputId = "GT_Rel_Term",
+                                          label = "Input one term from the previous inputted terms",
+                                          value = "BMW"),
+                                sliderInput(inputId = "GT_Rel_slider",
+                                            label = "How many related search terms",
+                                            min = 1, max = 25, value = 10)
                                 )
                        )
                 )
@@ -299,7 +306,8 @@ server <- function(input, output) {
   output$trend_stock_price <- renderPlotly({
     ggplotly(
       BMW_Stock%>%
-        ggplot(aes(ymd(Date), Close))+
+        mutate(Date = ymd(Date))%>%
+        ggplot(aes(Date, Close))+
         geom_line()+
         theme_minimal()+
         xlab("Date") +
@@ -609,11 +617,78 @@ server <- function(input, output) {
     )
   })
   
+  
+  
+  output$distribution_segments <- renderPlotly({
+    # Alles hieronder tot aan de volgende comment  is zodat er geordent kan worden op grote van de segment. 
+    # Dit is nodig aangezien de color of fill functie standaard het in alfabetische volgorde zet, ook al is het geordent
+    
+    segment_2018 <- full_segment_sales %>%
+      filter(year == 2018)%>%
+      group_by(type) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
+      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
+             year = 2018)%>%
+      arrange(desc(Sales))%>%
+      mutate(ycoord = cumsum(Sales) - Sales/2)
+    
+    for (i in 1:nrow(segment_2018)) {
+      segment_2018$alphabetically[i] <- intToUtf8((123 - i))
+    }
+
+    segment_2019 <- full_segment_sales %>%
+      filter(year == 2019)%>%
+      group_by(type) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
+      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
+             year = 2019)%>%
+      arrange(desc(Sales))%>%
+      mutate(ycoord = cumsum(Sales) - Sales/2)
+
+    segment_2020 <- full_segment_sales %>%
+      filter(year == 2020)%>%
+      group_by(type) %>%
+      summarize(Sales = sum(sales, na.rm = T)) %>%
+      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
+             year = 2020)%>%
+      arrange(desc(Sales))%>%
+      mutate(ycoord = cumsum(Sales) - Sales/2)
+    
+    segment_2019 <- segment_2018%>%
+      select(type, alphabetically)%>%
+      right_join(segment_2019, by = "type")
+    
+    segment_2020 <- segment_2018%>%
+      select(type, alphabetically)%>%
+      right_join(segment_2020, by = "type")
+    
+    segment_complete <- rbind(segment_2018, segment_2019)
+    segment_complete <- rbind(segment_complete, segment_2020)
+    
+    topSales_year <- segment_complete%>%
+      group_by(year)%>%
+      slice(1:3)
+    
+    #plotten
+    ggplotly(segment_complete%>%
+               ggplot()+
+               geom_col(aes(year, Sales, fill = alphabetically, 
+                            text = paste("Segment: ", segment_complete$type,
+                                         "\nRelative Sales: ", Rel_Sales, "%")),
+                        color = "black")+
+               geom_text(data = topSales_year, aes(x = topSales_year$year, y = topSales_year$ycoord , 
+                                                   label = topSales_year$type)) +
+               theme_minimal()+
+               theme(legend.position = "none"),
+             tooltip = c("x" , "y", "text")
+             )
+  })
+  
   trends <- reactive({
     GT_terms_sep <- ifelse(str_detect(input$GT_Terms, ","), strsplit(input$GT_Terms, ", "), input$GT_Terms)
-    trends <- gtrends(keyword = GT_terms_sep, time = input$GT_Time)
+    gtrends(keyword = GT_terms_sep, time = input$GT_Time)
   })
- 
+
   output$google_trends <- renderPlotly({
     ggplotly(
       trends()$interest_over_time%>%
@@ -628,63 +703,22 @@ server <- function(input, output) {
     )
   })
   
-  output$distribution_segments <- renderPlotly({
-    # de derde aes vb fill orderen dat kan alleen alphabetisch en niet op size dat is duidelijk uit mijn uitgebreid googlen
-    
-    segment_2018 <- full_segment_sales %>%
-      filter(year == 2018)%>%
-      group_by(type) %>%
-      summarize(Sales = sum(sales, na.rm = T)) %>%
-      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
-             year = 2018)%>%
-      arrange(desc(Sales))
-    
-    for (i in 1:nrow(segment_2018)) {
-      segment_2018$alphabetically[i] <- intToUtf8((123 - i))
-    }
-
-    segment_2019 <- full_segment_sales %>%
-      filter(year == 2019)%>%
-      group_by(type) %>%
-      summarize(Sales = sum(sales, na.rm = T)) %>%
-      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
-             year = 2019)%>%
-      arrange(desc(Sales))
-
-    segment_2020 <- full_segment_sales %>%
-      filter(year == 2020)%>%
-      group_by(type) %>%
-      summarize(Sales = sum(sales, na.rm = T)) %>%
-      mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
-             year = 2020)%>%
-      arrange(desc(Sales))
-    
-    segment_2019 <- segment_2018%>%
-      select(type, alphabetically)%>%
-      right_join(segment_2019, by = "type")
-    
-    segment_2020 <- segment_2018%>%
-      select(type, alphabetically)%>%
-      right_join(segment_2020, by = "type")
-    
-    segment_complete <- rbind(segment_2018, segment_2019)
-    segment_complete <- rbind(segment_complete, segment_2020)
-    
-    ggplotly(segment_complete%>%
-               ggplot()+
-               geom_col(aes(year, Sales, fill = alphabetically, text = paste("Segment: ", segment_complete$type,
-                                                                             "\nRelative Sales: ", Rel_Sales, "%")), color = "black")+
-               # scale_fill_manual(name = "Segment",
-               #                   values = c("#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E", "#E7222E",
-               #                              "#81C4FF", "#81C4FF", "#81C4FF", "#16588E", "#16588E"),
-               #                   breaks = c("m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"),
-               #                   labels = c("exotic_sport_car", "upperclass_car", "largeMPV",
-               #                              "electric_vehicle", "passenger_van", "largeSUV", "large_car", "midsizedMPV",
-               #                              "midsizedCrossover", "midsized_car", "mini_cars", "smallCrossover", "compact_car", "subcompact_car"))+
-               theme_minimal()+
-               theme(legend.position = "none"),
-             tooltip = c("x" , "y", "text")
-             )
+  output$related_terms <- renderPlotly({
+    ggplotly(
+      trends()$related_queries%>%
+        mutate(keyword = as.factor(keyword))%>%
+        filter(related_queries == "top",
+               keyword == input$GT_Rel_Term)%>%
+        mutate(hits = as.numeric(subject),
+               value = fct_reorder(value, -hits))%>%
+        slice(1:input$GT_Rel_slider)%>%
+        ggplot(aes(value, hits))+
+        geom_col()+
+        xlab("")+
+        theme_minimal()+
+        theme(axis.text.x = element_text(angle = 45, hjust=1))+
+        ggtitle(paste0("Top related searches of ", input$GT_Rel_Term))
+    )
   })
   
 #TAB 4:Customer satisfaction---------------------------------------------------------------------------------------------------------------

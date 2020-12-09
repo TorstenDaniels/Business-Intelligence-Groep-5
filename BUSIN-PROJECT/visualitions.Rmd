@@ -235,4 +235,23 @@ bcg_dataset %>%
   geom_vline(xintercept= mean_market_share[1,1], linetype="dashed", color = "red")
 ```
 
+```{r}
+trends$related_queries%>%
+  mutate(keyword = as.factor(keyword))%>%
+  filter(related_queries == "top",
+         keyword == trends$related_queries$keyword[1])%>%
+  mutate(hits = as.numeric(subject),
+         value = fct_reorder(value, -hits))%>%
+  slice(1:25)%>%
+  ggplot(aes(value, hits))+
+  geom_col()+
+  xlab("")+
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+  
+  
+
+
+```
+
 
