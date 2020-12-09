@@ -155,10 +155,7 @@ body <- dashboardBody(
                        )
                 ),
               fluidRow(
-                tabBox(title = "Segment trends", id = "5", height = 650,
-                       tabPanel("Distribution segments over years", plotlyOutput("distribution_segments", height = 600),status ="primary")
-                       # ,tabPanel("Settings")
-                       ),
+                box("Distribution segments over years", plotlyOutput("distribution_segments", height = 600),status ="primary"),
                 tabBox(title = "Google trends", id = "6", height = 600,
                        tabPanel("Keyword trends", plotlyOutput("google_trends", height = 600),status ="primary"),
                        tabPanel("Related Terms", plotlyOutput("related_terms", height = 600)),
@@ -209,14 +206,16 @@ body <- dashboardBody(
                     status = "primary")
                 ),
               fluidRow(
-                box("Overall customer satisfaction", plotlyOutput("overallCustomerSat"),
+                box("Overall customer satisfaction", plotlyOutput("overallCustomerSat", height = 500),
                     status = "primary"),
-                box("Detailed customer satisfaction", plotlyOutput("detailedCustomerSat"),
+                box("Detailed customer satisfaction", plotlyOutput("detailedCustomerSat", height = 500),
                     status = "primary")
                 ),
               fluidRow(
-                box("Customer loyalty", plotlyOutput("customer_loyalty"),
-                    status = "primary")
+                box("Customer loyalty", plotlyOutput("customer_loyalty", height = 500),
+                    status = "primary"),
+                box("Net Promotor Score", plotlyOutput("net_promotor_score", height = 500),
+                    status= "primary")
                 )
               )
             )
@@ -767,7 +766,21 @@ server <- function(input, output) {
     ) %>% layout(showlegend = F)
   })
   
-  }
+  output$net_promotor_score <- renderPlotly({
+    ggplotly(
+      NPS%>%
+        ggplot()+
+        geom_col(aes(Company, NPS, fill=factor(ifelse(str_detect(Company,"BMW"),"BMW","Others")))) +
+        theme_minimal()+
+        scale_fill_manual(name = "model", values=c("#E7222E","#81C4FF")) +
+        ylim(-100,100)+
+        xlab("")+
+        ylab("Net Promotor Score")+
+        theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)),
+      tooltip = c("x","y")
+    ) %>% layout(showlegend = F)
+  })
+}
 
 # Run the application 
 shinyApp(ui = ui, server = server)
