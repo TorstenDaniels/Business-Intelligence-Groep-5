@@ -20,7 +20,7 @@ sidebar <-  dashboardSidebar(
     menuItem("General", tabName = "tab1", icon = icon("dashboard")),
     menuItem("Market Insights", tabName = "tab2", icon = icon("search-plus")),
     menuItem("Market Trends", tabName = "tab3", icon = icon("chart-line")),
-    menuItem("Customer Satisfaction", tabName = "tab4", icon = icon("smile"))
+    menuItem("Customer Insights", tabName = "tab4", icon = icon("smile"))
   )
 )
 
