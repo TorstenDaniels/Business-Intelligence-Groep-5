@@ -62,7 +62,7 @@ body <- dashboardBody(
                                   numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(BMW_Stock$Close)))
                          ),
                   
-                  tabBox(title = "Sales overview", id = "1", 
+                  tabBox(title = "Yearly Sales Overview", id = "1", 
                          tabPanel("By Segment", plotlyOutput("sales_by_segment", height = 600 )),
                          tabPanel("By model", plotlyOutput("sales_by_model", height = 600))
                          )
@@ -348,6 +348,7 @@ server <- function(input, output) {
         mutate(model = fct_reorder(model, sales))%>%
         ggplot(aes(model, sales, fill = type))+
         geom_col() +
+        theme_minimal() +
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
         xlab("")+
         ylab("Sales")
@@ -542,7 +543,7 @@ server <- function(input, output) {
       ggplot() + 
         geom_polygon(data = europeCoords, aes(x = long, y = lat, group = region, fill = value), colour = "black", size = 0.1) +
         coord_map(xlim = c(-13, 35),  ylim = c(32, 71))+
-        scale_fill_gradientn(name = "relative percentage of cars", 
+        scale_fill_gradientn(name = "relative % of cars", 
                              colours = c("#E7222E","#81C4FF"),
                              na.value = "grey50",
                              limits=c(0, maximum_relative_fueltype))+
