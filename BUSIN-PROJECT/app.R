@@ -28,6 +28,7 @@ sidebar <-  dashboardSidebar(
 rightsidebar <- rightSidebar(
   background = "dark",
   numericInput(inputId = "target_ms", "Target Market Share %: ", 6),
+  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(BMW_Stock$Close)),
   numericInput(inputId = "target_sm", "Target Sales this month: ", 
                sales_bmw%>%filter(sales_bmw$Year == year(Sys.Date())-1)%>%select(month(Sys.Date())+1)),
   sliderInput(inputId = "target_cs", "Targets Customer Satisfaction", min = 0, max = 100, value = 70)
@@ -50,16 +51,16 @@ body <- dashboardBody(
               # infoBoxes with fill=FALSE
                 fluidRow(
                 # A static infoBox
-                  valueBoxOutput("BMW_market_share"),
-                  valueBoxOutput("total_sales"),
-                  valueBoxOutput("customerSatisfaction")
+                  valueBoxOutput("BMW_market_share", width = 3),
+                  valueBoxOutput("BMW_Stock_price", width = 3),
+                  valueBoxOutput("total_sales", width = 3),
+                  valueBoxOutput("customerSatisfaction", width = 3)
                   ),
               
                 fluidRow(
                   tabBox(title = "Market overview", #verander deze naam gerust
                          tabPanel("Trend Market Share", plotlyOutput("trend_market_share", height = 600)),
-                         tabPanel("Trend Stock Price BMW Group", plotlyOutput("trend_stock_price", height = 500),
-                                  numericInput(inputId = "target_sp", "Target Stock Price \u20ac: ", max(BMW_Stock$Close)))
+                         tabPanel("Trend Stock Price BMW Group", plotlyOutput("trend_stock_price", height = 600))
                          ),
                   
                   tabBox(title = "Yearly Sales Overview", id = "1", 
@@ -123,7 +124,7 @@ body <- dashboardBody(
             fluidPage(
               fluidRow(
                 tabBox(title = "Fueltype trends", id = "4", height = 600,
-                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 400),
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 470),
                                 sliderInput(inputId = "SelectedYear_fuel_type",
                                             label = "Select Year",
                                             min = min(new_cars_by_fuel_type$Year),
@@ -246,6 +247,17 @@ server <- function(input, output) {
              {color = "green"}
              else
              {color = "red"})
+  })
+  
+  output$BMW_Stock_price <- renderValueBox ({
+    valueBox(paste0("\u20ac", BMW_Stock$Close%>%tail(1)),
+             tagList("BMW Stock Price", p(""), paste0("Target stock price: \u20ac", input$target_sp)),
+             icon = icon("chart-line", lib = "font-awesome"),
+             if (BMW_Stock$Close%>%tail(1) >= input$target_sp)
+             {color = "green"}
+             else
+             {color = "red"})
+    
   })
   
   output$customerSatisfaction <- renderValueBox({
@@ -483,10 +495,11 @@ server <- function(input, output) {
   
   output$Model_per_segment <- renderPlotly({
     full_segment_sales%>%
-      filter(type==input$SelectedSegment)%>%
+      filter(type %in% input$SelectedSegment)%>%
       filter(year== input$SelectedYear2)%>%
-      mutate(model = fct_reorder(model, -sales))%>%
-      head(10) -> models_per_segment
+      arrange(-sales)%>%
+      head(10)%>%
+      mutate(model = fct_reorder(model, -sales)) -> models_per_segment
     
     contains_bmw_boolean = F
     for (i in 1:nrow(models_per_segment)) {
@@ -548,6 +561,7 @@ server <- function(input, output) {
                              na.value = "grey50",
                              limits=c(0, maximum_relative_fueltype))+
         theme_minimal()+
+        ggtitle(paste0("A heatmap of the fueltype: ", input$selectFuelType)) +
         theme(axis.text.x = element_blank(),
               axis.text.y = element_blank(), axis.ticks.x = element_blank(),
               axis.ticks.y = element_blank(), axis.title = element_blank(),
@@ -607,9 +621,9 @@ server <- function(input, output) {
   output$bmw_model_sales <- renderPlotly({
     ggplotly(
       sales_by_model %>%
-        filter(Model == input$selectModel) %>%
         group_by(year, Model) %>%
         summarise(Sales = sum(Sales, na.rm = T)) %>%
+        filter(Model %in% input$selectModel) %>%
         ggplot(aes(year, Sales, color = Model)) +
         geom_line() +
         geom_point() +
