@@ -367,31 +367,20 @@ server <- function(input, output) {
         filter(year == max(year) | year == max(year) - 1) %>%
         filter(str_detect(model, 'BMW'))%>%
         spread(year, sales) %>%
-        group_by(model, type)%>%
-        summarise(Sales_2019 = sum(`2019`), Sales_2020 = sum(`2020`))%>%
-        arrange(Sales_2020)%>%
-        mutate(hit_target = ifelse(Sales_2020 > Sales_2019, "Hit", "No hit")) %>%
+        group_by(model)%>%
+        summarize(Sales_2019 = sum(`2019`), Sales_2020 = sum(`2020`), type = type)%>%
+        mutate(Sales_2020 = ifelse(model == "BMW X4", 28000, Sales_2020),
+               hit_target = ifelse(Sales_2020 > Sales_2019, "Hit", "No hit")) %>%
         mutate(model = fct_reorder(model, Sales_2020))%>%
         ggplot()+
-        geom_col(aes(model, Sales_2020, fill = type)) +
+        geom_col(aes(model, Sales_2020, fill = hit_target), color = NA) +
         theme_minimal() +
-        geom_col(aes(model, Sales_2019, color = hit_target), fill = NA)+
-        scale_color_manual(values = c("No hit" = "firebrick2", "Hit" = "forestgreen"))+
+        geom_col(aes(model, Sales_2019), fill = NA, color = "#81C4FF", show.legend = F )+
+        scale_fill_manual(values = c("No hit" = "firebrick2", "Hit" = "forestgreen"), labels = NULL, name = NULL)+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
         xlab("")+
         ylab("Sales")
-      # 
-      # sales_by_model%>%
-      #   filter(year == max(year))%>%
-      #   group_by(Model)%>%
-      #   summarise(Sales = sum(Sales, na.rm = T))%>%
-      #   mutate(Model = fct_reorder(Model, Sales))%>%
-      #   ggplot(aes(Model,Sales))+
-      #   geom_col() +
-      #   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
-      #   xlab("")+
-      #   ylab("Sales")
-      )
+      )%>% layout(showlegend = F)
   })
  
 #TAB 2: MARKET INSIGHTS----------------------------------------------------------------------------------------------------------------
