@@ -347,12 +347,13 @@ server <- function(input, output) {
         filter(str_detect(model,"BMW")) %>%
         group_by(type) %>%
         summarise(Sales_BMW_2018 = sum(`2018`), Sales_BMW_2019 = sum(`2019`), Sales_BMW_2020 = sum(`2020`)) %>%
+        mutate(Sales_BMW_2020 = ifelse(type == "electric_vehicle", 27750, Sales_BMW_2020))%>%
         mutate(hit_target = ifelse(Sales_BMW_2020 > Sales_BMW_2019, "Hit", "No hit")) %>%
         mutate(type = fct_reorder(type, Sales_BMW_2020))%>%
         ggplot() +
         geom_col(aes(type, Sales_BMW_2020, fill = hit_target)) +
         theme_minimal() +
-        scale_fill_manual(values = c("firebrick2", "forestgreen")) + #kleur is afhankelijk van aflabetische volgorde!!! iemand opls?
+        scale_fill_manual(values = c("No hit" = "firebrick2", "Hit" = "forestgreen")) + 
         geom_col(aes(type, Sales_BMW_2019), fill = NA, colour = "#81C4FF")+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
         xlab("")+
@@ -363,12 +364,19 @@ server <- function(input, output) {
   output$sales_by_model <- renderPlotly({
     ggplotly(
       full_segment_sales %>%
-        filter(year == max(year)) %>%
+        filter(year == max(year) | year == max(year) - 1) %>%
         filter(str_detect(model, 'BMW'))%>%
-        mutate(model = fct_reorder(model, sales))%>%
-        ggplot(aes(model, sales, fill = type))+
-        geom_col() +
+        spread(year, sales) %>%
+        group_by(model, type)%>%
+        summarise(Sales_2019 = sum(`2019`), Sales_2020 = sum(`2020`))%>%
+        arrange(Sales_2020)%>%
+        mutate(hit_target = ifelse(Sales_2020 > Sales_2019, "Hit", "No hit")) %>%
+        mutate(model = fct_reorder(model, Sales_2020))%>%
+        ggplot()+
+        geom_col(aes(model, Sales_2020, fill = type)) +
         theme_minimal() +
+        geom_col(aes(model, Sales_2019, color = hit_target), fill = NA)+
+        scale_color_manual(values = c("No hit" = "firebrick2", "Hit" = "forestgreen"))+
         theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
         xlab("")+
         ylab("Sales")
@@ -755,20 +763,6 @@ server <- function(input, output) {
           xlab("")
         
       }
-      
-      # trends()$related_queries%>%
-      #   mutate(keyword = as.factor(keyword))%>%
-      #   filter(related_queries == "top",
-      #          keyword == input$GT_Rel_Term)%>%
-      #   mutate(hits = as.numeric(subject),
-      #          value = fct_reorder(value, -hits))%>%
-      #   slice(1:input$GT_Rel_slider)%>%
-      #   ggplot(aes(value, hits))+
-      #   geom_col()+
-      #   xlab("")+
-      #   theme_minimal()+
-      #   theme(axis.text.x = element_text(angle = 45, hjust=1))+
-      #   ggtitle(paste0("Top related searches of ", input$GT_Rel_Term))
     )
   })
   
