@@ -85,12 +85,20 @@ body <- dashboardBody(
                 
                 tabBox(title = "Sales comparison", height = 600,
                        tabPanel("Sales comparison", plotlyOutput("Sales_comparison", height = 500)),
-                       tabPanel("settings", radioButtons(inputId = "SelectedMarket", 
-                                                         label = "Select market",
-                                                         c("BMW active markets" = "BMW",
-                                                           "BMW non-active markets" = "NoBMW",
-                                                           "All" = "All_"),
-                                                         inline = T)
+                       tabPanel("settings",
+                                radioButtons(inputId = "SelectedMarket", 
+                                             label = "Select market",
+                                             c("BMW active markets" = "BMW",
+                                               "BMW non-active markets" = "NoBMW",
+                                               "All" = "All_"),
+                                             inline = T),
+                                selectInput(inputId = "SC_year",
+                                            label = "Select year",
+                                            choices = levels(as.factor(full_segment_sales$year)),
+                                            selected = "2018",
+                                            )
+                                
+                                
                                 )
                        )
                 ),
@@ -124,7 +132,7 @@ body <- dashboardBody(
             fluidPage(
               fluidRow(
                 tabBox(title = "Fueltype trends", id = "4", height = 600,
-                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 470),
+                       tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 430),
                                 sliderInput(inputId = "SelectedYear_fuel_type",
                                             label = "Select Year",
                                             min = min(new_cars_by_fuel_type$Year),
@@ -404,12 +412,12 @@ server <- function(input, output) {
   
   output$Sales_comparison <- renderPlotly({
     SummarySalesPerSegment <- full_segment_sales %>%
-      filter(year == 2020)%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      filter(year == as.numeric(input$SC_year))%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       group_by(type) %>%
       summarise(Sales = sum(sales, na.rm = T))
     
     SummarySalesPerSegmentBMW <- full_segment_sales %>%
-      filter(year == 2020)%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      filter(year == as.numeric(input$SC_year))%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       filter(str_detect(model,"BMW")) %>%
       group_by(type) %>%
       summarise(Sales_BMW = sum(sales, na.rm = T))
@@ -501,15 +509,8 @@ server <- function(input, output) {
       head(10)%>%
       mutate(model = fct_reorder(model, -sales)) -> models_per_segment
     
-    contains_bmw_boolean = F
-    for (i in 1:nrow(models_per_segment)) {
-      if (str_detect(models_per_segment$model[i], "BMW")) {
-        contains_bmw_boolean = T
-      }
-    }
-    
     ggplotly(
-      if (contains_bmw_boolean) {
+      if (any(str_detect(models_per_segment$model, "BMW"))) {
         models_per_segment%>%
           ggplot(aes(model, sales, fill=factor(ifelse(str_detect(model,"BMW"),"BMW","Others"))))+
           geom_col()+
@@ -720,20 +721,54 @@ server <- function(input, output) {
   })
   
   output$related_terms <- renderPlotly({
+    trends()$related_queries%>%
+      mutate(keyword = as.factor(keyword))%>%
+      filter(related_queries == "top",
+             keyword == input$GT_Rel_Term)%>%
+      mutate(hits = as.numeric(subject))%>%
+      arrange(-hits)%>%
+      slice(1:input$GT_Rel_slider)%>%
+      mutate(value = fct_reorder(value, -hits)) -> related_hits
+    
     ggplotly(
-      trends()$related_queries%>%
-        mutate(keyword = as.factor(keyword))%>%
-        filter(related_queries == "top",
-               keyword == input$GT_Rel_Term)%>%
-        mutate(hits = as.numeric(subject),
-               value = fct_reorder(value, -hits))%>%
-        slice(1:input$GT_Rel_slider)%>%
-        ggplot(aes(value, hits))+
-        geom_col()+
-        xlab("")+
-        theme_minimal()+
-        theme(axis.text.x = element_text(angle = 45, hjust=1))+
-        ggtitle(paste0("Top related searches of ", input$GT_Rel_Term))
+      if(any(str_detect(related_hits$value, "bmw"))) {
+        related_hits%>%
+          ggplot(aes(value, hits, fill= factor(ifelse(str_detect(value, "bmw"),"bmw","Others"))))+
+          geom_col()+
+          theme_minimal()+
+          theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
+          scale_fill_manual(name = "value", values=c("#E7222E","#81C4FF"))+
+          ggtitle(paste0("Top related searches of ", input$GT_Rel_Term))+
+          theme(legend.position='none')+
+          xlab("")
+        
+      }
+      else{
+        related_hits%>%
+          ggplot(aes(value, hits))+
+          geom_col(fill = "#81C4FF")+
+          theme_minimal()+
+          theme(axis.text.x = element_text(angle = -25, vjust = 1, hjust=1))+
+          scale_fill_manual(name = "value", values=c("#E7222E","#81C4FF"))+
+          ggtitle(paste0("Top related searches of ", input$GT_Rel_Term))+
+          theme(legend.position='none')+
+          xlab("")
+        
+      }
+      
+      # trends()$related_queries%>%
+      #   mutate(keyword = as.factor(keyword))%>%
+      #   filter(related_queries == "top",
+      #          keyword == input$GT_Rel_Term)%>%
+      #   mutate(hits = as.numeric(subject),
+      #          value = fct_reorder(value, -hits))%>%
+      #   slice(1:input$GT_Rel_slider)%>%
+      #   ggplot(aes(value, hits))+
+      #   geom_col()+
+      #   xlab("")+
+      #   theme_minimal()+
+      #   theme(axis.text.x = element_text(angle = 45, hjust=1))+
+      #   ggtitle(paste0("Top related searches of ", input$GT_Rel_Term))
     )
   })
   
