@@ -1,4 +1,4 @@
-Country;Year;Petroleum products;LPG;Diesel;Natural Gas;Electricity;Alternative Energy;Other;Total
+Country;Year;Petroleum_Products;LPG;Diesel;Natural_Gas;Electricity;Alternative_Energy;Other;Total
 Belgium;2013;169665;NA;319863;109;501;841;231;491210
 Belgium;2014;181524;NA;303953;263;1167;2234;804;489945
 Belgium;2015;198299;5;305838;135;1360;2147;646;508430
