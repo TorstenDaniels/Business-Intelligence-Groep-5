@@ -138,18 +138,21 @@ body <- dashboardBody(
                        tabPanel("Fuel type map", plotlyOutput("fueltype_map", height = 430),
                                 sliderInput(inputId = "SelectedYear_fuel_type",
                                             label = "Select Year",
-                                            min = min(new_cars_by_fuel_type$Year),
-                                            max = max(new_cars_by_fuel_type$Year),
+                                            min = min(new_cars_by_fuel_type$Time),
+                                            max = max(new_cars_by_fuel_type$Time),
                                             step = 1,
-                                            value = min(new_cars_by_fuel_type$Year),
-                                            animate = animationOptions(interval = 5000, loop = TRUE))
+                                            value = min(new_cars_by_fuel_type$Time),
+                                            animate = animationOptions(interval = 2500, loop = TRUE))
                                 ),
                        
                        tabPanel("Settings", 
                                 selectInput(inputId = "selectFuelType",
                                             label = "Select Fuel Type",
                                             levels(as.factor(colnames(cars_by_fuel_type[4:9]))),
-                                            selected = "Diesel")
+                                            selected = "Diesel"),
+                                checkboxInput(inputId = "Total_cars",
+                                              label = "Show percentage of all cars",
+                                              value = F)
                                 )
                        ),
                 tabBox(title = "Sales trends", id = "4", height = 600,
@@ -541,11 +544,20 @@ server <- function(input, output) {
   
   output$fueltype_map <- renderPlotly({
     
-    cars_by_fuel_type%>%
-      select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
-      gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
-      filter(FuelType == input$selectFuelType)%>%
-      mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+    if(input$Total_cars){
+      cars_by_fuel_type%>%
+        select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
+        gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
+        filter(FuelType == input$selectFuelType)%>%
+        mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+    }
+    else{
+      new_cars_by_fuel_type%>%
+        select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
+        gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
+        filter(FuelType == input$selectFuelType)%>%
+        mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+    }
     
     maximum_relative_fueltype <- max(filtered_fuel_type$relative_frequency, na.rm = T )
     
@@ -564,11 +576,16 @@ server <- function(input, output) {
                              na.value = "grey50",
                              limits=c(0, maximum_relative_fueltype))+
         theme_minimal()+
-        ggtitle(paste0("A heatmap of the fueltype: ", input$selectFuelType)) +
         theme(axis.text.x = element_blank(),
               axis.text.y = element_blank(), axis.ticks.x = element_blank(),
               axis.ticks.y = element_blank(), axis.title = element_blank(),
-              plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))
+              plot.margin = unit(0 * c(-1.5, -1.5, -1.5, -1.5), "lines"))+
+        if(!input$Total_cars){
+          ggtitle(paste0("A heatmap of new cars by fueltype: ", input$selectFuelType))
+        }
+        else{
+          ggtitle(paste0("A heatmap of all cars by fueltype: ", input$selectFuelType))
+        }
     )
   })
   
