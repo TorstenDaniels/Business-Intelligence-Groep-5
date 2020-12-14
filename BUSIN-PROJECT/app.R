@@ -38,27 +38,30 @@ rightsidebar <- rightSidebar(
 #creating the dashboard body  
 body <- dashboardBody(
   
+  #enforces that the rightside bar also resizes (a fix for a known bug of the rightsidebar)
   tags$script('
       $(".navbar-custom-menu").on("click",function(){
         $(window).trigger("resize");
       })'
   ),
   
+  
+  #creating the different tabs
   tabItems(
-    #tab 1
+    #tab 1: General
     tabItem(tabName = "tab1",
             fluidPage(
-              # infoBoxes with fill=FALSE
                 fluidRow(
-                # A static infoBox
+                #KPI boxes
                   valueBoxOutput("BMW_market_share", width = 3),
                   valueBoxOutput("BMW_Stock_price", width = 3),
                   valueBoxOutput("total_sales", width = 3),
                   valueBoxOutput("customerSatisfaction", width = 3)
                   ),
-              
+                
+                #Graphs
                 fluidRow(
-                  tabBox(title = "Market overview", #verander deze naam gerust
+                  tabBox(title = "Market overview", 
                          tabPanel("Trend Market Share", plotlyOutput("trend_market_share", height = 600)),
                          tabPanel("Trend Stock Price BMW Group", plotlyOutput("trend_stock_price", height = 600))
                          ),
@@ -70,7 +73,7 @@ body <- dashboardBody(
                   )
                 )
             ),
-    #tab 2        
+    #tab 2: Market Insights        
     tabItem(tabName = "tab2",
             fluidPage(
               fluidRow(
@@ -127,7 +130,7 @@ body <- dashboardBody(
                 )
               )
             ),
-    #tab 3
+    #tab 3: Market Trends
     tabItem(tabName = "tab3",
             fluidPage(
               fluidRow(
@@ -159,10 +162,11 @@ body <- dashboardBody(
                                             selected = "BMW 1-series",
                                             options = list(maxItems = 5 ),
                                             levels(as.factor(sales_by_model$Model)),
-                                            width = 600)
-                                ,status = "primary")
+                                            width = 600),
+                                status = "primary")
                        )
                 ),
+              
               fluidRow(
                 box("Distribution segments over years", plotlyOutput("distribution_segments", height = 600),status ="primary"),
                 tabBox(title = "Google trends", id = "6", height = 600,
@@ -172,7 +176,7 @@ body <- dashboardBody(
                                 h3("Settings Keyword Trends"),
                                 textInput(inputId = 'GT_Terms',
                                           label = "Input one or more terms. Use commma to seperate terms",
-                                          value = "BMW, Audi, Tesla"),
+                                          value = "BMW, Volkswagen, Volvo, Tesla"),
                                 selectInput(inputId = "GT_Time", 
                                             label = "Select the timeframe you want to compare",
                                             choices = c("Last hour" = "now 1-H", 
@@ -197,7 +201,7 @@ body <- dashboardBody(
                 )
               )
             ),
-    #tab 4
+    #tab 4: Customer Insights
     tabItem(tabName = "tab4",
             fluidPage(
               fluidRow(
@@ -216,6 +220,7 @@ body <- dashboardBody(
                                    options = list(maxItems = 3)),
                     status = "primary")
                 ),
+              
               fluidRow(
                 box("Overall customer satisfaction", plotlyOutput("overallCustomerSat", height = 500),
                     status = "primary"),
@@ -232,17 +237,17 @@ body <- dashboardBody(
             )
     )
 )
+
 # Define UI for application
 ui <- dashboardPagePlus(header, sidebar, body, rightsidebar)
-
-
-
 
 # Define server logic required to draw graphs
 server <- function(input, output) {
   
 
 #TAB 1: GENERAL------------------------------------------------------------------------------------------------------------------------  
+  
+  #Creating the four KPI boxes (ordered from left to right)
   output$BMW_market_share <- renderValueBox ({
     comparison_sales_market%>%
       tail(1)%>%
@@ -268,32 +273,10 @@ server <- function(input, output) {
     
   })
   
-  output$customerSatisfaction <- renderValueBox({
-    customerSatisfactionBenchark%>%
-      filter(year == max(year))%>%
-      mutate(averageScore = mean(satisfactionScore, na.rm = T))%>%
-      filter(brand == "BMW") -> BMW_customer_satisfaction
-    
-    valueBox(
-      paste0(BMW_customer_satisfaction$satisfactionScore , "%"),
-      tagList("Customer Satisfaction", p(""), paste0("Target Score: ", input$target_cs, "%")),
-      if (BMW_customer_satisfaction$satisfactionScore > input$target_cs) 
-            {icon = icon("grin-beam", lib = "font-awesome")}
-      else
-        {icon = icon("angry", lib = "font-awesome")},
-      
-      if (BMW_customer_satisfaction$satisfactionScore > input$target_cs) 
-            {color = "green"}
-      else
-        {color = "red"}
-    )
-  })
-  
-  
   
   output$total_sales <- renderValueBox({
     sales_bmw %>%
-      filter(Year== c(year(Sys.Date()), year(Sys.Date()) - 1)) -> latest_monthly_sales
+      filter(Year %in% c(year(Sys.Date()), year(Sys.Date()) - 1)) -> latest_monthly_sales
     
     valueBox(latest_monthly_sales[2,month(Sys.Date())+1], #plus one needed to select right column
              tagList(paste0("Monthly Sales ",colnames(sales_bmw[month(Sys.Date())+1])), 
@@ -307,6 +290,28 @@ server <- function(input, output) {
       )
   })
   
+  output$customerSatisfaction <- renderValueBox({
+    customerSatisfactionBenchark%>%
+      filter(year == max(year))%>%
+      mutate(averageScore = mean(satisfactionScore, na.rm = T))%>%
+      filter(brand == "BMW") -> BMW_customer_satisfaction
+    
+    valueBox(
+      paste0(BMW_customer_satisfaction$satisfactionScore , "%"),
+      tagList("Customer Satisfaction", p(""), paste0("Target Score: ", input$target_cs, "%")),
+      if (BMW_customer_satisfaction$satisfactionScore > input$target_cs) 
+      {icon = icon("grin-beam", lib = "font-awesome")}
+      else
+      {icon = icon("angry", lib = "font-awesome")},
+      
+      if (BMW_customer_satisfaction$satisfactionScore > input$target_cs) 
+      {color = "green"}
+      else
+      {color = "red"}
+    )
+  })
+  
+  #The graphs (ordered from left to right)
   output$trend_market_share <- renderPlotly({
     ggplotly(
     annual_sales_bmw %>%
@@ -409,12 +414,12 @@ server <- function(input, output) {
   
   output$Sales_comparison <- renderPlotly({
     SummarySalesPerSegment <- full_segment_sales %>%
-      filter(year == as.numeric(input$SC_year))%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      filter(year == as.numeric(input$SC_year))%>% 
       group_by(type) %>%
       summarise(Sales = sum(sales, na.rm = T))
     
     SummarySalesPerSegmentBMW <- full_segment_sales %>%
-      filter(year == as.numeric(input$SC_year))%>% #select input possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      filter(year == as.numeric(input$SC_year))%>% 
       filter(str_detect(model,"BMW")) %>%
       group_by(type) %>%
       summarise(Sales_BMW = sum(sales, na.rm = T))
@@ -644,7 +649,7 @@ server <- function(input, output) {
       mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
              year = 2018)%>%
       arrange(desc(Sales))%>%
-      mutate(ycoord = cumsum(Sales) - Sales/2)
+      mutate(ycoord = round(cumsum(Sales) - Sales/2))
     
     for (i in 1:nrow(segment_2018)) {
       segment_2018$alphabetically[i] <- intToUtf8((123 - i))
@@ -657,7 +662,7 @@ server <- function(input, output) {
       mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
              year = 2019)%>%
       arrange(desc(Sales))%>%
-      mutate(ycoord = cumsum(Sales) - Sales/2)
+      mutate(ycoord = round(cumsum(Sales) - Sales/2))
 
     segment_2020 <- full_segment_sales %>%
       filter(year == 2020)%>%
@@ -666,7 +671,7 @@ server <- function(input, output) {
       mutate(Rel_Sales = round((Sales / sum(Sales, na.rm = T)) * 100, 2),
              year = 2020)%>%
       arrange(desc(Sales))%>%
-      mutate(ycoord = cumsum(Sales) - Sales/2)
+      mutate(ycoord = round(cumsum(Sales) - Sales/2))
     
     segment_2019 <- segment_2018%>%
       select(type, alphabetically)%>%
@@ -681,6 +686,7 @@ server <- function(input, output) {
     
     topSales_year <- segment_complete%>%
       group_by(year)%>%
+      arrange(year, -Rel_Sales)%>%
       slice(1:3)
     
     #plotten
@@ -751,7 +757,8 @@ server <- function(input, output) {
           theme(legend.position='none')+
           xlab("")
         
-      }
+      },
+      tooltip = c("x", "y")
     )
   })
   
