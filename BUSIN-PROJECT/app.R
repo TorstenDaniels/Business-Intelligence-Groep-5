@@ -518,6 +518,8 @@ server <- function(input, output) {
   
   
   output$Model_per_segment <- renderPlotly({
+    
+    #models_per_segment contains only the top 10 models per segment
     full_segment_sales%>%
       filter(type %in% input$SelectedSegment)%>%
       filter(year== input$SelectedYear2)%>%
@@ -525,6 +527,7 @@ server <- function(input, output) {
       head(10)%>%
       mutate(model = fct_reorder(model, -sales)) -> models_per_segment
     
+    #if there is a BMW model in the top 10 then it will be coloured red, otherwise everything is coloured lightblue
     ggplotly(
       if (any(str_detect(models_per_segment$model, "BMW"))) {
         models_per_segment%>%
@@ -553,30 +556,51 @@ server <- function(input, output) {
   
 #TAB 3: MARKET TRENDS----------------------------------------------------------------------------------------------------------------
   
-  output$fueltype_map <- renderPlotly({
-    
+  filtered_fuel_type <- reactive({
+    #Filtered fuel type depends on the choice of either the full market, or only the share in the new cars
     if(input$Total_cars){
       cars_by_fuel_type%>%
         select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
         gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
         filter(FuelType == input$selectFuelType)%>%
-        mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+        mutate(relative_frequency = round(amount/Total * 100, 2))
     }
+    
     else{
       new_cars_by_fuel_type%>%
         select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
         gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
         filter(FuelType == input$selectFuelType)%>%
-        mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+        mutate(relative_frequency = round(amount/Total * 100, 2))
     }
+  })
+  
+  
+  output$fueltype_map <- renderPlotly({
     
-    maximum_relative_fueltype <- max(filtered_fuel_type$relative_frequency, na.rm = T )
+    #Filtered fuel type depends on the choice of either the full market, or only the share in the new cars
+    # if(input$Total_cars){
+    #   cars_by_fuel_type%>%
+    #     select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
+    #     gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
+    #     filter(FuelType == input$selectFuelType)%>%
+    #     mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+    # }
+    # else{
+    #   new_cars_by_fuel_type%>%
+    #     select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
+    #     gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
+    #     filter(FuelType == input$selectFuelType)%>%
+    #     mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
+    # }
     
-    filtered_fuel_type <- filtered_fuel_type%>%
+    maximum_relative_fueltype <- max(filtered_fuel_type()$relative_frequency, na.rm = T )
+    
+    #this filterin
+    time_filtered_fuel_type <- filtered_fuel_type()%>%
       filter(Time == input$SelectedYear_fuel_type)
       
-    
-    europeCoords$value <- filtered_fuel_type$relative_frequency[match(europeCoords$region, filtered_fuel_type$region)]
+    europeCoords$value <- time_filtered_fuel_type$relative_frequency[match(europeCoords$region, time_filtered_fuel_type$region)]
     
     ggplotly(
       ggplot() + 
