@@ -558,6 +558,8 @@ server <- function(input, output) {
   
   filtered_fuel_type <- reactive({
     #Filtered fuel type depends on the choice of either the full market, or only the share in the new cars
+    #this is done seperatly so that whenever the time input changes the dataset does not have to be recalculated
+    #this code will only be run whenever the selected fuel type changes
     if(input$Total_cars){
       cars_by_fuel_type%>%
         select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
@@ -577,29 +579,14 @@ server <- function(input, output) {
   
   
   output$fueltype_map <- renderPlotly({
-    
-    #Filtered fuel type depends on the choice of either the full market, or only the share in the new cars
-    # if(input$Total_cars){
-    #   cars_by_fuel_type%>%
-    #     select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
-    #     gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
-    #     filter(FuelType == input$selectFuelType)%>%
-    #     mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
-    # }
-    # else{
-    #   new_cars_by_fuel_type%>%
-    #     select(region, Total, Time, Petroleum_Products, LPG, Diesel, Natural_Gas, Electricity, Alternative_Energy)%>%
-    #     gather(key = "FuelType", value = "amount", -region, -Total, -Time)%>%
-    #     filter(FuelType == input$selectFuelType)%>%
-    #     mutate(relative_frequency = round(amount/Total * 100, 2)) -> filtered_fuel_type
-    # }
-    
+    #in order to have the same scale the maximum of all years is needed
     maximum_relative_fueltype <- max(filtered_fuel_type()$relative_frequency, na.rm = T )
     
-    #this filterin
+    #time filtering is done for each different year
     time_filtered_fuel_type <- filtered_fuel_type()%>%
       filter(Time == input$SelectedYear_fuel_type)
-      
+    
+    #the values for eachy country are mapped with the outline of that country  
     europeCoords$value <- time_filtered_fuel_type$relative_frequency[match(europeCoords$region, time_filtered_fuel_type$region)]
     
     ggplotly(
