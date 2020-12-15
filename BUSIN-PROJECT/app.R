@@ -556,6 +556,7 @@ server <- function(input, output) {
   
 #TAB 3: MARKET TRENDS----------------------------------------------------------------------------------------------------------------
   
+  #code needed for the europe country map----
   filtered_fuel_type <- reactive({
     #Filtered fuel type depends on the choice of either the full market, or only the share in the new cars
     #this is done seperatly so that whenever the time input changes the dataset does not have to be recalculated
@@ -575,6 +576,15 @@ server <- function(input, output) {
         filter(FuelType == input$selectFuelType)%>%
         mutate(relative_frequency = round(amount/Total * 100, 2))
     }
+  })
+  
+  #this is needed to be able to animate the slider function
+  sliderValues <- reactive({
+    data.frame(
+      Name = "SelectedYear_fuel_type",
+      Value = as.character(input$"SelectedYear_fuel_type"),
+      stringsAsFactors = FALSE
+    )
   })
   
   
@@ -610,15 +620,10 @@ server <- function(input, output) {
         }
     )
   })
+  #end of code for country map----
   
-  sliderValues <- reactive({
-    data.frame(
-      Name = "SelectedYear_fuel_type",
-      Value = as.character(input$"SelectedYear_fuel_type"),
-      stringsAsFactors = FALSE
-    )
-  })
   
+  #three top right graphs --
   output$bmw_group_sales <- renderPlotly({
     predictive_sales_bmwgroup <- sales_annual_bmwgroup%>%
       filter(Year == 2020 | Year == 2021 | Year == 2022 | Year == 2023)
@@ -674,12 +679,13 @@ server <- function(input, output) {
         ylab("Sales")
     )
   })
+  #end of three top right graphs ---
   
   
-  
+  #bottom left graph ---
   output$distribution_segments <- renderPlotly({
-    # Alles hieronder tot aan de volgende comment  is zodat er geordent kan worden op grote van de segment. 
-    # Dit is nodig aangezien de color of fill functie standaard het in alfabetische volgorde zet, ook al is het geordent
+    # the following code is needed so that we can order on the third aes.
+    #standard in ggplot this is done alphabetically so therefore in order to sort it we also need to provide alphabetically order
     
     segment_2018 <- full_segment_sales %>%
       filter(year == 2018)%>%
@@ -728,7 +734,7 @@ server <- function(input, output) {
       arrange(year, -Rel_Sales)%>%
       slice(1:3)
     
-    #plotten
+    #Now we are able to plot
     ggplotly(segment_complete%>%
                ggplot()+
                geom_col(aes(year, Sales, fill = alphabetically, 
@@ -742,12 +748,18 @@ server <- function(input, output) {
              tooltip = c("x" , "y", "text")
              )
   })
+  #end of bottom left graph ---
   
+  
+  #code needed for bottom right graph (google trends) ---
+  
+  #this splits the input on commas if they are present in the input
   trends <- reactive({
     GT_terms_sep <- ifelse(str_detect(input$GT_Terms, ","), strsplit(input$GT_Terms, ", "), input$GT_Terms)
     gtrends(keyword = GT_terms_sep, time = input$GT_Time)
   })
-
+  
+  #first graph
   output$google_trends <- renderPlotly({
     ggplotly(
       trends()$interest_over_time%>%
@@ -762,6 +774,9 @@ server <- function(input, output) {
     )
   })
   
+  #second graph
+  
+  #slicing is done based on the input
   output$related_terms <- renderPlotly({
     trends()$related_queries%>%
       mutate(keyword = as.factor(keyword))%>%
@@ -772,6 +787,7 @@ server <- function(input, output) {
       slice(1:input$GT_Rel_slider)%>%
       mutate(value = fct_reorder(value, -hits)) -> related_hits
     
+    #then it is plotted
     ggplotly(
       if(any(str_detect(related_hits$value, "bmw"))) {
         related_hits%>%
@@ -800,9 +816,11 @@ server <- function(input, output) {
       tooltip = c("x", "y")
     )
   })
+  #end of bottom right graph (google trends) ---
   
 #TAB 4:Customer satisfaction---------------------------------------------------------------------------------------------------------------
 
+  #top left graph
   output$overallCustomerSat <- renderPlotly({
     ggplotly(
       customerSatisfactionBenchark %>%
@@ -815,6 +833,7 @@ server <- function(input, output) {
       )
     })
   
+  #top right graph
   output$detailedCustomerSat <- renderPlotly({
     ggplotly(
       satisfaction_per_brand%>%
@@ -832,6 +851,7 @@ server <- function(input, output) {
     )
   })
   
+  #bottom left graph
   output$customer_loyalty <- renderPlotly({
     ggplotly(
       brand_loyalty %>%
@@ -847,6 +867,7 @@ server <- function(input, output) {
     ) %>% layout(showlegend = F)
   })
   
+  #bottom right graph
   output$net_promotor_score <- renderPlotly({
     ggplotly(
       NPS%>%
