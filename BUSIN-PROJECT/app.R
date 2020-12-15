@@ -82,7 +82,7 @@ body <- dashboardBody(
                        tabPanel("Settings", selectInput(inputId = "SelectedYear", 
                                                         label = "Select year", 
                                                         c("2019","2018"), 
-                                                        selected = "2018")
+                                                        selected = "2019")
                                 )
                        ),
                 
@@ -267,7 +267,7 @@ server <- function(input, output) {
   
   output$BMW_Stock_price <- renderValueBox ({
     valueBox(paste0("\u20ac", BMW_Stock$Close%>%tail(1)),
-             tagList("BMW Stock Price", p(""), paste0("Target stock price: \u20ac", input$target_sp)),
+             tagList("BMW Group Stock Price", p(""), paste0("Target stock price: \u20ac", input$target_sp)),
              icon = icon("chart-line", lib = "font-awesome"),
              if (BMW_Stock$Close%>%tail(1) >= input$target_sp)
              {color = "green"}
@@ -392,16 +392,16 @@ server <- function(input, output) {
   })
  
 #TAB 2: MARKET INSIGHTS----------------------------------------------------------------------------------------------------------------
-   
+  
+#listed from left to right, starting from the top row going to the bottom row
   output$msp_brand <- renderPlotly({
+    #BMW_value and SumSales are created so that we can easily display the market share of BMW in the middle
+    #This is done, because the calculation of each individual brand is calculated by plotly
     BMW_value <- sales_by_brand%>%
       filter(Year == input$SelectedYear)%>%
       filter(Brand == "BMW")%>%
       select(Sales)
-    
-    FilteredSales <- sales_by_brand %>%
-      filter(Year == input$SelectedYear)
-    
+
     SumSales <- sales_by_brand%>%
       filter(Year == input$SelectedYear)%>%
       summarise(sum = sum(Sales))
@@ -412,21 +412,27 @@ server <- function(input, output) {
       add_pie(hole = 0.4)%>%
       layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-             annotations=list(text=paste("BMW: ",round(BMW_value[1,1] / SumSales[1,1] * 100, 2), "%", sep=""), "showarrow"=F, font=list(size = 25, color = "black")))
+             annotations=list(text=paste("BMW: ",round(BMW_value[1,1] / SumSales[1,1] * 100, 2),
+                                         "%", sep=""), "showarrow"=F, font=list(size = 25, color = "black")))
   })
   
+  
   output$Sales_comparison <- renderPlotly({
+    #first we calculate per type the amount of sales
     SummarySalesPerSegment <- full_segment_sales %>%
       filter(year == as.numeric(input$SC_year))%>% 
       group_by(type) %>%
       summarise(Sales = sum(sales, na.rm = T))
     
+    #then we calculate per type the amount of sales of BMW
     SummarySalesPerSegmentBMW <- full_segment_sales %>%
       filter(year == as.numeric(input$SC_year))%>% 
       filter(str_detect(model,"BMW")) %>%
       group_by(type) %>%
       summarise(Sales_BMW = sum(sales, na.rm = T))
     
+    #We join these two and then deduct the amount of BMW sales per type from the total amount
+    #this is done since otherwise bmw stacked bar adds the BMW sales twice, which is incorrect
     MarketShareSegments <- SummarySalesPerSegmentBMW %>%
       right_join(SummarySalesPerSegment)
     
@@ -437,6 +443,7 @@ server <- function(input, output) {
       select(-Sales)
     
     
+    #Depending on the selected market, we reorder differently. 
     filteredMarketShareSegments <- switch(input$SelectedMarket,
                    BMW = MarketShareSegments%>%
                      filter(Sales_BMW>0)%>%
@@ -447,7 +454,7 @@ server <- function(input, output) {
                    All_ = MarketShareSegments%>%
                      mutate(type = fct_reorder(type, -DeductedSales)))
     
-    
+    #plotting
     filteredMarketShareSegments%>%
       plot_ly(x=~type, y=~Sales_BMW, type='bar', name = "Sales BMW", marker = list(color = "#E7222E"))%>%
       add_trace(y=~DeductedSales, name ="Rest Of Market Sales", marker = list(color = "#81C4FF"))%>%
@@ -458,6 +465,7 @@ server <- function(input, output) {
   
   
   output$bcg_bmw <- renderPlot({
+    #calculating the market growth for each type
     market_growth <- full_segment_sales %>%
       filter(year == 2019 | year == 2018) %>%
       group_by(type, year) %>%
@@ -483,6 +491,7 @@ server <- function(input, output) {
                        "pictures/x3.png","pictures/x4.png","pictures/2-active.png","pictures/7series.png","pictures/8series.png"))%>%
       mutate(width=80, height=100)
     
+    
     if(!input$outlier){
       bcg_dataset_filtered <- bcg_dataset %>% filter(type != "electric_vehicle")
     }
@@ -490,10 +499,12 @@ server <- function(input, output) {
       bcg_dataset_filtered <- bcg_dataset
     }
     
+    #the median is taken
     mean_market_share <- bcg_dataset_filtered %>% summarise(median(market_share))
     mean_market_growth <- bcg_dataset_filtered %>% summarise(median(market_growth))
     
     
+    #plotly is in comment since it is not currently supporting ggimages.
      # ggplotly(
         bcg_dataset_filtered %>%
           ggplot(aes(market_share, market_growth))+
