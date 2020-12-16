@@ -98,7 +98,7 @@ body <- dashboardBody(
                                 selectInput(inputId = "SC_year",
                                             label = "Select year",
                                             choices = levels(as.factor(full_segment_sales$year)),
-                                            selected = "2018",
+                                            selected = "2019",
                                             )
                                 
                                 
@@ -123,6 +123,7 @@ body <- dashboardBody(
                                             ),
                                 selectInput(inputId = "SelectedYear2",
                                             label = "Select Year",
+                                            selected = "2019",
                                             levels(as.factor(full_segment_sales$year)))
               
                                 )
