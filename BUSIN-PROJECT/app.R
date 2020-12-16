@@ -560,7 +560,7 @@ server <- function(input, output) {
   #code needed for the europe country map----
   filtered_fuel_type <- reactive({
     #Filtered fuel type depends on the choice of either the full market, or only the share in the new cars
-    #this is done seperatly so that whenever the time input changes the dataset does not have to be recalculated
+    #this is done separately so that whenever the time input changes, the dataset does not have to be recalculated
     #this code will only be run whenever the selected fuel type changes
     if(input$Total_cars){
       cars_by_fuel_type%>%
@@ -597,7 +597,7 @@ server <- function(input, output) {
     time_filtered_fuel_type <- filtered_fuel_type()%>%
       filter(Time == input$SelectedYear_fuel_type)
     
-    #the values for eachy country are mapped with the outline of that country  
+    #the values for each country are mapped with the outline of that country  
     europeCoords$value <- time_filtered_fuel_type$relative_frequency[match(europeCoords$region, time_filtered_fuel_type$region)]
     
     ggplotly(
