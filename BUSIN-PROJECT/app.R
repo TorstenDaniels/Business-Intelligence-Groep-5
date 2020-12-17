@@ -760,7 +760,7 @@ server <- function(input, output) {
     gtrends(keyword = GT_terms_sep, time = input$GT_Time)
   })
   
-  #first graph
+  #first google trends graph
   output$google_trends <- renderPlotly({
     ggplotly(
       trends()$interest_over_time%>%
